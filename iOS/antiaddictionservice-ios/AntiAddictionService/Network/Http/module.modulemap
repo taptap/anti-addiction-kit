@@ -1,0 +1,14 @@
+//
+//  TapFriendsModule.modulemap
+//  TapFriends
+//
+//  Created by JiangJiahao on 2020/6/8.
+//  Copyright © 2020 TapTap. All rights reserved.
+//
+
+module AntiAddictionAsyncHttp [system] {
+    header "AntiAddictionAsyncHttp.h"
+    header "AntiAddictionHttpRequest.h"
+    header "AntiAddictionHttpResult.h"
+    export *
+}

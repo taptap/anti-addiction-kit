@@ -1,0 +1,712 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 68,
+      "symbol": "AntiAddictionServiceCallback",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 79,
+      "symbol": "AntiAddictionService",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 83,
+      "symbol": "AntiAddictionService.configuration",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 85,
+      "symbol": "AntiAddictionService.getSDKVersion()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 89,
+      "symbol": "AntiAddictionService.enableLog(enable:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 93,
+      "symbol": "AntiAddictionService.setHost(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 98,
+      "symbol": "AntiAddictionService.setWebsocketAddress(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 141,
+      "symbol": "AntiAddictionService.init(_:gameIdentifier:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 254,
+      "symbol": "AntiAddictionService.isHoliday()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 264,
+      "symbol": "AntiAddictionService.startTimeStatic(isLogin:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 268,
+      "symbol": "AntiAddictionService.stopTimeStatic()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 272,
+      "symbol": "AntiAddictionService.realNameAuth(name:idCard:phone:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionService.swift",
+      "line": 276,
+      "symbol": "AntiAddictionService.checkPlayTimeResult(handler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/AntiAddictionServiceManager.swift",
+      "line": 12,
+      "symbol": "PlayTimeCheckResult",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Configuration.swift",
+      "line": 13,
+      "symbol": "AntiAddictionConfiguration.enableLog",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Configuration.swift",
+      "line": 15,
+      "symbol": "AntiAddictionConfiguration.needUploadAllTimeData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Configuration.swift",
+      "line": 81,
+      "symbol": "AntiAddictionConfiguration.holiday",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 8,
+      "symbol": "HashidsOptions",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 26,
+      "symbol": "HashidsGenerator",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 27,
+      "symbol": "HashidsGenerator.Char",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 29,
+      "symbol": "HashidsGenerator.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 31,
+      "symbol": "HashidsGenerator.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 33,
+      "symbol": "HashidsGenerator.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 35,
+      "symbol": "HashidsGenerator.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 37,
+      "symbol": "HashidsGenerator.decode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 39,
+      "symbol": "HashidsGenerator.decode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 41,
+      "symbol": "HashidsGenerator.decode64(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 43,
+      "symbol": "HashidsGenerator.decode64(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 49,
+      "symbol": "Hashids",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 53,
+      "symbol": "Hashids_",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 54,
+      "symbol": "Hashids_.Char",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 66,
+      "symbol": "Hashids_.init(salt:minHashLength:alphabet:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 127,
+      "symbol": "Hashids_.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 131,
+      "symbol": "Hashids_.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 135,
+      "symbol": "Hashids_.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 139,
+      "symbol": "Hashids_.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 151,
+      "symbol": "Hashids_.decode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 159,
+      "symbol": "Hashids_.decode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 163,
+      "symbol": "Hashids_.decode64(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Crypto/HashIds.swift",
+      "line": 167,
+      "symbol": "Hashids_.decode64(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Extensions/Array+SafeIndex.swift",
+      "line": 5,
+      "symbol": "Collection.subscript(safe:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Extensions/Notices.swift",
+      "line": 6,
+      "symbol": "TipType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Extensions/Notices.swift",
+      "line": 7,
+      "symbol": "TipType.timeLimitAlert",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Extensions/Notices.swift",
+      "line": 8,
+      "symbol": "TipType.payLimitAlert",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 31,
+      "symbol": "ReachabilityError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 32,
+      "symbol": "ReachabilityError.failedToCreateWithAddress(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 33,
+      "symbol": "ReachabilityError.failedToCreateWithHostname(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 34,
+      "symbol": "ReachabilityError.unableToSetCallback(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 35,
+      "symbol": "ReachabilityError.unableToSetDispatchQueue(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 36,
+      "symbol": "ReachabilityError.unableToGetFlags(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 43,
+      "symbol": "Notification.Name.reachabilityChanged",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 46,
+      "symbol": "Reachability",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 48,
+      "symbol": "Reachability.NetworkReachable",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 49,
+      "symbol": "Reachability.NetworkUnreachable",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 63,
+      "symbol": "Reachability.Connection",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 65,
+      "symbol": "Reachability.Connection.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 66,
+      "symbol": "Reachability.Connection.cellular",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 66,
+      "symbol": "Reachability.Connection.unavailable",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 66,
+      "symbol": "Reachability.Connection.wifi",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 77,
+      "symbol": "Reachability.whenReachable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 78,
+      "symbol": "Reachability.whenUnreachable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 81,
+      "symbol": "Reachability.reachableOnWWAN",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 87,
+      "symbol": "Reachability.notificationCenter",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 90,
+      "symbol": "Reachability.currentReachabilityString",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 99,
+      "symbol": "Reachability.connection",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 131,
+      "symbol": "Reachability.init(reachabilityRef:queueQoS:targetQueue:notificationQueue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 141,
+      "symbol": "Reachability.init(hostname:queueQoS:targetQueue:notificationQueue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 151,
+      "symbol": "Reachability.init(queueQoS:targetQueue:notificationQueue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 170,
+      "symbol": "Reachability",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 173,
+      "symbol": "Reachability.startNotifier()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 227,
+      "symbol": "Reachability.stopNotifier()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 236,
+      "symbol": "Reachability.isReachable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 241,
+      "symbol": "Reachability.isReachableViaWWAN",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 247,
+      "symbol": "Reachability.isReachableViaWiFi",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/Network/ReachAbility/Reachability.swift",
+      "line": 251,
+      "symbol": "Reachability.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 7,
+      "symbol": "SwiftTimer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 17,
+      "symbol": "SwiftTimer.repeats",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 19,
+      "symbol": "SwiftTimer.SwiftTimerHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 25,
+      "symbol": "SwiftTimer.init(interval:repeats:leeway:queue:handler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 43,
+      "symbol": "SwiftTimer.repeaticTimer(interval:leeway:queue:handler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 54,
+      "symbol": "SwiftTimer.fire()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 72,
+      "symbol": "SwiftTimer.start(fireOnceWhenStart:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 84,
+      "symbol": "SwiftTimer.suspend()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 93,
+      "symbol": "SwiftTimer.rescheduleRepeating(interval:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 99,
+      "symbol": "SwiftTimer.rescheduleHandler(handler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 111,
+      "symbol": "SwiftTimer",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 150,
+      "symbol": "SwiftTimer.cancelThrottlingTimer(identifier:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 162,
+      "symbol": "SwiftCountDownTimer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 176,
+      "symbol": "SwiftCountDownTimer.init(interval:times:queue:handler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 195,
+      "symbol": "SwiftCountDownTimer.start()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 199,
+      "symbol": "SwiftCountDownTimer.suspend()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 203,
+      "symbol": "SwiftCountDownTimer.reCountDown()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/TimeService/SwiftTimer.swift",
+      "line": 211,
+      "symbol": "DispatchTimeInterval.fromSeconds(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/UserDefaults/Defaults.swift",
+      "line": 7,
+      "symbol": "DefaultsKey",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/UserDefaults/Defaults.swift",
+      "line": 15,
+      "symbol": "Key.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/UserService/User.swift",
+      "line": 4,
+      "symbol": "User",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/WebSocket/AntiAddictionSocket.swift",
+      "line": 83,
+      "symbol": "AntiAddictionSocket.startPing()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/WebSocket/AntiAddictionSocket.swift",
+      "line": 91,
+      "symbol": "AntiAddictionSocket.stopPing()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/WebSocket/AntiAddictionSocket.swift",
+      "line": 100,
+      "symbol": "AntiAddictionSocket.ping()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/WebSocket/AntiAddictionSocket.swift",
+      "line": 120,
+      "symbol": "AntiAddictionSocket.handlePong()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios/AntiAddictionService/WebSocket/AntiAddictionSocket.swift",
+      "line": 125,
+      "symbol": "AntiAddictionSocket.reConnect()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/jiangjiahao/Desktop/RELEASE/antiaddictionservice-ios"
+}

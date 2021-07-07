@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AntiAddictionConfiguration Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/AntiAddictionConfiguration" class="dashAnchor"></a>
+    <a title="AntiAddictionConfiguration Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (36% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        AntiAddictionConfiguration Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AntiAddictionConfiguration.html">AntiAddictionConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AntiAddictionService.html">AntiAddictionService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Defaults.html">Defaults</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:20AntiAddictionService11DefaultsKeyC">DefaultsKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Hashids_.html">Hashids_</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Key.html">Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Reachability.html">Reachability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Reachability/Connection.html">– Connection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SwiftCountDownTimer.html">SwiftCountDownTimer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SwiftTimer.html">SwiftTimer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AlertType.html">AlertType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ReachabilityError.html">ReachabilityError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TipType.html">TipType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Collection.html">Collection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DispatchTimeInterval.html">DispatchTimeInterval</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification/Name.html">– Name</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AntiAddictionServiceCallback.html">AntiAddictionServiceCallback</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/HashidsGenerator.html">HashidsGenerator</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:20AntiAddictionService14HashidsOptionsV">HashidsOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:20AntiAddictionService19PlayTimeCheckResultV">PlayTimeCheckResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:20AntiAddictionService4UserV">User</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:20AntiAddictionService7Hashidsa">Hashids</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AntiAddictionConfiguration</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">AntiAddictionConfiguration</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>AAKit 功能配置</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC9enableLogSbvp"></a>
+                    <a name="//apple_ref/swift/Property/enableLog" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC9enableLogSbvp">enableLog</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">enableLog</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC21needUploadAllTimeDataSbvp"></a>
+                    <a name="//apple_ref/swift/Property/needUploadAllTimeData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC21needUploadAllTimeDataSbvp">needUploadAllTimeData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">needUploadAllTimeData</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC14gameIdentifierSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/gameIdentifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC14gameIdentifierSSSgvp">gameIdentifier</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>游戏标识，多端统一用</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">gameIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC8bundleIdSSvp"></a>
+                    <a name="//apple_ref/swift/Property/bundleId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC8bundleIdSSvp">bundleId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">bundleId</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC14useSdkRealNameSbvp"></a>
+                    <a name="//apple_ref/swift/Property/useSdkRealName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC14useSdkRealNameSbvp">useSdkRealName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>AAKit 实名登记开关，默认值为 true</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">useSdkRealName</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC21useSdkOnlineTimeLimitSbvp"></a>
+                    <a name="//apple_ref/swift/Property/useSdkOnlineTimeLimit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC21useSdkOnlineTimeLimitSbvp">useSdkOnlineTimeLimit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>AAKit 在线时长限制开关，默认值为 true</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">useSdkOnlineTimeLimit</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC18useSdkPaymentLimitSbvp"></a>
+                    <a name="//apple_ref/swift/Property/useSdkPaymentLimit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC18useSdkPaymentLimitSbvp">useSdkPaymentLimit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>AAKit 支付限制开关，默认值为 true</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">useSdkPaymentLimit</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC23showSwitchAccountButtonSbvp"></a>
+                    <a name="//apple_ref/swift/Property/showSwitchAccountButton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC23showSwitchAccountButtonSbvp">showSwitchAccountButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>AAKit 切换账号按钮是否显示</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">showSwitchAccountButton</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC23minorCommonDayTotalTimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/minorCommonDayTotalTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC23minorCommonDayTotalTimeSivp">minorCommonDayTotalTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>未成年人非节假日每日总时长 单位秒</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">minorCommonDayTotalTime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC21minorHolidayTotalTimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/minorHolidayTotalTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC21minorHolidayTotalTimeSivp">minorHolidayTotalTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>未成年人节假日每日总时长 单位秒</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">minorHolidayTotalTime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC14guestTotalTimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/guestTotalTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC14guestTotalTimeSivp">guestTotalTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>游客每日总时长（无节假日区分）单位秒</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">guestTotalTime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC23firstAlertTipRemainTimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/firstAlertTipRemainTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC23firstAlertTipRemainTimeSivp">firstAlertTipRemainTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>第一次提醒剩余游戏时间时的剩余时长 单位秒</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">firstAlertTipRemainTime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC27countdownAlertTipRemainTimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/countdownAlertTipRemainTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC27countdownAlertTipRemainTimeSivp">countdownAlertTipRemainTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>展示倒计时浮窗时的剩余时长 单位秒</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">countdownAlertTipRemainTime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC15curfewHourStartSivp"></a>
+                    <a name="//apple_ref/swift/Property/curfewHourStart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC15curfewHourStartSivp">curfewHourStart</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>宵禁开始时间（整数，小时，24小时进制，默认22）</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">curfewHourStart</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC13curfewHourEndSivp"></a>
+                    <a name="//apple_ref/swift/Property/curfewHourEnd" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC13curfewHourEndSivp">curfewHourEnd</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>宵禁结束时间（整数，小时，24小时进制，默认8）</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">curfewHourEnd</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC16nightStrictStartSSvp"></a>
+                    <a name="//apple_ref/swift/Property/nightStrictStart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC16nightStrictStartSSvp">nightStrictStart</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>宵禁开始时间（字符串，格式为<code>小时:分钟</code>，24小时进制，默认<code>22:00</code>）方便配置具体到分钟</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nightStrictStart</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC14nightStrictEndSSvp"></a>
+                    <a name="//apple_ref/swift/Property/nightStrictEnd" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC14nightStrictEndSSvp">nightStrictEnd</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>宵禁结束时间（整数，格式为<code>小时:分钟</code>，24小时进制，默认8）方便配置具体到分钟</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nightStrictEnd</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC30singlePaymentAmountLimitJuniorSivp"></a>
+                    <a name="//apple_ref/swift/Property/singlePaymentAmountLimitJunior" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC30singlePaymentAmountLimitJuniorSivp">singlePaymentAmountLimitJunior</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>8-15岁单笔付费额度限制，单位分（默认5000分）</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">singlePaymentAmountLimitJunior</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC34mouthTotalPaymentAmountLimitJuniorSivp"></a>
+                    <a name="//apple_ref/swift/Property/mouthTotalPaymentAmountLimitJunior" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC34mouthTotalPaymentAmountLimitJuniorSivp">mouthTotalPaymentAmountLimitJunior</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>8-15岁每月总付费额度限制，单位分（默认20000分）</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">mouthTotalPaymentAmountLimitJunior</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC30singlePaymentAmountLimitSeniorSivp"></a>
+                    <a name="//apple_ref/swift/Property/singlePaymentAmountLimitSenior" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC30singlePaymentAmountLimitSeniorSivp">singlePaymentAmountLimitSenior</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>16-17岁单笔付费额度限制，单位分（默认10000分）</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">singlePaymentAmountLimitSenior</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC34mouthTotalPaymentAmountLimitSeniorSivp"></a>
+                    <a name="//apple_ref/swift/Property/mouthTotalPaymentAmountLimitSenior" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC34mouthTotalPaymentAmountLimitSeniorSivp">mouthTotalPaymentAmountLimitSenior</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>16-17岁每月总付费额度限制，单位分（默认40000分）</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">mouthTotalPaymentAmountLimitSenior</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:20AntiAddictionService0aB13ConfigurationC7holidaySaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/holiday" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20AntiAddictionService0aB13ConfigurationC7holidaySaySSGvp">holiday</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">holiday</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

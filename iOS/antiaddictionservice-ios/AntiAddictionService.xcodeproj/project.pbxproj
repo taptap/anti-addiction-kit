@@ -1,0 +1,745 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		C123C7F924C598A1009FD69A /* FrameWorkBuilder */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C123C7FA24C598A1009FD69A /* Build configuration list for PBXAggregateTarget "FrameWorkBuilder" */;
+			buildPhases = (
+				C123C7FD24C598AC009FD69A /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = FrameWorkBuilder;
+			productName = FrameWorkBuilder;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		C18721EC259DD176006F04A1 /* AntiAddictionHttpManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C18721E8259DD176006F04A1 /* AntiAddictionHttpManager.h */; };
+		C18721ED259DD176006F04A1 /* AntiAddictionHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C18721E9259DD176006F04A1 /* AntiAddictionHttpManager.m */; };
+		C193B7CA24B4280A007DDCA2 /* AntiAddictionService.h in Headers */ = {isa = PBXBuildFile; fileRef = C193B7C824B4280A007DDCA2 /* AntiAddictionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C193B86424B458E0007DDCA2 /* HashIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84224B458DF007DDCA2 /* HashIds.swift */; };
+		C193B86524B458E0007DDCA2 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84324B458DF007DDCA2 /* String+Crypto.swift */; };
+		C193B86624B458E0007DDCA2 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84424B458DF007DDCA2 /* Crypto.swift */; };
+		C193B86724B458E0007DDCA2 /* Data+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84524B458DF007DDCA2 /* Data+Crypto.swift */; };
+		C193B86824B458E0007DDCA2 /* TimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84724B458DF007DDCA2 /* TimeService.swift */; };
+		C193B86924B458E0007DDCA2 /* SwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84824B458DF007DDCA2 /* SwiftTimer.swift */; };
+		C193B86A24B458E0007DDCA2 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84924B458DF007DDCA2 /* DateHelper.swift */; };
+		C193B86B24B458E0007DDCA2 /* PayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84B24B458DF007DDCA2 /* PayService.swift */; };
+		C193B86D24B458E0007DDCA2 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B84E24B458DF007DDCA2 /* Defaults.swift */; };
+		C193B86F24B458E0007DDCA2 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85124B458DF007DDCA2 /* Networking.swift */; };
+		C193B87124B458E0007DDCA2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85424B458DF007DDCA2 /* Logger.swift */; };
+		C193B87224B458E0007DDCA2 /* RegionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85624B458DF007DDCA2 /* RegionDetector.swift */; };
+		C193B87324B458E0007DDCA2 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85824B458DF007DDCA2 /* UserType.swift */; };
+		C193B87424B458E0007DDCA2 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85924B458DF007DDCA2 /* UserService.swift */; };
+		C193B87524B458E0007DDCA2 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85A24B458DF007DDCA2 /* ChatService.swift */; };
+		C193B87624B458E0007DDCA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85B24B458DF007DDCA2 /* User.swift */; };
+		C193B87724B458E0007DDCA2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85C24B458DF007DDCA2 /* Configuration.swift */; };
+		C193B87824B458E0007DDCA2 /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85E24B458DF007DDCA2 /* PaymentManager.swift */; };
+		C193B87924B458E0007DDCA2 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85F24B458E0007DDCA2 /* AccountManager.swift */; };
+		C193B87A24B458E0007DDCA2 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86024B458E0007DDCA2 /* ChatManager.swift */; };
+		C193B87B24B458E0007DDCA2 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86124B458E0007DDCA2 /* TimeManager.swift */; };
+		C193B87C24B458E0007DDCA2 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86224B458E0007DDCA2 /* LoginManager.swift */; };
+		C193B87D24B458E0007DDCA2 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86324B458E0007DDCA2 /* Account.swift */; };
+		C193B87F24B45CD9007DDCA2 /* AntiAddictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B87E24B45CD9007DDCA2 /* AntiAddictionService.swift */; };
+		C193B88124B464AC007DDCA2 /* AntiAddictionServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B88024B464AC007DDCA2 /* AntiAddictionServiceManager.swift */; };
+		C193BAAB24B864F1007DDCA2 /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193BAAA24B864F1007DDCA2 /* Array+SafeIndex.swift */; };
+		C193BAAD24B869A6007DDCA2 /* Notices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193BAAC24B869A6007DDCA2 /* Notices.swift */; };
+		C193BBEB24BC12B6007DDCA2 /* String+RealName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193BBEA24BC12B6007DDCA2 /* String+RealName.swift */; };
+		C193BC6D24BE9CD7007DDCA2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193BC6C24BE9CD7007DDCA2 /* Reachability.swift */; };
+		C1A9311C259439D7003A6B04 /* SwiftWebSocket.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A9311B259439D7003A6B04 /* SwiftWebSocket.xcframework */; };
+		C1E448B925807FFA002E2C43 /* AntiAddictionAsyncHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E448B325807FFA002E2C43 /* AntiAddictionAsyncHttp.m */; };
+		C1E448BA25807FFA002E2C43 /* AntiAddictionHttpResult.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E448B425807FFA002E2C43 /* AntiAddictionHttpResult.h */; };
+		C1E448BB25807FFA002E2C43 /* AntiAddictionHttpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E448B525807FFA002E2C43 /* AntiAddictionHttpRequest.h */; };
+		C1E448BC25807FFA002E2C43 /* AntiAddictionHttpResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E448B625807FFA002E2C43 /* AntiAddictionHttpResult.m */; };
+		C1E448BD25807FFA002E2C43 /* AntiAddictionAsyncHttp.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E448B725807FFA002E2C43 /* AntiAddictionAsyncHttp.h */; };
+		C1E448BE25807FFA002E2C43 /* AntiAddictionHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E448B825807FFA002E2C43 /* AntiAddictionHttpRequest.m */; };
+		C1FF8F9E2592EC6800186741 /* AntiAddictionSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF8F9D2592EC6800186741 /* AntiAddictionSocket.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C123C7F424C594D6009FD69A /* AntiAddictionService copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AntiAddictionService copy2-Info.plist"; path = "/Users/jiangjiahao/Desktop/work/anti-addiction-kit/iOS/AntiAddictionService/AntiAddictionService copy2-Info.plist"; sourceTree = "<absolute>"; };
+		C18721E8259DD176006F04A1 /* AntiAddictionHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntiAddictionHttpManager.h; sourceTree = "<group>"; };
+		C18721E9259DD176006F04A1 /* AntiAddictionHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AntiAddictionHttpManager.m; sourceTree = "<group>"; };
+		C193B7C524B4280A007DDCA2 /* AntiAddictionService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AntiAddictionService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C193B7C824B4280A007DDCA2 /* AntiAddictionService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AntiAddictionService.h; sourceTree = "<group>"; };
+		C193B7C924B4280A007DDCA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C193B84224B458DF007DDCA2 /* HashIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIds.swift; sourceTree = "<group>"; };
+		C193B84324B458DF007DDCA2 /* String+Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
+		C193B84424B458DF007DDCA2 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		C193B84524B458DF007DDCA2 /* Data+Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Crypto.swift"; sourceTree = "<group>"; };
+		C193B84724B458DF007DDCA2 /* TimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeService.swift; sourceTree = "<group>"; };
+		C193B84824B458DF007DDCA2 /* SwiftTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTimer.swift; sourceTree = "<group>"; };
+		C193B84924B458DF007DDCA2 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		C193B84B24B458DF007DDCA2 /* PayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayService.swift; sourceTree = "<group>"; };
+		C193B84E24B458DF007DDCA2 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		C193B85124B458DF007DDCA2 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		C193B85424B458DF007DDCA2 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		C193B85624B458DF007DDCA2 /* RegionDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionDetector.swift; sourceTree = "<group>"; };
+		C193B85824B458DF007DDCA2 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
+		C193B85924B458DF007DDCA2 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		C193B85A24B458DF007DDCA2 /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		C193B85B24B458DF007DDCA2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C193B85C24B458DF007DDCA2 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		C193B85E24B458DF007DDCA2 /* PaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
+		C193B85F24B458E0007DDCA2 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		C193B86024B458E0007DDCA2 /* ChatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
+		C193B86124B458E0007DDCA2 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		C193B86224B458E0007DDCA2 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		C193B86324B458E0007DDCA2 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		C193B87E24B45CD9007DDCA2 /* AntiAddictionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiAddictionService.swift; sourceTree = "<group>"; };
+		C193B88024B464AC007DDCA2 /* AntiAddictionServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiAddictionServiceManager.swift; sourceTree = "<group>"; };
+		C193BAAA24B864F1007DDCA2 /* Array+SafeIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
+		C193BAAC24B869A6007DDCA2 /* Notices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notices.swift; sourceTree = "<group>"; };
+		C193BBEA24BC12B6007DDCA2 /* String+RealName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RealName.swift"; sourceTree = "<group>"; };
+		C193BC1B24BC457A007DDCA2 /* AntiAddictionService copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AntiAddictionService copy-Info.plist"; path = "/Users/jiangjiahao/Desktop/MY/AntiAddictionService/AntiAddictionService copy-Info.plist"; sourceTree = "<absolute>"; };
+		C193BC2324BC46EC007DDCA2 /* FrameworkBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameworkBuilder.h; sourceTree = "<group>"; };
+		C193BC2424BC46EC007DDCA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C193BC6C24BE9CD7007DDCA2 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		C1A9311B259439D7003A6B04 /* SwiftWebSocket.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SwiftWebSocket.xcframework; sourceTree = "<group>"; };
+		C1E448B325807FFA002E2C43 /* AntiAddictionAsyncHttp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AntiAddictionAsyncHttp.m; sourceTree = "<group>"; };
+		C1E448B425807FFA002E2C43 /* AntiAddictionHttpResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntiAddictionHttpResult.h; sourceTree = "<group>"; };
+		C1E448B525807FFA002E2C43 /* AntiAddictionHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntiAddictionHttpRequest.h; sourceTree = "<group>"; };
+		C1E448B625807FFA002E2C43 /* AntiAddictionHttpResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AntiAddictionHttpResult.m; sourceTree = "<group>"; };
+		C1E448B725807FFA002E2C43 /* AntiAddictionAsyncHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntiAddictionAsyncHttp.h; sourceTree = "<group>"; };
+		C1E448B825807FFA002E2C43 /* AntiAddictionHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AntiAddictionHttpRequest.m; sourceTree = "<group>"; };
+		C1E448BF258081B3002E2C43 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		C1FF8F9D2592EC6800186741 /* AntiAddictionSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntiAddictionSocket.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C193B7C224B4280A007DDCA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1A9311C259439D7003A6B04 /* SwiftWebSocket.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C193B7BB24B4280A007DDCA2 = {
+			isa = PBXGroup;
+			children = (
+				C193B7C724B4280A007DDCA2 /* AntiAddictionService */,
+				C193BC2224BC46EC007DDCA2 /* FrameworkBuilder */,
+				C193B7C624B4280A007DDCA2 /* Products */,
+				C193BC1B24BC457A007DDCA2 /* AntiAddictionService copy-Info.plist */,
+				C123C7F424C594D6009FD69A /* AntiAddictionService copy2-Info.plist */,
+				C1A9310025932AF8003A6B04 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C193B7C624B4280A007DDCA2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C193B7C524B4280A007DDCA2 /* AntiAddictionService.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C193B7C724B4280A007DDCA2 /* AntiAddictionService */ = {
+			isa = PBXGroup;
+			children = (
+				C1FF8F942592E6F700186741 /* WebSocket */,
+				C193BAA924B864F1007DDCA2 /* Extensions */,
+				C193B85C24B458DF007DDCA2 /* Configuration.swift */,
+				C193B84124B458DF007DDCA2 /* Crypto */,
+				C193B85324B458DF007DDCA2 /* Logger */,
+				C193B84F24B458DF007DDCA2 /* Network */,
+				C193B85D24B458DF007DDCA2 /* OnlineService */,
+				C193B84A24B458DF007DDCA2 /* PayService */,
+				C193B85524B458DF007DDCA2 /* RegionDetector */,
+				C193B84624B458DF007DDCA2 /* TimeService */,
+				C193B84C24B458DF007DDCA2 /* UserDefaults */,
+				C193B85724B458DF007DDCA2 /* UserService */,
+				C193B7C824B4280A007DDCA2 /* AntiAddictionService.h */,
+				C193B7C924B4280A007DDCA2 /* Info.plist */,
+				C193B87E24B45CD9007DDCA2 /* AntiAddictionService.swift */,
+				C193B88024B464AC007DDCA2 /* AntiAddictionServiceManager.swift */,
+			);
+			path = AntiAddictionService;
+			sourceTree = "<group>";
+		};
+		C193B84124B458DF007DDCA2 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				C193B84224B458DF007DDCA2 /* HashIds.swift */,
+				C193B84324B458DF007DDCA2 /* String+Crypto.swift */,
+				C193B84424B458DF007DDCA2 /* Crypto.swift */,
+				C193B84524B458DF007DDCA2 /* Data+Crypto.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		C193B84624B458DF007DDCA2 /* TimeService */ = {
+			isa = PBXGroup;
+			children = (
+				C193B84724B458DF007DDCA2 /* TimeService.swift */,
+				C193B84824B458DF007DDCA2 /* SwiftTimer.swift */,
+				C193B84924B458DF007DDCA2 /* DateHelper.swift */,
+			);
+			path = TimeService;
+			sourceTree = "<group>";
+		};
+		C193B84A24B458DF007DDCA2 /* PayService */ = {
+			isa = PBXGroup;
+			children = (
+				C193B84B24B458DF007DDCA2 /* PayService.swift */,
+			);
+			path = PayService;
+			sourceTree = "<group>";
+		};
+		C193B84C24B458DF007DDCA2 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				C193B84E24B458DF007DDCA2 /* Defaults.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		C193B84F24B458DF007DDCA2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C1E448B225807FFA002E2C43 /* Http */,
+				C193BC6B24BE9CD1007DDCA2 /* ReachAbility */,
+				C193B85124B458DF007DDCA2 /* Networking.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C193B85324B458DF007DDCA2 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				C193B85424B458DF007DDCA2 /* Logger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		C193B85524B458DF007DDCA2 /* RegionDetector */ = {
+			isa = PBXGroup;
+			children = (
+				C193B85624B458DF007DDCA2 /* RegionDetector.swift */,
+			);
+			path = RegionDetector;
+			sourceTree = "<group>";
+		};
+		C193B85724B458DF007DDCA2 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				C193B85824B458DF007DDCA2 /* UserType.swift */,
+				C193B85924B458DF007DDCA2 /* UserService.swift */,
+				C193B85A24B458DF007DDCA2 /* ChatService.swift */,
+				C193B85B24B458DF007DDCA2 /* User.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		C193B85D24B458DF007DDCA2 /* OnlineService */ = {
+			isa = PBXGroup;
+			children = (
+				C193B85E24B458DF007DDCA2 /* PaymentManager.swift */,
+				C193B85F24B458E0007DDCA2 /* AccountManager.swift */,
+				C193B86024B458E0007DDCA2 /* ChatManager.swift */,
+				C193B86124B458E0007DDCA2 /* TimeManager.swift */,
+				C193B86224B458E0007DDCA2 /* LoginManager.swift */,
+				C193B86324B458E0007DDCA2 /* Account.swift */,
+			);
+			path = OnlineService;
+			sourceTree = "<group>";
+		};
+		C193BAA924B864F1007DDCA2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C193BBEA24BC12B6007DDCA2 /* String+RealName.swift */,
+				C193BAAC24B869A6007DDCA2 /* Notices.swift */,
+				C193BAAA24B864F1007DDCA2 /* Array+SafeIndex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C193BC2224BC46EC007DDCA2 /* FrameworkBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				C193BC2324BC46EC007DDCA2 /* FrameworkBuilder.h */,
+				C193BC2424BC46EC007DDCA2 /* Info.plist */,
+			);
+			path = FrameworkBuilder;
+			sourceTree = "<group>";
+		};
+		C193BC6B24BE9CD1007DDCA2 /* ReachAbility */ = {
+			isa = PBXGroup;
+			children = (
+				C193BC6C24BE9CD7007DDCA2 /* Reachability.swift */,
+			);
+			path = ReachAbility;
+			sourceTree = "<group>";
+		};
+		C1A9310025932AF8003A6B04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1E448B225807FFA002E2C43 /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				C18721E8259DD176006F04A1 /* AntiAddictionHttpManager.h */,
+				C18721E9259DD176006F04A1 /* AntiAddictionHttpManager.m */,
+				C1E448BF258081B3002E2C43 /* module.modulemap */,
+				C1E448B725807FFA002E2C43 /* AntiAddictionAsyncHttp.h */,
+				C1E448B325807FFA002E2C43 /* AntiAddictionAsyncHttp.m */,
+				C1E448B525807FFA002E2C43 /* AntiAddictionHttpRequest.h */,
+				C1E448B825807FFA002E2C43 /* AntiAddictionHttpRequest.m */,
+				C1E448B425807FFA002E2C43 /* AntiAddictionHttpResult.h */,
+				C1E448B625807FFA002E2C43 /* AntiAddictionHttpResult.m */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		C1FF8F942592E6F700186741 /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				C1A9311B259439D7003A6B04 /* SwiftWebSocket.xcframework */,
+				C1FF8F9D2592EC6800186741 /* AntiAddictionSocket.swift */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C193B7C024B4280A007DDCA2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C193B7CA24B4280A007DDCA2 /* AntiAddictionService.h in Headers */,
+				C18721EC259DD176006F04A1 /* AntiAddictionHttpManager.h in Headers */,
+				C1E448BD25807FFA002E2C43 /* AntiAddictionAsyncHttp.h in Headers */,
+				C1E448BB25807FFA002E2C43 /* AntiAddictionHttpRequest.h in Headers */,
+				C1E448BA25807FFA002E2C43 /* AntiAddictionHttpResult.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C193B7C424B4280A007DDCA2 /* AntiAddictionService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C193B7CD24B4280A007DDCA2 /* Build configuration list for PBXNativeTarget "AntiAddictionService" */;
+			buildPhases = (
+				C193B7C024B4280A007DDCA2 /* Headers */,
+				C193B7C124B4280A007DDCA2 /* Sources */,
+				C193B7C224B4280A007DDCA2 /* Frameworks */,
+				C193B7C324B4280A007DDCA2 /* Resources */,
+				C193BC3024BC4BF4007DDCA2 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AntiAddictionService;
+			packageProductDependencies = (
+			);
+			productName = AntiAddictionService;
+			productReference = C193B7C524B4280A007DDCA2 /* AntiAddictionService.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C193B7BC24B4280A007DDCA2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = JiangJiahao;
+				TargetAttributes = {
+					C123C7F924C598A1009FD69A = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					C193B7C424B4280A007DDCA2 = {
+						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
+					};
+				};
+			};
+			buildConfigurationList = C193B7BF24B4280A007DDCA2 /* Build configuration list for PBXProject "AntiAddictionService" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C193B7BB24B4280A007DDCA2;
+			packageReferences = (
+			);
+			productRefGroup = C193B7C624B4280A007DDCA2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C193B7C424B4280A007DDCA2 /* AntiAddictionService */,
+				C123C7F924C598A1009FD69A /* FrameWorkBuilder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C193B7C324B4280A007DDCA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C123C7FD24C598AC009FD69A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "REVEAL_XCFRAMEWORK_IN_FINDER=true\n\nFREAMEWORK_NAME=\"${PROJECT_NAME}\"\nFREAMEWORK_OUTPUT_DIR=\"${PROJECT_DIR}/Distribution\"\nARCHIVE_PATH_IOS_DEVICE=\"./Build/ios_device.xcarchive\"\nARCHIVE_PATH_IOS_SIMULATOR=\"./Build/ios_simulator.xcarchive\"\n# ARCHIVE_PATH_MACOS=\"./build/macos.xcarchive\"\n\nfunction archiveOnePlatform {\n    echo \"▸ Starts archiving the scheme: ${1} for destination: ${2};\\n▸ Archive path: ${3}\"\n\n    xcodebuild archive \\\n        -scheme \"${1}\" \\\n        -destination \"${2}\" \\\n        -archivePath \"${3}\" \\\n        VALID_ARCHS=\"${4}\" \\\n        SKIP_INSTALL=NO \\\n        -configuration release \\\n        BUILD_LIBRARY_FOR_DISTRIBUTION=YES | xcpretty\n\n    # sudo gem install -n /usr/local/bin xcpretty\n    # xcpretty makes xcode compile information much more readable.\n}\n\nfunction archiveAllPlatforms {\n\n    # https://www.mokacoding.com/blog/xcodebuild-destination-options/\n\n    # Platform                Destination\n    # iOS                    generic/platform=iOS\n    # iOS Simulator            generic/platform=iOS Simulator\n    # iPadOS                generic/platform=iPadOS\n    # iPadOS Simulator        generic/platform=iPadOS Simulator\n    # macOS                    generic/platform=macOS\n    # tvOS                    generic/platform=tvOS\n    # watchOS                generic/platform=watchOS\n    # watchOS Simulator        generic/platform=watchOS Simulator\n    # carPlayOS                generic/platform=carPlayOS\n    # carPlayOS Simulator    generic/platform=carPlayOS Simulator\n\n    SCHEME=${1}\n\n    archiveOnePlatform $SCHEME \"generic/platform=iOS Simulator\" ${ARCHIVE_PATH_IOS_SIMULATOR} \"x86_64 i386 arm64\"\n      archiveOnePlatform $SCHEME \"generic/platform=iOS\" ${ARCHIVE_PATH_IOS_DEVICE} \"armv7 arm64\"\n      # archiveOnePlatform $SCHEME \"generic/platform=macOS\" ${ARCHIVE_PATH_MACOS}\n}\n\nfunction makeXCFramework {\n\n    FRAMEWORK_RELATIVE_PATH=\"Products/Library/Frameworks\"\n    OUTPUT_DIR=\"${FREAMEWORK_OUTPUT_DIR}/DynamicFramework\"\n\n    mkdir -p \"${OUTPUT_DIR}\"\n\n    xcodebuild -create-xcframework \\\n        -framework \"${ARCHIVE_PATH_IOS_DEVICE}/${FRAMEWORK_RELATIVE_PATH}/${FREAMEWORK_NAME}.framework\" \\\n        -framework \"${ARCHIVE_PATH_IOS_SIMULATOR}/${FRAMEWORK_RELATIVE_PATH}/${FREAMEWORK_NAME}.framework\" \\\n        -output \"${OUTPUT_DIR}/${FREAMEWORK_NAME}.xcframework\"\n}\n\necho \"#####################\"\necho \"▸ Cleaning XCFramework output dir: ${FREAMEWORK_OUTPUT_DIR}\"\n#rm -rf $FREAMEWORK_OUTPUT_DIR\n\n#### Make XCFramework\n# Clean Build\nrm -rf \"./Build\"\nrm -rf \"./Distribution\"\n\nrm -rf \"./docs\"\n\n\necho \"▸ Archive framework: ${FREAMEWORK_NAME}\"\narchiveAllPlatforms $FREAMEWORK_NAME\n\necho \"▸ Make framework: ${FREAMEWORK_NAME}.xcframework\"\nmakeXCFramework\n\necho \"▸ Generating docs\"\njazzy\n\n# Clean Build\nrm -rf \"./Build\"\n\n#\n#sed 's/lari//g' file\ncd ${FREAMEWORK_OUTPUT_DIR} && find . -name \"*.swiftinterface\" -exec sed -i '' -e 's/TapFriends\\.//g' {} \\;\n#sed -i 's/TapFriends\\.//g' grep TapFriends. -rl ${FREAMEWORK_OUTPUT_DIR}/*.swiftinterface\n\nif [ ${REVEAL_XCFRAMEWORK_IN_FINDER} = true ]; then\n    open \"${FREAMEWORK_OUTPUT_DIR}/\"\nfi\n";
+		};
+		C193BC3024BC4BF4007DDCA2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C193B7C124B4280A007DDCA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C193B86624B458E0007DDCA2 /* Crypto.swift in Sources */,
+				C193BAAB24B864F1007DDCA2 /* Array+SafeIndex.swift in Sources */,
+				C193B87F24B45CD9007DDCA2 /* AntiAddictionService.swift in Sources */,
+				C193B86A24B458E0007DDCA2 /* DateHelper.swift in Sources */,
+				C1FF8F9E2592EC6800186741 /* AntiAddictionSocket.swift in Sources */,
+				C193B87824B458E0007DDCA2 /* PaymentManager.swift in Sources */,
+				C193B87924B458E0007DDCA2 /* AccountManager.swift in Sources */,
+				C193B87424B458E0007DDCA2 /* UserService.swift in Sources */,
+				C193B87C24B458E0007DDCA2 /* LoginManager.swift in Sources */,
+				C193B86524B458E0007DDCA2 /* String+Crypto.swift in Sources */,
+				C193B86F24B458E0007DDCA2 /* Networking.swift in Sources */,
+				C193B87524B458E0007DDCA2 /* ChatService.swift in Sources */,
+				C193B86424B458E0007DDCA2 /* HashIds.swift in Sources */,
+				C193B87624B458E0007DDCA2 /* User.swift in Sources */,
+				C193B87724B458E0007DDCA2 /* Configuration.swift in Sources */,
+				C193B86724B458E0007DDCA2 /* Data+Crypto.swift in Sources */,
+				C193B87B24B458E0007DDCA2 /* TimeManager.swift in Sources */,
+				C1E448BE25807FFA002E2C43 /* AntiAddictionHttpRequest.m in Sources */,
+				C193BBEB24BC12B6007DDCA2 /* String+RealName.swift in Sources */,
+				C1E448B925807FFA002E2C43 /* AntiAddictionAsyncHttp.m in Sources */,
+				C193B88124B464AC007DDCA2 /* AntiAddictionServiceManager.swift in Sources */,
+				C18721ED259DD176006F04A1 /* AntiAddictionHttpManager.m in Sources */,
+				C193B86824B458E0007DDCA2 /* TimeService.swift in Sources */,
+				C193B87A24B458E0007DDCA2 /* ChatManager.swift in Sources */,
+				C193BAAD24B869A6007DDCA2 /* Notices.swift in Sources */,
+				C193B86924B458E0007DDCA2 /* SwiftTimer.swift in Sources */,
+				C193B87124B458E0007DDCA2 /* Logger.swift in Sources */,
+				C193B86B24B458E0007DDCA2 /* PayService.swift in Sources */,
+				C193B87224B458E0007DDCA2 /* RegionDetector.swift in Sources */,
+				C193B87D24B458E0007DDCA2 /* Account.swift in Sources */,
+				C193B87324B458E0007DDCA2 /* UserType.swift in Sources */,
+				C1E448BC25807FFA002E2C43 /* AntiAddictionHttpResult.m in Sources */,
+				C193BC6D24BE9CD7007DDCA2 /* Reachability.swift in Sources */,
+				C193B86D24B458E0007DDCA2 /* Defaults.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C123C7FB24C598A1009FD69A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C8Q9HL3X57;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C123C7FC24C598A1009FD69A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C8Q9HL3X57;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C193B7CB24B4280A007DDCA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C193B7CC24B4280A007DDCA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C193B7CE24B4280A007DDCA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				DYLIB_INSTALL_NAME_BASE = "";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AntiAddictionService/WebSocket",
+					"$(SRCROOT)/**",
+				);
+				INFOPLIST_FILE = AntiAddictionService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_DYLIB_INSTALL_NAME = "";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				MACH_O_TYPE = mh_object;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				PRODUCT_BUNDLE_IDENTIFIER = com.taptap.anti.AntiAddictionService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRIP_SWIFT_SYMBOLS = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/AntiAddictionService/Network/Http";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s x86_64";
+			};
+			name = Debug;
+		};
+		C193B7CF24B4280A007DDCA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				DYLIB_INSTALL_NAME_BASE = "";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AntiAddictionService/WebSocket",
+					"$(SRCROOT)/**",
+				);
+				INFOPLIST_FILE = AntiAddictionService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_DYLIB_INSTALL_NAME = "";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				MACH_O_TYPE = mh_object;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				PRODUCT_BUNDLE_IDENTIFIER = com.taptap.anti.AntiAddictionService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRIP_SWIFT_SYMBOLS = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/AntiAddictionService/Network/Http";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s x86_64";
+				"VALID_ARCHS[sdk=iphoneos*]" = "arm64 arm64e armv7 armv7s x86_64";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = "arm64 i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C123C7FA24C598A1009FD69A /* Build configuration list for PBXAggregateTarget "FrameWorkBuilder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C123C7FB24C598A1009FD69A /* Debug */,
+				C123C7FC24C598A1009FD69A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C193B7BF24B4280A007DDCA2 /* Build configuration list for PBXProject "AntiAddictionService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C193B7CB24B4280A007DDCA2 /* Debug */,
+				C193B7CC24B4280A007DDCA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C193B7CD24B4280A007DDCA2 /* Build configuration list for PBXNativeTarget "AntiAddictionService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C193B7CE24B4280A007DDCA2 /* Debug */,
+				C193B7CF24B4280A007DDCA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C193B7BC24B4280A007DDCA2 /* Project object */;
+}

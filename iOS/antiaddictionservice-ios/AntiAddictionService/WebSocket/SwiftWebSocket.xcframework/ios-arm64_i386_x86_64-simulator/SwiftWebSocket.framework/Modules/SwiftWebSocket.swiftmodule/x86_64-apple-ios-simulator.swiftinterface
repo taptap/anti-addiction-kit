@@ -1,0 +1,171 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target x86_64-apple-ios8.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name SwiftWebSocket
+import Foundation
+import Swift
+@_exported import SwiftWebSocket
+public struct WebSocketEvents {
+  public var open: () -> ()
+  public var close: (Swift.Int, Swift.String, Swift.Bool) -> ()
+  public var error: (Swift.Error) -> ()
+  public var message: (Any) -> ()
+  public var pong: (Any) -> ()
+  public var end: (Swift.Int, Swift.String, Swift.Bool, Swift.Error?) -> ()
+}
+public enum WebSocketBinaryType : Swift.CustomStringConvertible {
+  case uInt8Array
+  case nsData
+  case uInt8UnsafeBufferPointer
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: SwiftWebSocket.WebSocketBinaryType, b: SwiftWebSocket.WebSocketBinaryType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@objc public enum WebSocketReadyState : Swift.Int, Swift.CustomStringConvertible {
+  case connecting = 0
+  case open = 1
+  case closing = 2
+  case closed = 3
+  public var description: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct WebSocketCompression {
+  public var on: Swift.Bool
+  public var noContextTakeover: Swift.Bool
+  public var maxWindowBits: Swift.Int
+}
+public struct WebSocketService : Swift.OptionSet {
+  public typealias RawValue = Swift.UInt
+  public init(rawValue value: Swift.UInt)
+  public init(nilLiteral: ())
+  public static var allZeros: SwiftWebSocket.WebSocketService {
+    get
+  }
+  public var rawValue: Swift.UInt {
+    get
+  }
+  public static var None: SwiftWebSocket.WebSocketService {
+    get
+  }
+  public static var VoIP: SwiftWebSocket.WebSocketService {
+    get
+  }
+  public static var Video: SwiftWebSocket.WebSocketService {
+    get
+  }
+  public static var Background: SwiftWebSocket.WebSocketService {
+    get
+  }
+  public static var Voice: SwiftWebSocket.WebSocketService {
+    get
+  }
+  public typealias Element = SwiftWebSocket.WebSocketService
+  public typealias ArrayLiteralElement = SwiftWebSocket.WebSocketService
+}
+public enum WebSocketError : Swift.Error, Swift.CustomStringConvertible {
+  case memory
+  case needMoreInput
+  case invalidHeader
+  case invalidAddress
+  case network(Swift.String)
+  case libraryError(Swift.String)
+  case payloadError(Swift.String)
+  case protocolError(Swift.String)
+  case invalidResponse(Swift.String)
+  case invalidCompressionOptions(Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public var details: Swift.String {
+    get
+  }
+}
+@objc public protocol WebSocketDelegate {
+  @objc func webSocketOpen()
+  @objc func webSocketClose(_ code: Swift.Int, reason: Swift.String, wasClean: Swift.Bool)
+  @objc func webSocketError(_ error: Foundation.NSError)
+  @objc optional func webSocketMessageText(_ text: Swift.String)
+  @objc optional func webSocketMessageData(_ data: Foundation.Data)
+  @objc optional func webSocketPong()
+  @objc optional func webSocketEnd(_ code: Swift.Int, reason: Swift.String, wasClean: Swift.Bool, error: Foundation.NSError?)
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class WebSocket : ObjectiveC.NSObject {
+  @objc override dynamic open var hash: Swift.Int {
+    @objc get
+  }
+  @objc override dynamic open func isEqual(_ other: Any?) -> Swift.Bool
+  @objc convenience public init(_ url: Swift.String)
+  @objc convenience public init(url: Foundation.URL)
+  @objc convenience public init(_ url: Swift.String, subProtocols: [Swift.String])
+  @objc convenience public init(_ url: Swift.String, subProtocol: Swift.String)
+  @objc public init(request: Foundation.URLRequest, subProtocols: [Swift.String] = [])
+  @objc convenience override dynamic public init()
+  @objc open var url: Swift.String {
+    @objc get
+  }
+  @objc open var subProtocol: Swift.String {
+    @objc get
+  }
+  open var compression: SwiftWebSocket.WebSocketCompression {
+    get
+    set
+  }
+  @objc open var allowSelfSignedSSL: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  open var services: SwiftWebSocket.WebSocketService {
+    get
+    set
+  }
+  open var event: SwiftWebSocket.WebSocketEvents {
+    get
+    set
+  }
+  @objc open var eventQueue: Dispatch.DispatchQueue? {
+    @objc get
+    @objc set
+  }
+  open var binaryType: SwiftWebSocket.WebSocketBinaryType {
+    get
+    set
+  }
+  @objc open var readyState: SwiftWebSocket.WebSocketReadyState {
+    @objc get
+  }
+  @objc open func open(_ url: Swift.String)
+  @objc open func open(nsurl url: Foundation.URL)
+  @objc open func open(_ url: Swift.String, subProtocols: [Swift.String])
+  @objc open func open(_ url: Swift.String, subProtocol: Swift.String)
+  @objc open func open(request: Foundation.URLRequest, subProtocols: [Swift.String] = [])
+  @objc open func open()
+  @objc open func close(_ code: Swift.Int = 1000, reason: Swift.String = "Normal Closure")
+  @objc open func send(_ message: Any)
+  @objc open func ping(_ message: Any)
+  @objc open func ping()
+  @objc deinit
+}
+public func == (lhs: SwiftWebSocket.WebSocket, rhs: SwiftWebSocket.WebSocket) -> Swift.Bool
+extension WebSocket {
+  @objc dynamic public var delegate: SwiftWebSocket.WebSocketDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public func send(text: Swift.String)
+  @objc dynamic public func send(data: Foundation.Data)
+}
+extension SwiftWebSocket.WebSocketBinaryType : Swift.Equatable {}
+extension SwiftWebSocket.WebSocketBinaryType : Swift.Hashable {}
+extension SwiftWebSocket.WebSocketReadyState : Swift.Equatable {}
+extension SwiftWebSocket.WebSocketReadyState : Swift.Hashable {}
+extension SwiftWebSocket.WebSocketReadyState : Swift.RawRepresentable {}
