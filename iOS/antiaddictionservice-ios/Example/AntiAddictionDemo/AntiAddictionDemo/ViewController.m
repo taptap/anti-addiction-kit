@@ -57,7 +57,7 @@ static NSString *testUserId = @"123456";
 }
 
 - (void)realName {
-    [AntiAddictionService realNameAuthWithUserToken:testUserId name:@"蒋家豪" idCard:@"330825199306280032" phone:@"13580460916" completion:^(enum AntiAddictionRealNameAuthState identifyState, NSString * _Nonnull errorMessage) {
+    [AntiAddictionService realNameAuthWithUserToken:testUserId name:@"name" idCard:@"idcard" phone:@"135xxxxxx" completion:^(enum AntiAddictionRealNameAuthState identifyState, NSString * _Nonnull errorMessage) {
         [self.resultLabel setText:[NSString stringWithFormat:@"实名结果：%ld,失败原因：%@", (long)identifyState,errorMessage]];
     }];
 }
