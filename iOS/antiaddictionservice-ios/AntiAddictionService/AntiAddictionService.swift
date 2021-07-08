@@ -178,10 +178,9 @@ public final class AntiAddictionService:NSObject {
     /// 登录用户
     /// - Parameters:
     ///   - userToken: 用户唯一标识符，如用户 ID 等，不能为空
-    ///   - userType: 用户类型
-    public class func login(_ userToken: String, _ userType: Int) {
+    public class func login(_ userToken: String) {
         if !self.isKitInstalled() { return }
-        AntiAddictionServiceManager.shared.login(userToken, userType)
+        AntiAddictionServiceManager.shared.login(userToken, AntiAddictionServiceUserType.guest.rawValue)
     }
     
     /// 进入游戏

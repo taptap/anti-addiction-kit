@@ -45,7 +45,7 @@ static NSString *testUserId = @"123456";
 }
 
 - (void)login {
-    [AntiAddictionService login:@"123456" :0];
+    [AntiAddictionService login:@"123456"];
 }
 
 - (void)logout {
