@@ -124,9 +124,8 @@ updateConfig | 1100 | SDK 配置更新，如相关提示语等 |
 ```
 // swift
 let userId = "xxxx"
-let userType = 3
 // 登录
-AntiAddictionService.login(userId, userType)
+AntiAddictionService.login(userId)
 // 登出
 AntiAddictionService.logout
 ```
@@ -134,7 +133,7 @@ AntiAddictionService.logout
 ```
 // Objective-C
 // 登录
-[AntiAddictionService login:@"xxxx" :3];
+[AntiAddictionService login:@"xxxx"];
 // 登出
 [AntiAddictionService logout];
 ```
