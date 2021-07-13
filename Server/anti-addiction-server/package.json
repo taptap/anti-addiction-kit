@@ -37,6 +37,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=fcm-server",
+    "docker-start": "egg-scripts start --title=fcm-server",
     "stop": "egg-scripts stop --title=fcm-server",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",

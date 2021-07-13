@@ -32,7 +32,7 @@ module.exports = appInfo => {
         dialectOptions: {
             // @see https://github.com/sequelize/sequelize/issues/8019
             decimalNumbers: true,
-            maxPreparedStatements: 100
+            maxPreparedStatements: 500
         },
         pool: {
             min: 10,

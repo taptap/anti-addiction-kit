@@ -1,8 +1,6 @@
 # fcm-server
 
-
 ## 防沉迷规则
-
 ### 登录触发
 | 用户类型 | 触发流程 | 触发器 | 文案反馈（线上版）|文案反馈（版署版）|
 |  ----  | ----  | ----  | ----  |----  | 
@@ -416,10 +414,10 @@ Authorization: Bearer <access_token>
 }
 ```
 
-## Deploy
+## 生成环境变量和数据表
 
 ```bash
-//配置数据库及jwt密钥
+#配置数据库及jwt密钥
 $ echo 'export DATASOURCE_HOST="127.0.0.1"' >> ~/.bash_profile
 $ echo 'export DATASOURCE_PORT="3306"' >> ~/.bash_profile
 $ echo 'export DATASOURCE_USER="root"' >> ~/.bash_profile
@@ -427,13 +425,29 @@ $ echo 'export DATASOURCE_PW="root"' >> ~/.bash_profile
 $ echo 'export DATASOURCE_SCHEMA="fcm"' >> ~/.bash_profile
 $ echo 'export JWS="!OKM9ijn"' >> ~/.bash_profile
 $ source ~/.bash_profile
-//进入主目录
+#进入主目录
 $ cd anti-addiction-kit
-//导入sql
+#自动创建数据表
 $ npx sequelize db:migrate --env "production"
-//启动项目
-$ npm start   
-//关闭项目
-$ npm stop
+```
+## 部署
+### Docker
+```
+$ cd Server/anti-addiction-server/
+$ docker build -t anti-addiction-server .
+#输出环境变量到env.list
+$ env > env.list
+#启动镜像
+$ docker run -p 7001:7001 --env-file env.list anti-addiction-server
+```
+
+###命令行
+```
+$ cd Server/anti-addiction-server/
+$ npm i
+#启动项目
+$ npm run start   
+#关闭项目
+$ npm run stop
 ```
 
