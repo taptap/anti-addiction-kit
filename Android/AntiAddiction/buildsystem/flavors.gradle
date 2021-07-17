@@ -1,0 +1,13 @@
+android {
+    flavorDimensions "staging"
+
+    productFlavors {
+        Publish {
+            dimension = "staging"
+        }
+
+        Inhouse {
+            dimension = "staging"
+        }
+    }
+}
