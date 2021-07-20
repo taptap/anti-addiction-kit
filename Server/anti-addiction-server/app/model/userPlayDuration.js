@@ -71,7 +71,6 @@ module.exports = app => {
    * @returns {Promise<number|Thenable<number>|void|*>}
    */
   userPlayDuration.updatePlayInfo = async function(day, duration, duration_key, game, last_timestamp) {
-    day = lodash.toString(day);
     if(duration > 0){
       let playInfo = await this.findPlayInfoByGame(day,duration_key, game);
       if (lodash.isEmpty(playInfo)) {
@@ -91,5 +90,21 @@ module.exports = app => {
     }
   };
 
+
+  userPlayDuration.resetTime = async function(day,duration_key,game){
+    return this.update({
+          duration:0
+        },
+        {
+          where:{
+            day: lodash.toString(day),
+            duration_key: duration_key,
+            game: game
+          }
+      }
+    ).then(function(effect) {
+      return effect[0] > 0;
+    });
+  }
   return userPlayDuration;
 };
