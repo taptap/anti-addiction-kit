@@ -16,6 +16,9 @@ class ToolsController extends Controller {
             const userPlayDuration = ctx.model.UserPlayDuration;
 
             let userInfo = await UserInfoModel.findByUserId(user_id);
+            if(lodash.isEmpty(userInfo)){
+                return ctx.helper.result(400, 'user_id不存在');
+            }
             let unique_id = (lodash.isEmpty(userInfo.unique_id) && !lodash.isNumber(userInfo.unique_id)) ? userInfo.user_id : userInfo.unique_id;
             let day = userInfo.identify_state === 0 ? 0 : ctx.helper.getToday();//当日时间yyyymmmdd 0-未实名时间不按天计算
             let effect = await userPlayDuration.resetTime(day,unique_id,game);
