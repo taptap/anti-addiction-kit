@@ -441,7 +441,7 @@ $ env > env.list
 $ docker run -p 7001:7001 --env-file env.list anti-addiction-server
 ```
 
-###命令行
+### 命令行
 ```
 $ cd Server/anti-addiction-server/
 $ npm i
@@ -451,7 +451,7 @@ $ npm run start
 $ npm run stop
 ```
 
-###业务配置
+### 业务配置
 ```
 用途：配置每年的法定节假日（法定节假日180分钟，工作日90分钟）
 
