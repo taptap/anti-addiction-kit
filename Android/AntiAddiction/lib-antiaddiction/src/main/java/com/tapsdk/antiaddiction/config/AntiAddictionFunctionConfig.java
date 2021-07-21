@@ -6,6 +6,14 @@ public class AntiAddictionFunctionConfig {
 
     private boolean useOnLineTimeLimit;
 
+    public boolean onLineTimeLimitEnabled() {
+        return useOnLineTimeLimit;
+    }
+
+    public boolean paymentLimitEnabled() {
+        return usePaymentLimit;
+    }
+
     private AntiAddictionFunctionConfig() {
 
     }

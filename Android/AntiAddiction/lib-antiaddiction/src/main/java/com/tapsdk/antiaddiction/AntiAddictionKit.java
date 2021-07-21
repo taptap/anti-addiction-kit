@@ -9,7 +9,27 @@ import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
 
 public class AntiAddictionKit {
 
+    public final static int CALLBACK_CODE_TIME_LIMIT_NONE = 100;
+    //回调状态码
+    public final static int CALLBACK_CODE_TIME_LIMIT = 1030;
+    public final static int CALLBACK_CODE_NIGHT_STRICT = 1050;
+
+    public final static int CALLBACK_CODE_SUBMIT_PAY_SUCCESS = 3000;
+    public final static int CALLBACK_CODE_SUBMIT_PAY_FAIL = 3500;
+    //回调状态码
+    public final static int CALLBACK_CODE_LOGIN_SUCCESS = 500;
+    // 单机登出
+    public final static int CALLBACK_CODE_SWITCH_ACCOUNT = 1000;
+
+    public final static int CALLBACK_CODE_PAY_NO_LIMIT = 1020;
+    public final static int CALLBACK_CODE_PAY_LIMIT = 1025;
+    public final static int CALLBACK_CODE_OPEN_REAL_NAME = 1060;
+
+    public final static int CALLBACK_CODE_OPEN_ALERT = 1095;
+
     private static IAntiAddiction antiAddiction = new AntiAddictionImpl();
+
+    private static boolean isDebug = false;
 
     public static void init(Activity activity, String gameIdentifier
             ,AntiAddictionFunctionConfig antiAddictionFunctionConfig, AntiAddictionCallback callback) {
@@ -47,5 +67,13 @@ public class AntiAddictionKit {
 
     public static void fetchUserIdentifyInfo(String token, Callback<IdentificationInfo> callback) {
         antiAddiction.fetchUserIdentifyInfo(token, callback);
+    }
+
+    public static void setDebug(boolean debuggable) {
+        isDebug = debuggable;
+    }
+
+    public static boolean isDebug() {
+        return isDebug;
     }
 }

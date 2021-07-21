@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class SubmitPlayLogRequestParams implements Serializable {
+public class PlayLogRequestParams implements Serializable {
 
     @SerializedName("game")
     public String game = "";
@@ -13,5 +13,5 @@ public class SubmitPlayLogRequestParams implements Serializable {
     public int login = 0;
 
     @SerializedName("play_logs")
-    public SubmitPlayLogTimesRequestParams playLogs;
+    public PlayLogTimesRequestParams playLogs = new PlayLogTimesRequestParams();
 }

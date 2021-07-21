@@ -6,6 +6,7 @@ import com.tapsdk.antiaddiction.entities.request.AuthenticateRequestParams;
 import com.tapsdk.antiaddiction.reactor.Observable;
 import com.tapsdk.antiaddiction.rest.api.AntiAddictionApi;
 import com.tapsdk.antiaddiction.skynet.Skynet;
+import com.tapsdk.antiaddiction.utils.DeviceUtil;
 
 public class UserModel {
 
@@ -42,9 +43,9 @@ public class UserModel {
         return userInfo;
     }
 
-    public Observable<UserInfo> authenticate(String token, String gameIdentify) {
+    public Observable<UserInfo> authenticate(String token, String gameIdentify, int carrier) {
         AntiAddictionApi api = Skynet.getService(Skynet.RETROFIT_FOR_ANTI_ADDICTION, AntiAddictionApi.class);
-        AuthenticateRequestParams params = new AuthenticateRequestParams(token, gameIdentify, 0);
+        AuthenticateRequestParams params = new AuthenticateRequestParams(token, gameIdentify, carrier);
         return api.authenticate(params);
     }
 

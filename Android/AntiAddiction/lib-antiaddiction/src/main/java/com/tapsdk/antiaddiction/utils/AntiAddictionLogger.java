@@ -19,19 +19,15 @@ public class AntiAddictionLogger {
     }
 
     public static void e(String message) {
-        if (debuggable) {
-            Log.e(TAG, "error ----- message: " + message );
-        }
+        Log.e(TAG, "error ----- message: " + message );
     }
 
     public static void w(String message) {
-        if (debuggable) {
-            Log.w(TAG, "warning ----- message: " + message );
-        }
+        Log.w(TAG, "warning ----- message: " + message );
     }
 
     public static void printStackTrace(Exception e, boolean downgrade) {
-        if (debuggable && e != null) {
+        if ( e != null) {
             if (downgrade) {
                 w(e.getMessage());
             } else {
@@ -41,8 +37,14 @@ public class AntiAddictionLogger {
     }
 
     public static void printStackTrace(Exception e) {
-        if (debuggable && e != null) {
+        if (null != e) {
             printStackTrace(e, false);
+        }
+    }
+
+    public static void printStackTrace(Throwable t) {
+        if (null != t) {
+            printStackTrace(new Exception(t));
         }
     }
 }

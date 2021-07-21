@@ -9,6 +9,7 @@ public class Constants {
     public static class API {
         public static final String ANTI_ADDICTION_BASE_URL = BuildConfig.ANTI_ADDICTION_HOST;
         public static final String IDENTIFY_BASE_URL = BuildConfig.IDENTIFICATION_HOST;
+        public static final String WEB_SOCKET_HOST = BuildConfig.WEB_SOCKET_HOST;
         public static final String ACCESS_TOKEN_TYPE_BEARER = "Bearer";
     }
 

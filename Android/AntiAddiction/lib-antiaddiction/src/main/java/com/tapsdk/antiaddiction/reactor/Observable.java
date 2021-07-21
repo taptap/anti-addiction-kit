@@ -49,7 +49,7 @@ public class Observable<T> {
         // cover for generics insanity
     }
 
-    private Observable(OnSubscribe<T> onSubscribe) {
+    public Observable(OnSubscribe<T> onSubscribe) {
         this.onSubscribe = onSubscribe;
     }
 

@@ -13,6 +13,8 @@ import com.tapsdk.antiaddiction.entities.IdentificationInfo;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                         .build()
                 , new AntiAddictionCallback() {
                     @Override
-                    public void onCallback(int code, String msg) {
+                    public void onCallback(int code, Map<String, Object> msg) {
                         AntiAddictionLogger.d("result:(" + code + "," + msg + ")");
                     }
                 }
@@ -58,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AntiAddictionKit.authIdentity("456"
-                        , "何兴华"
-                        , "310112198409285217"
-                        , "15901963713"
+                        , "蒋家豪"
+                        , "330825199306280032"
+                        , "13580460916"
                         , new Callback<IdentifyResult>() {
                             @Override
                             public void onSuccess(IdentifyResult result) {
