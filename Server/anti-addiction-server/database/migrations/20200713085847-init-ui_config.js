@@ -12,7 +12,7 @@ module.exports = {
         const {INTEGER, DATE, STRING} = Sequelize;
         await queryInterface.createTable(table, {
             id: {type: INTEGER(10), primaryKey: true, autoIncrement: true},
-            group: {type: INTEGER(1), allowNull: false, defaultValue: 1, comment: "文案分组 1-线上版 2-线上版"},
+            group: {type: INTEGER(1), allowNull: false, defaultValue: 1, comment: "文案分组 1-线上版 2-版署版"},
             type: {
                 type: INTEGER(3),
                 allowNull: false,
