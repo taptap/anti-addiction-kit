@@ -46,7 +46,7 @@ class FcmController extends Controller {
     if (lodash.isEmpty(game)) {
       return ctx.helper.result(400, '未上传正确game');
     }
-    if(!lodash.isNumber(amount) && amount<0){
+    if(!lodash.isNumber(amount) || amount<0){
       return ctx.helper.result(400, '未上传正确的金额');
     }
     try {

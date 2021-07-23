@@ -20,5 +20,7 @@ module.exports = app => {
   router.post('/v3/fcm/real_user_info', checkToken, controller.v3.identify.real_user_info);
   router.post('/v3/fcm/charge', controller.v3.identify.charge);
   //tools,测试阶段重置用户防沉迷时间
-  router.post('/tools/reset_time',controller.v3.tools.reset_time);
+  router.post('/tools/cost_time',controller.v3.tools.cost_time);
+  router.post('/tools/set_curfew',controller.v3.tools.set_curfew);
+
 };

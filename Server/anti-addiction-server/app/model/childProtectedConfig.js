@@ -30,5 +30,19 @@ module.exports = app => {
         'child_holiday_time','night_strict_start','night_strict_end','night_strict_warn','remain_time_warn','upload_all_data']
     });
   };
+  ChildProtectedConfig.setCurfew = async function(curfew_start,curfew_end){
+    return this.update({
+          night_strict_start:curfew_start,
+          night_strict_end:curfew_end
+        },
+        {
+          where:{
+            id : 1
+          }
+        }
+    ).then(function(effect) {
+      return effect[0] > 0;
+    });
+  }
   return ChildProtectedConfig;
 };

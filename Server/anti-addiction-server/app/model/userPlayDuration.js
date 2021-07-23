@@ -91,9 +91,9 @@ module.exports = app => {
   };
 
 
-  userPlayDuration.resetTime = async function(day,duration_key,game){
+  userPlayDuration.costTime = async function(day,duration_key,game,cost_time){
     return this.update({
-          duration:0
+          duration:cost_time
         },
         {
           where:{
