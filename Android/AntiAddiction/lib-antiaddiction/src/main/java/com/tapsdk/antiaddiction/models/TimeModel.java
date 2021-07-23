@@ -9,8 +9,6 @@ import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 
-import java.io.IOException;
-
 public class TimeModel {
 
     public static Long getServerTimeSync() {

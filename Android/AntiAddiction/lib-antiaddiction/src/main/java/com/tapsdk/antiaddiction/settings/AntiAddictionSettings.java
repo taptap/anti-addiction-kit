@@ -3,8 +3,15 @@ package com.tapsdk.antiaddiction.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-
 import com.google.gson.GsonBuilder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.entities.CommonConfig;
 import com.tapsdk.antiaddiction.entities.HealthPromptGroup;
@@ -14,16 +21,7 @@ import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 import com.tapsdk.antiaddiction.utils.FileUtil;
 
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-public class Settings {
+public class AntiAddictionSettings {
 
     private final Map<String, SharedPreferences> spCache = new HashMap<>();
 
@@ -33,13 +31,13 @@ public class Settings {
     private Set<String> holidaySet = new HashSet<>();
 
     static class Holder {
-        static Settings INSTANCE = new Settings();
+        static AntiAddictionSettings INSTANCE = new AntiAddictionSettings();
     }
 
-    private Settings() {
+    private AntiAddictionSettings() {
     }
 
-    public static Settings getInstance() {
+    public static AntiAddictionSettings getInstance() {
         return Holder.INSTANCE;
     }
 
@@ -66,7 +64,7 @@ public class Settings {
 
     public void saveLatestData(Context context, String userId, long start, long end, long localStart, long localEnd) {
         SharedPreferences.Editor editor = getSpecificSharedPreference(context, getSPNameByToken(userId)).edit();
-        String historicalData = Settings.getInstance().getHistoricalData(context, userId);
+        String historicalData = AntiAddictionSettings.getInstance().getHistoricalData(context, userId);
         String latestData = historicalData +
                 start + "," + end + "," +
                 localStart + "," + localEnd + ";";
@@ -147,12 +145,10 @@ public class Settings {
 
     public boolean isHolidayInMillis(long timeMillis) {
         SimpleDateFormat formatter = new SimpleDateFormat("MM.dd", Locale.getDefault());
-        AntiAddictionLogger.d("isHolidayInMillis:" + formatter.format(timeMillis));
         return isHoliday(formatter.format(timeMillis));
     }
 
     public boolean isHoliday(String date) {
-        AntiAddictionLogger.d("isHoliday:" + holidaySet.contains(date));
         return holidaySet.contains(date);
     }
 

@@ -1,6 +1,6 @@
 package com.tapsdk.antiaddiction.rest.api;
 
-import com.tapsdk.antiaddiction.entities.AntiAddictionConfig;
+import com.tapsdk.antiaddiction.entities.CommonConfig;
 import com.tapsdk.antiaddiction.entities.SubmitPlayLogResult;
 import com.tapsdk.antiaddiction.entities.UserInfo;
 import com.tapsdk.antiaddiction.entities.request.AuthenticateRequestParams;
@@ -13,8 +13,6 @@ import com.tapsdk.antiaddiction.skynet.retrofit2.http.GET;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Headers;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.POST;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Query;
-
-import java.util.concurrent.Callable;
 
 public interface AntiAddictionApi {
 
@@ -38,7 +36,7 @@ public interface AntiAddictionApi {
      * @return {code,data}
      */
     @GET("/v3/fcm/get_config")
-    Call<AntiAddictionConfig> fetchConfig(@Query("game") String gameIdentifier);
+    Call<CommonConfig> fetchConfig(@Query("game") String gameIdentifier);
 
     /**
      * Get server unix time

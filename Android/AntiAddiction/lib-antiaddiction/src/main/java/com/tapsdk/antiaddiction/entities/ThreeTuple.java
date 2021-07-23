@@ -11,5 +11,4 @@ public class ThreeTuple<U,V,W> extends TwoTuple<U,V>{
     public static <U, V, W> ThreeTuple<U, V, W> create(U u, V v, W w) {
         return new ThreeTuple<>(u, v, w);
     }
-
 }

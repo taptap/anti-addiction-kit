@@ -31,7 +31,10 @@ public class Constants {
 
     public static class IdentificationConfig {
         public static final String SECRET_KEY = BuildConfig.IDENTIFICATION_SECRET_KEY;
+    }
 
-
+    public static class CacheData {
+        public static final String TIMING_FILE_SUFFIX = "timing_file_suffix";
+        public static final String TIMING_SHARED_PREFERENCE_NAME = "timing_shared_preference_name";
     }
 }

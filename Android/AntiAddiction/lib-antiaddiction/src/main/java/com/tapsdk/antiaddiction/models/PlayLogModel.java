@@ -12,7 +12,6 @@ import com.tapsdk.antiaddiction.skynet.Skynet;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.RealResponseBody;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
 import com.tapsdk.antiaddiction.utils.TimeUtil;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -54,7 +53,7 @@ public class PlayLogModel {
 
     private static long[][] getUnSentGameTimes(Context context, UserInfo userInfo) {
         if (userInfo == null) return new long[1][];
-        String savedTimes = AntiAddictionSettings.getInstance().getCountTime(context, userInfo.userId);
+        String savedTimes = AntiAddictionSettings.getInstance().getHistoricalData(context, userInfo.userId);
         if (savedTimes.length() == 0) return null;
         long[][] timeArray;
         String[] segments = savedTimes.split(";");
@@ -102,7 +101,6 @@ public class PlayLogModel {
             AntiAddictionApi api = Skynet.getService(Skynet.RETROFIT_FOR_ANTI_ADDICTION, AntiAddictionApi.class);
             playLogs.login = isLogin ? 1 : 0;
             Response<SubmitPlayLogResult> response  = api.uploadPlayLogSync(playLogs).execute();
-            response.body().checkUser = isLogin;
             return response;
         } catch (IOException | NullPointerException | JsonSyntaxException e) {
             e.printStackTrace();

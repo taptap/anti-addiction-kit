@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
 import com.tapsdk.antiaddiction.constants.Constants;
-import com.tapsdk.antiaddiction.entities.AntiAddictionConfig;
+import com.tapsdk.antiaddiction.entities.CommonConfig;
 import com.tapsdk.antiaddiction.entities.IdentificationInfo;
 import com.tapsdk.antiaddiction.entities.SubmitPlayLogResult;
 import com.tapsdk.antiaddiction.entities.TwoTuple;
@@ -20,7 +20,8 @@ import com.tapsdk.antiaddiction.entities.request.PlayLogRequestParams;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
 import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
 import com.tapsdk.antiaddiction.models.ConfigModel;
-import com.tapsdk.antiaddiction.models.CountTimeModel;
+import com.tapsdk.antiaddiction.models.PaymentModel;
+import com.tapsdk.antiaddiction.models.TimingModel;
 import com.tapsdk.antiaddiction.models.IdentityModel;
 import com.tapsdk.antiaddiction.models.PlayLogModel;
 import com.tapsdk.antiaddiction.models.TimeModel;
@@ -66,14 +67,15 @@ public class AntiAddictionImpl implements IAntiAddiction {
     private String gameIdentifier;
     private AntiAddictionFunctionConfig antiAddictionFunctionConfig;
     private AntiAddictionCallback antiAddictionCallback;
-    private Handler mainLooperHandler = new Handler(Looper.getMainLooper());
+    private final Handler mainLooperHandler = new Handler(Looper.getMainLooper());
 
     private boolean canPlay = false;
 
     private final UserModel userModel = new UserModel();
     private final IdentityModel identityModel = new IdentityModel();
     private final ConfigModel configModel = new ConfigModel();
-    private CountTimeModel countTimeModel;
+    private TimingModel timingModel;
+    private final PaymentModel paymentModel = new PaymentModel();
 
     private final Gson gson = new GsonBuilder().create();
 
@@ -171,7 +173,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
         this.gameIdentifier = gameIdentifier;
         this.antiAddictionFunctionConfig = antiAddictionFunctionConfig;
         this.antiAddictionCallback = antiAddictionCallback;
-        this.countTimeModel = new CountTimeModel(userModel, activity.getApplicationContext(), gameIdentifier);
+        this.timingModel = new TimingModel(userModel, activity.getApplicationContext(), gameIdentifier);
         initSkynet();
         initialized = true;
     }
@@ -205,9 +207,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
                         AntiAddictionLogger.d("check user state");
                         userModel.setCurrentUser(userInfo);
                         Context context = application.getApplicationContext();
-                        AntiAddictionConfig defaultConfig = AntiAddictionSettings.getInstance().getCommonDefaultConfig(context);
+                        CommonConfig defaultConfig = AntiAddictionSettings.getInstance().getCommonDefaultConfig(context);
                         AntiAddictionLogger.d("------fetch config------");
-                        AntiAddictionConfig config = configModel.fetchCommonConfig(gameIdentifier);
+                        CommonConfig config = configModel.fetchCommonConfig(gameIdentifier);
                         if (config == null) {
                             AntiAddictionLogger.d("fetch system config fail use default config");
                             config = defaultConfig;
@@ -224,7 +226,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                         } else {
                             AntiAddictionLogger.d("fetch server time success:" + serverTime);
                         }
-                        countTimeModel.setRecentServerTime(serverTime);
+                        timingModel.setRecentServerTimeInSecond(serverTime);
 
                         AntiAddictionLogger.d("------get player left time------");
                         PlayLogRequestParams playLogRequestParams
@@ -238,7 +240,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                         if (response.code() == 200) {
                             UserInfo currentUser = userModel.getCurrentUser();
                             userModel.getCurrentUser().resetRemainTime(response.body().remainTime);
-                            AntiAddictionSettings.getInstance().clearCountTime(context, userModel.getCurrentUser().userId);
+                            AntiAddictionSettings.getInstance().clearHistoricalData(context, userModel.getCurrentUser().userId);
                             AntiAddictionLogger.d("player left time:" + response.body().remainTime);
                             if (currentUser.accountType == Constants.UserType.USER_TYPE_ADULT) {
                                 AntiAddictionLogger.d("player's type is adult");
@@ -278,7 +280,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                                     || currentUser.accountType == Constants.UserType.USER_TYPE_UNKNOWN) {
                                 processGuest(result.secondParam, currentUser);
                             } else {
-                                processNonage(result.secondParam, currentUser);
+                                processNonage(result.secondParam);
                             }
                         } else {
                             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
@@ -309,22 +311,22 @@ public class AntiAddictionImpl implements IAntiAddiction {
             if (result.restrictType == 1) {
                 // 线上版未实名和游客没有宵禁类型
                 // so只有版暑版会出现此条逻辑
-                tipContent = settings.getAntiAddictionFeedBack(userInfo.accountType, 10);
+                tipContent = settings.getPromptInfo(userInfo.accountType, 10);
                 if (tipContent == null) {
-                    tipContent = settings.getAntiAddictionFeedBack(userInfo.accountType, 9);
+                    tipContent = settings.getPromptInfo(userInfo.accountType, 9);
                 }
             } else {
-                tipContent = settings.getAntiAddictionFeedBack(userInfo.accountType, 9);
+                tipContent = settings.getPromptInfo(userInfo.accountType, 9);
             }
             strictType = result.restrictType;
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_TIME_LIMIT, null);
         } else if (result.costTime == 0) {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
-            tipContent = settings.getAntiAddictionFeedBack(userInfo.accountType, 7);
+            tipContent = settings.getPromptInfo(userInfo.accountType, 7);
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
         } else {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
-            tipContent = settings.getAntiAddictionFeedBack(userInfo.accountType, 8);
+            tipContent = settings.getPromptInfo(userInfo.accountType, 8);
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
         }
         String description = tipContent.secondParam.replace("${remaining}", String.valueOf(TimeUtil.getMinute(result.remainTime)));
@@ -332,7 +334,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 , description, limitTipEnum, strictType));
     }
 
-    private void processNonage(SubmitPlayLogResult result, UserInfo userInfo) {
+    private void processNonage(SubmitPlayLogResult result) {
         if (result.restrictType > 0) {
             AccountLimitTipEnum limitTipEnum;
             if (result.restrictType == 1) {
@@ -373,30 +375,30 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
     @Override
     public void logout() {
-//        countTimeService.logout();
         WebSocketManager.getInstance().close();
+        userModel.logout();
         canPlay = false;
     }
 
     private IReceiveMessage receiveMessageImpl = new IReceiveMessage() {
         @Override
         public void onConnectSuccess() {
-
+            AntiAddictionLogger.d("webSocket onConnectSuccess");
         }
 
         @Override
         public void onConnectFailed() {
-
+            AntiAddictionLogger.d("webSocket onConnectFailed");
         }
 
         @Override
         public void onClose() {
-
+            AntiAddictionLogger.d("webSocket onClose");
         }
 
         @Override
         public void onMessage(String text) {
-
+            AntiAddictionLogger.d("webSocket onMessage:" + text);
         }
     };
 
@@ -405,8 +407,10 @@ public class AntiAddictionImpl implements IAntiAddiction {
         if (!antiAddictionFunctionConfig.onLineTimeLimitEnabled()
                 || userModel.getCurrentUser() == null
                 || !initialized
-                || !canPlay) return;
-        countTimeModel.bind();
+                || !canPlay
+                || (!AntiAddictionSettings.getInstance().needUploadAllData()
+                && userModel.getCurrentUser().accountType == Constants.UserType.USER_TYPE_ADULT)) return;
+        timingModel.bind();
         WebSocketManager.getInstance().init(userModel.getCurrentUser().accessToken, gameIdentifier, receiveMessageImpl, Constants.API.WEB_SOCKET_HOST);
     }
 
@@ -416,7 +420,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 || userModel.getCurrentUser() == null
                 || !initialized
                 || !canPlay) return;
-        countTimeModel.unbind();
+        timingModel.unbind();
         WebSocketManager.getInstance().close();
     }
 
@@ -426,6 +430,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 || userModel.getCurrentUser() == null
                 || !initialized
                 || !canPlay) return;
+
+
     }
 
     @Override

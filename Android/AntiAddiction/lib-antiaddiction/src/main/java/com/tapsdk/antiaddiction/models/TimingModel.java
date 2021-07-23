@@ -7,6 +7,9 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.os.SystemClock;
+
+import java.util.Date;
+
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.entities.ChildProtectedConfig;
 import com.tapsdk.antiaddiction.entities.SubmitPlayLogResult;
@@ -15,34 +18,22 @@ import com.tapsdk.antiaddiction.entities.TwoTuple;
 import com.tapsdk.antiaddiction.entities.UserInfo;
 import com.tapsdk.antiaddiction.entities.request.PlayLogRequestParams;
 import com.tapsdk.antiaddiction.models.internal.TransactionHandler;
+import com.tapsdk.antiaddiction.reactor.functions.Action1;
+import com.tapsdk.antiaddiction.reactor.rxandroid.schedulers.AndroidSchedulers;
 import com.tapsdk.antiaddiction.settings.AntiAddictionSettings;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.RealResponseBody;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 import com.tapsdk.antiaddiction.utils.TimeUtil;
-import java.util.Date;
 
-public class CountTimeModel {
+public class TimingModel {
 
     private final UserModel userModel;
     private final Context context;
     private final String game;
     private final Handler mainLooperHandler = new Handler(Looper.getMainLooper());
 
-    private CountTimeModel() {
-        userModel = null;
-        context = null;
-        game = null;
-    }
-
-    public CountTimeModel(UserModel userModel, Context context, String game) {
-        this.userModel = userModel;
-        this.context = context;
-        this.game = game;
-    }
-
-    private volatile long lastProcessTime = -1L;
-    private long recentServerTime = -1L;
+    private volatile long lastProcessTimeInSecond = -1L;
+    private long recentServerTimeInSecond = -1L;
 
     private boolean isCountDown1 = false;
     private boolean isCountDown2 = false;
@@ -50,15 +41,33 @@ public class CountTimeModel {
     private int countDownRemainTime = 0;
     private int remainTime = 0;
 
+    public TimingModel(UserModel userModel, Context context, String game) {
+        this.userModel = userModel;
+        this.context = context;
+        this.game = game;
+        initLoginStatusChangedListener();
+    }
+
+    private void initLoginStatusChangedListener() {
+        userModel.getUserLoginStatusChangedObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean logged) {
+                        if (!logged) {
+                            unbind();
+                        }
+                    }
+                });
+    }
+
     public void bind() {
+        AntiAddictionLogger.d("bind");
+        unbind();
         mainLooperHandler.post(new Runnable() {
             @Override
             public void run() {
-                unbind();
                 if (userModel == null || userModel.getCurrentUser() == null) return;
-                if (!AntiAddictionSettings.getInstance().needUploadAllData()
-                        && userModel.getCurrentUser().accountType == Constants.UserType.USER_TYPE_ADULT) return;
-
                 mHandlerThread = new HandlerThread("AntiAddictionMonitor", Process.THREAD_PRIORITY_BACKGROUND);
                 mHandlerThread.start();
                 mHandler = new TransactionHandler(mHandlerThread.getLooper(), interactiveOperation);
@@ -70,6 +79,7 @@ public class CountTimeModel {
     }
 
     public void unbind() {
+        AntiAddictionLogger.d("unbind");
         mainLooperHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -87,8 +97,8 @@ public class CountTimeModel {
     }
 
 
-    public void setRecentServerTime(long serverTime) {
-        recentServerTime = serverTime;
+    public void setRecentServerTimeInSecond(long serverTime) {
+        recentServerTimeInSecond = serverTime;
     }
 
     private HandlerThread mHandlerThread = null;
@@ -96,48 +106,51 @@ public class CountTimeModel {
     private TransactionHandler mHandler = null;
 
     private Response<SubmitPlayLogResult> sendGameTimeToServerSync() throws Throwable {
-        if (userModel == null || userModel.getCurrentUser() == null) throw new Exception("sendGameTimeToServerSync exception");
+        if (userModel == null || userModel.getCurrentUser() == null)
+            throw new Exception("sendGameTimeToServerSync exception");
         UserInfo userInfo = userModel.getCurrentUser().clone();
 
         AntiAddictionLogger.d("-------sendGameTimeToServerSync-------");
         long localStartSeconds, localEndSeconds, serverStartSeconds, serverEndSeconds;
-        AntiAddictionLogger.d("elapsedRealtime:" + SystemClock.elapsedRealtime() + " lastProcessGameTimeStamp:" + lastProcessTime);
-        long cur = SystemClock.elapsedRealtime();
+
+        long curTimeInSecond = SystemClock.elapsedRealtime() / 1000;
+        AntiAddictionLogger.d("elapsedRealTimeInSecond:" + curTimeInSecond + " lastProcessGameTimeInSeconds:" + lastProcessTimeInSecond);
         long diff = 0;
-        if (lastProcessTime == -1L) {
-            localStartSeconds = recentServerTime;
-            localEndSeconds = recentServerTime;
-            serverStartSeconds = recentServerTime;
-            serverEndSeconds = recentServerTime;
+        if (lastProcessTimeInSecond == -1L) {
+            localStartSeconds = recentServerTimeInSecond;
+            localEndSeconds = recentServerTimeInSecond;
+            serverStartSeconds = recentServerTimeInSecond;
+            serverEndSeconds = recentServerTimeInSecond;
         } else {
-            diff = cur - lastProcessTime;
-            localStartSeconds = recentServerTime ;
-            localEndSeconds = Math.round(recentServerTime + diff * 1.0 / 1000);
-            serverStartSeconds = recentServerTime / 1000;
-            serverEndSeconds = Math.round(recentServerTime + diff * 1.0/ 1000);
+            diff = curTimeInSecond - lastProcessTimeInSecond;
+            localStartSeconds = recentServerTimeInSecond;
+            localEndSeconds = Math.round(recentServerTimeInSecond + diff);
+            serverStartSeconds = recentServerTimeInSecond;
+            serverEndSeconds = Math.round(recentServerTimeInSecond + diff);
         }
 
         PlayLogRequestParams playLogRequestParams = PlayLogModel.getPlayLog(context, userInfo
-                , game, serverStartSeconds,serverEndSeconds, localStartSeconds, localEndSeconds
-                , recentServerTime);
-//        Response<SubmitPlayLogResult> response = PlayLogModel.uploadPlayLogSync(playLogRequestParams, false);
-//        if (response.code() == 200) {
-//            setRecentServerTime(recentServerTime + diff);
-//            lastProcessTime = cur;
-//        }
-        Response<SubmitPlayLogResult> response = Response.error(400, new RealResponseBody("", 0, null));
+                , game, serverStartSeconds, serverEndSeconds, localStartSeconds, localEndSeconds
+                , recentServerTimeInSecond);
+        Response<SubmitPlayLogResult> response = PlayLogModel.uploadPlayLogSync(playLogRequestParams, false);
+        if (response.code() == 200) {
+            setRecentServerTimeInSecond(recentServerTimeInSecond + diff);
+            AntiAddictionLogger.d("after update elapsedRealtime:" + recentServerTimeInSecond);
+        }
+        lastProcessTimeInSecond = curTimeInSecond;
 
         return response;
     }
 
     private SubmitPlayLogResult syncTime() throws Throwable {
-        if (userModel == null || userModel.getCurrentUser() == null) throw new Exception("syncTime exception");
+        if (userModel == null || userModel.getCurrentUser() == null)
+            throw new Exception("syncTime exception");
 
-        Response<SubmitPlayLogResult> response = sendGameTimeToServerSync();
         UserInfo userInfo = userModel.getCurrentUser().clone();
+        Response<SubmitPlayLogResult> response = sendGameTimeToServerSync();
         SubmitPlayLogResult result = response.body();
         if (result != null && response.code() == 200) {
-            AntiAddictionSettings.getInstance().clearCountTime(context, userInfo.userId);
+            AntiAddictionSettings.getInstance().clearHistoricalData(context, userInfo.userId);
             if (mHandler != null) userInfo.resetRemainTime(result.remainTime);
             AntiAddictionLogger.d("local left time:" + result.remainTime);
         } else {
@@ -152,43 +165,43 @@ public class CountTimeModel {
     }
 
     private void reset() {
-        AntiAddictionLogger.d("reset:" + TimeUtil.getFullTime(recentServerTime));
-        if (recentServerTime != -1L && lastProcessTime != -1) {
-            setRecentServerTime(recentServerTime + (SystemClock.elapsedRealtime() - lastProcessTime));
+        AntiAddictionLogger.d("reset:" + TimeUtil.getFullTime(recentServerTimeInSecond));
+        if (recentServerTimeInSecond != -1L && lastProcessTimeInSecond != -1) {
+            setRecentServerTimeInSecond(recentServerTimeInSecond + (SystemClock.elapsedRealtime() - lastProcessTimeInSecond));
 
-            AntiAddictionLogger.d("reset:" + TimeUtil.getFullTime(recentServerTime * 1000));
+            AntiAddictionLogger.d("reset:" + TimeUtil.getFullTime(recentServerTimeInSecond * 1000));
         }
-        lastProcessTime = -1L;
+        lastProcessTimeInSecond = -1L;
         isCountDown1 = false;
         isCountDown2 = false;
     }
 
-    private SubmitPlayLogResult handleLocalePlayLog(UserInfo userInfo) throws Exception {
+    private SubmitPlayLogResult handleLocalePlayLog(UserInfo userInfo) {
 
         long localStartSeconds, localEndSeconds, serverStartSeconds, serverEndSeconds;
-        long cur = SystemClock.elapsedRealtime();
-        if (lastProcessTime == -1L) {
-            AntiAddictionLogger.d("handleLocalePlayLog first time");
-            localStartSeconds = recentServerTime;
-            localEndSeconds = recentServerTime;
-            serverStartSeconds = recentServerTime;
-            serverEndSeconds = recentServerTime;
+        long curTimeInSecond = SystemClock.elapsedRealtime() / 1000;
+        if (lastProcessTimeInSecond == -1L) {
+            localStartSeconds = recentServerTimeInSecond;
+            localEndSeconds = recentServerTimeInSecond;
+            serverStartSeconds = recentServerTimeInSecond;
+            serverEndSeconds = recentServerTimeInSecond;
         } else {
-            AntiAddictionLogger.d("handlePlayLogLocale from ");
-            long diff = cur - lastProcessTime;
-            localStartSeconds = recentServerTime;
-            localEndSeconds = Math.round(recentServerTime + diff * 1.0 / 1000);
-            serverStartSeconds = recentServerTime;
-            serverEndSeconds = Math.round(recentServerTime + diff * 1.0 / 1000);
-            setRecentServerTime(recentServerTime + diff);
+            long diffInSecond = curTimeInSecond - lastProcessTimeInSecond;
+            localStartSeconds = recentServerTimeInSecond;
+            localEndSeconds = Math.round(recentServerTimeInSecond + diffInSecond);
+            serverStartSeconds = recentServerTimeInSecond;
+            serverEndSeconds = Math.round(recentServerTimeInSecond + diffInSecond);
+            setRecentServerTimeInSecond(recentServerTimeInSecond + diffInSecond);
         }
-        lastProcessTime = cur;
+
+        lastProcessTimeInSecond = curTimeInSecond;
         print(localStartSeconds
                 , localEndSeconds
                 , serverStartSeconds
                 , serverEndSeconds);
         saveLostTimestamp(userInfo, serverStartSeconds, serverEndSeconds, localStartSeconds, localEndSeconds);
-        if (userModel != null) userModel.getCurrentUser().updateRemainTime((int) (localEndSeconds - localStartSeconds));
+        if (userModel != null)
+            userModel.getCurrentUser().updateRemainTime((int) (localEndSeconds - localStartSeconds));
         return generateLocalPlayLogResult(userInfo);
     }
 
@@ -211,9 +224,9 @@ public class CountTimeModel {
             result.restrictType = 0;
             return result;
         }
-        AntiAddictionLogger.d("generateLocalPlayLogResult [serverTime]:" + TimeUtil.getFullTime(recentServerTime * 1000));
+        AntiAddictionLogger.d("generateLocalPlayLogResult [serverTime]:" + TimeUtil.getFullTime(recentServerTimeInSecond * 1000));
         ChildProtectedConfig config = AntiAddictionSettings.getInstance().getCommonConfig().childProtectedConfig;
-        int toNightTime = TimeUtil.getTimeToNightStrict(config.nightStrictStart, config.nightStrictEnd, recentServerTime * 1000);
+        int toNightTime = TimeUtil.getTimeToNightStrict(config.nightStrictStart, config.nightStrictEnd, recentServerTimeInSecond * 1000);
         int toLimitTime = userInfo.remainTime;
         restrictType = toNightTime > toLimitTime ? 2 : 1;
         remainTime = Math.min(Math.max(toLimitTime, 0), Math.max(toNightTime, 0));
@@ -243,7 +256,7 @@ public class CountTimeModel {
             } else {
                 costTime = config.childCommonTime;
             }
-            TwoTuple<String, String> tipInfo = AntiAddictionSettings.getInstance().getAntiAddictionFeedBack(userInfo.accountType, type);
+            TwoTuple<String, String> tipInfo = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, type);
             result.title = tipInfo.firstParam;
             result.description = tipInfo.secondParam.replace("${remaining}", String.valueOf(costTime / 60));
         }
@@ -281,14 +294,14 @@ public class CountTimeModel {
         }
     }
 
-    class CountTimeInteractiveOperation implements TransactionHandler.InteractiveOperation{
+    class CountTimeInteractiveOperation implements TransactionHandler.InteractiveOperation {
 
         @Override
         public void countTime() {
             if (userModel == null) return;
             long serverTime = TimeModel.getServerTimeSync();
             if (serverTime != -1L) {
-                setRecentServerTime(serverTime);
+                setRecentServerTimeInSecond(serverTime);
             }
             try {
                 SubmitPlayLogResult result = syncTime();
@@ -352,7 +365,7 @@ public class CountTimeModel {
         }
 
         @Override
-        public void childTimeRunout(int strictType) {
+        public void childTimeRunOut(int strictType) {
 
         }
 

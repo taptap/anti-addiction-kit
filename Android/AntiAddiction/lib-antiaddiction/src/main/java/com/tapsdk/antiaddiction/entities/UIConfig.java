@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class UIConfig {
+
     @SerializedName("health_reminder_words")
-    public List<HealthReminderWordsGroup> healthReminderWords;
+    public List<HealthPromptGroup> healthPromptGroups;
 }

@@ -21,10 +21,4 @@ public class SubmitPlayLogResult {
 
     @SerializedName("costTime")
     public int costTime;
-
-    /**
-     * 用来区分是用户检测还是上报时长
-     */
-    public boolean checkUser;
-
 }

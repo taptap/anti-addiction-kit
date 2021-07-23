@@ -17,8 +17,8 @@ public class TransactionHandler extends Handler {
     public final static int MESSAGE_LOGOUT = 5;
 
     // timed task
-    public final static int COUNT_TIME_PERIOD = 2 * 60 * 1000;
-    // public final static int COUNT_TIME_PERIOD = 10 * 1000;
+//    public final static int COUNT_TIME_PERIOD = 2 * 60 * 1000;
+     public final static int COUNT_TIME_PERIOD = 10 * 1000;
     public final static int COUNT_DOWN_PERIOD = 1000;
 
     private final InteractiveOperation operation;
@@ -32,7 +32,7 @@ public class TransactionHandler extends Handler {
 
         void stopCountDownTimerAndUpdateServerTime();
 
-        void childTimeRunout(int strictType);
+        void childTimeRunOut(int strictType);
 
         void logout();
     }
@@ -50,6 +50,7 @@ public class TransactionHandler extends Handler {
             switch (msg.what) {
                 case MESSAGE_COUNT_TIME:
                     operation.countTime();
+                    AntiAddictionLogger.d("MESSAGE_COUNT_TIME:" + COUNT_TIME_PERIOD);
                     sendMessageDelayed(Message.obtain(msg), COUNT_TIME_PERIOD);
                     break;
                 case MESSAGE_COUNT_DOWN:
@@ -65,7 +66,7 @@ public class TransactionHandler extends Handler {
                     break;
                 case MESSAGE_CHILD_TIME_RUN_OUT:
                     int strictType = (int) msg.obj;
-                    operation.childTimeRunout(strictType);
+                    operation.childTimeRunOut(strictType);
                     break;
                 case MESSAGE_LOGOUT:
                     operation.logout();

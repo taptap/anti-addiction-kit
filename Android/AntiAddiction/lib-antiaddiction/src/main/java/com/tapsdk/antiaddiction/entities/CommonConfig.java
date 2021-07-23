@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class AntiAddictionConfig implements Serializable {
+public class CommonConfig implements Serializable {
 
     @SerializedName("child_protected_config")
     public ChildProtectedConfig childProtectedConfig;

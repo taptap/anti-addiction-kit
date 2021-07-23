@@ -1,6 +1,6 @@
 package com.tapsdk.antiaddiction.models;
 
-import com.tapsdk.antiaddiction.entities.AntiAddictionConfig;
+import com.tapsdk.antiaddiction.entities.CommonConfig;
 import com.tapsdk.antiaddiction.rest.api.AntiAddictionApi;
 import com.tapsdk.antiaddiction.skynet.Skynet;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
@@ -10,17 +10,17 @@ import java.io.IOException;
 
 public class ConfigModel {
 
-    private AntiAddictionConfig antiAddictionConfig;
+    private CommonConfig commonConfig;
 
-    public AntiAddictionConfig fetchCommonConfig(String game) {
-        if (antiAddictionConfig != null) return antiAddictionConfig;
+    public CommonConfig fetchCommonConfig(String game) {
+        if (commonConfig != null) return commonConfig;
         AntiAddictionApi antiAddictionApi = Skynet.getService(Skynet.RETROFIT_FOR_ANTI_ADDICTION, AntiAddictionApi.class);
         try {
-            Call<AntiAddictionConfig> call = antiAddictionApi.fetchConfig(game);
-            Response<AntiAddictionConfig> response = call.execute();
+            Call<CommonConfig> call = antiAddictionApi.fetchConfig(game);
+            Response<CommonConfig> response = call.execute();
             if (response.isSuccessful()) {
-                antiAddictionConfig = response.body();
-                return antiAddictionConfig;
+                commonConfig = response.body();
+                return commonConfig;
             }
         } catch (IOException e) {
             e.printStackTrace();

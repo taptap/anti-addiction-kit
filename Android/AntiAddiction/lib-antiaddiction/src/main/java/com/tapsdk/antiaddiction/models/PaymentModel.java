@@ -1,2 +1,4 @@
-package com.tapsdk.antiaddiction.models;public class PaymentModel {
+package com.tapsdk.antiaddiction.models;
+
+public class PaymentModel {
 }

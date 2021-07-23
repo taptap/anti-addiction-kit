@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class TimeUtil {
@@ -17,13 +18,6 @@ public class TimeUtil {
     public static final int SECONDS_IN_DAY = 60 * 60 * 24;
     public static final long MILLIS_IN_DAY = 1000L * SECONDS_IN_DAY;
 
-    /**
-     * 获取剩余时间
-     *
-     * @param accountType 账号类型
-     * @param serverTime  服务器时间
-     * @return
-     */
     public static int getDefaultRemainTime(int accountType, long serverTime, ChildProtectedConfig childProtectedConfig) {
         if (accountType == Constants.UserType.USER_TYPE_UNKNOWN) return childProtectedConfig.guestTime;
         if (isHoliday(serverTime)) {
@@ -35,7 +29,7 @@ public class TimeUtil {
 
     public static boolean isHoliday(long time) {
         long currentTime = time * 1000;
-        SimpleDateFormat formatter = new SimpleDateFormat("MM:dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM:dd", Locale.getDefault());
         String dateString = formatter.format(currentTime);
         int month = Integer.parseInt(dropZero(dateString.substring(0, 2)));
         int day = Integer.parseInt(dropZero(dateString.substring(3)));
@@ -131,10 +125,9 @@ public class TimeUtil {
         return diffNow(strictStartStr, serverTime);
     }
 
-    public static String getFullTime(long timeMillis) {
-
+    public static String getFullTime(long timeInMillis) {
         try {
-            CharSequence val = DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date(timeMillis));
+            CharSequence val = DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date(timeInMillis));
             return val.toString();
         } catch (NumberFormatException e) {
             return "";

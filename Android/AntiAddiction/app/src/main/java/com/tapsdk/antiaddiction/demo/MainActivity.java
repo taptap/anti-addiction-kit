@@ -3,6 +3,7 @@ package com.tapsdk.antiaddiction.demo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.tapsdk.antiaddiction.AntiAddictionCallback;
@@ -88,5 +89,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.startTimingButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AntiAddictionKit.enterGame();
+            }
+        });
+
+        findViewById(R.id.stopTimingButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AntiAddictionKit.leaveGame();
+            }
+        });
     }
 }

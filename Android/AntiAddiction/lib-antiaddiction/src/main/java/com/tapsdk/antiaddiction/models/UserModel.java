@@ -4,6 +4,7 @@ import com.tapsdk.antiaddiction.entities.IdentificationInfo;
 import com.tapsdk.antiaddiction.entities.UserInfo;
 import com.tapsdk.antiaddiction.entities.request.AuthenticateRequestParams;
 import com.tapsdk.antiaddiction.reactor.Observable;
+import com.tapsdk.antiaddiction.reactor.subjects.PublishSubject;
 import com.tapsdk.antiaddiction.rest.api.AntiAddictionApi;
 import com.tapsdk.antiaddiction.skynet.Skynet;
 import com.tapsdk.antiaddiction.utils.DeviceUtil;
@@ -16,12 +17,18 @@ public class UserModel {
 
     private UserInfo userInfo = null;
 
+    private final PublishSubject<Boolean> userLoginStatusChangedPublishSubject = PublishSubject.create();
+
     public String getGameToken() {
         return gameToken;
     }
 
     public void setGameToken(String gameToken) {
         this.gameToken = gameToken;
+    }
+
+    public Observable<Boolean> getUserLoginStatusChangedObservable() {
+        return userLoginStatusChangedPublishSubject;
     }
 
     public void setIdentificationInfo(IdentificationInfo identificationInfo) {
@@ -37,6 +44,7 @@ public class UserModel {
 
     public void setCurrentUser(UserInfo userInfo) {
         this.userInfo = userInfo;
+        userLoginStatusChangedPublishSubject.onNext(true);
     }
 
     public UserInfo getCurrentUser() {
@@ -51,5 +59,6 @@ public class UserModel {
 
     public void logout() {
         userInfo = null;
+        userLoginStatusChangedPublishSubject.onNext(false);
     }
 }

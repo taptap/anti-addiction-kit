@@ -28,4 +28,17 @@
         android:text="防成谜授权"
         />
 
+    <Button
+        android:id="@+id/startTimingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始计时"
+        />
+
+    <Button
+        android:id="@+id/stopTimingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止计时"
+        />
 </LinearLayout>
