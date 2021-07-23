@@ -10,5 +10,5 @@ public class HealthReminderWordsGroup {
     public int accountType;
 
     @SerializedName("tips")
-    public List<Tip> tipList;
+    public List<Prompt> promptList;
 }

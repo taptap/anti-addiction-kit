@@ -14,5 +14,5 @@ public class AntiAddictionConfig implements Serializable {
     public UIConfig uiConfig;
 
     @SerializedName("holiday")
-    public List<String> holiday;
+    public List<String> holidayList;
 }

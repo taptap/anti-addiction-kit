@@ -252,7 +252,7 @@ public class CountTimeModel {
 
 
     private void saveLostTimestamp(UserInfo userInfo, long start, long end, long localStart, long localEnd) {
-        AntiAddictionSettings.getInstance().saveCountTime(context, userInfo.userId
+        AntiAddictionSettings.getInstance().saveLatestData(context, userInfo.userId
                 , start, end, localStart, localEnd);
     }
 
