@@ -1,0 +1,49 @@
+package com.tapsdk.antiaddiction;
+
+import android.app.Activity;
+
+import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
+import com.tapsdk.antiaddiction.entities.AuthIdentityResult;
+import com.tapsdk.antiaddiction.entities.IdentificationInfo;
+import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
+
+public interface IAntiAddiction {
+
+    /**
+     * anti-addiction init
+     * @param activity game main activity
+     * @param gameIdentifier
+     * @param antiAddictionFunctionConfig
+     * @param callback
+     */
+    void init(Activity activity, String gameIdentifier
+            , AntiAddictionFunctionConfig antiAddictionFunctionConfig, AntiAddictionCallback callback);
+
+    /**
+     * unique identity of the user
+     * @param gameToken
+     */
+    void login(String gameToken);
+
+    void logout();
+
+    void enterGame();
+
+    void leaveGame();
+
+    /**
+     * check consumption limit
+     * @param amount amount of consumption (ps.currency unit cent)
+     */
+    void checkPayLimit(long amount);
+
+    /**
+     * callback for anti-addiction after successful consumption
+     * @param amount
+     */
+    void paySuccess(long amount);
+
+    void authIdentity(String token, String name, String idCard, String phoneNumber, Callback<IdentifyResult> callback);
+
+    void fetchUserIdentifyInfo(String token, Callback<IdentificationInfo> callback);
+}

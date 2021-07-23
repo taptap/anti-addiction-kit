@@ -1,0 +1,3 @@
+rootProject.name = "AntiAddiction"
+include ':app'
+include ':lib-antiaddiction'
