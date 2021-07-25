@@ -7,9 +7,9 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.os.SystemClock;
-
 import java.util.Date;
 
+import com.tapsdk.antiaddiction.BuildConfig;
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.entities.ChildProtectedConfig;
 import com.tapsdk.antiaddiction.entities.SubmitPlayLogResult;
@@ -58,6 +58,13 @@ public class TimingModel {
                             unbind();
                         }
                     }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        if (BuildConfig.DEBUG) {
+                            throw new RuntimeException("userStateChangeListener unexpected error");
+                        }
+                    }
                 });
     }
 
@@ -96,13 +103,12 @@ public class TimingModel {
         });
     }
 
-
-    public void setRecentServerTimeInSecond(long serverTime) {
-        recentServerTimeInSecond = serverTime;
+    public void setRecentServerTimeInSecond(long serverTimeInSeconds) {
+        recentServerTimeInSecond = serverTimeInSeconds;
     }
 
     private HandlerThread mHandlerThread = null;
-    private CountTimeInteractiveOperation interactiveOperation = new CountTimeInteractiveOperation();
+    private final CountTimeInteractiveOperation interactiveOperation = new CountTimeInteractiveOperation();
     private TransactionHandler mHandler = null;
 
     private Response<SubmitPlayLogResult> sendGameTimeToServerSync() throws Throwable {
@@ -269,7 +275,7 @@ public class TimingModel {
                 , start, end, localStart, localEnd);
     }
 
-    private void setTimerForTip(SubmitPlayLogResult result) {
+    private void setTimerForPrompt(SubmitPlayLogResult result) {
         int seconds = result.remainTime;
         if ((seconds >= 15 * 60 && seconds <= 17 * 60)) {
             countDownRemainTime = seconds;
@@ -299,14 +305,15 @@ public class TimingModel {
         @Override
         public void countTime() {
             if (userModel == null) return;
-            long serverTime = TimeModel.getServerTimeSync();
-            if (serverTime != -1L) {
-                setRecentServerTimeInSecond(serverTime);
+
+            if (recentServerTimeInSecond == -1L) {
+                recentServerTimeInSecond = TimeModel.getServerTimeSync();
             }
+
             try {
                 SubmitPlayLogResult result = syncTime();
                 if (result.restrictType > 0) {
-                    setTimerForTip(result);
+                    setTimerForPrompt(result);
                 }
             } catch (Throwable e) {
                 AntiAddictionLogger.printStackTrace(e);

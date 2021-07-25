@@ -1,44 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:layout_weight="8"
     >
-    <Button
-        android:id="@+id/fetchUserIdentifyInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取实名信息"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/functionsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
         />
 
-    <Button
-        android:id="@+id/identifyUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="实名认证"
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
         />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="防成谜授权"
-        />
-
-    <Button
-        android:id="@+id/startTimingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="开始计时"
-        />
-
-    <Button
-        android:id="@+id/stopTimingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="停止计时"
+    <com.tapsdk.antiaddiction.demo.widget.DashboardView
+        android:id="@+id/dashboardView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
         />
 </LinearLayout>

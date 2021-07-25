@@ -11,6 +11,8 @@
  * the License for the specific language governing permissions and limitations under the License.
  */
 package com.tapsdk.antiaddiction.reactor;
+import android.util.Log;
+
 import com.tapsdk.antiaddiction.reactor.exceptions.Exceptions;
 import com.tapsdk.antiaddiction.reactor.exceptions.OnErrorFailedException;
 import com.tapsdk.antiaddiction.reactor.functions.Action0;
@@ -185,11 +187,12 @@ public class Observable<T> {
      * @see #observeOn
      */
     public final Observable<T> subscribeOn(final Scheduler scheduler) {
+        Log.d("test", "subscribeOn 111");
         return subscribeOn(scheduler, !(this.onSubscribe instanceof OnSubscribeCreate));
     }
 
     public final Observable<T> subscribeOn(Scheduler scheduler, boolean requestOn) {
-
+        Log.d("test", "subscribeOn 222");
         return unsafeCreate(new OperatorSubscribeOn<T>(this, scheduler, requestOn));
     }
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_white_radius_8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/tv_alert_button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/tv_alert_negative"
+            android:layout_width="139dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:minWidth="68dp"
+            android:paddingHorizontal="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:background="@drawable/alert_negative_gray_bg"
+            />
+
+        <TextView
+            android:id="@+id/tv_alert_positive"
+            android:layout_width="139dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/alert_positive_bg"
+            android:gravity="center"
+            android:minWidth="68dp"
+            android:paddingHorizontal="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

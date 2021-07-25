@@ -17,7 +17,9 @@ import com.tapsdk.antiaddiction.entities.SubmitPlayLogResult;
 import com.tapsdk.antiaddiction.entities.TwoTuple;
 import com.tapsdk.antiaddiction.entities.UserInfo;
 import com.tapsdk.antiaddiction.entities.request.PlayLogRequestParams;
+import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
+import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
 import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
 import com.tapsdk.antiaddiction.models.ConfigModel;
 import com.tapsdk.antiaddiction.models.PaymentModel;
@@ -25,10 +27,13 @@ import com.tapsdk.antiaddiction.models.TimingModel;
 import com.tapsdk.antiaddiction.models.IdentityModel;
 import com.tapsdk.antiaddiction.models.PlayLogModel;
 import com.tapsdk.antiaddiction.models.TimeModel;
+import com.tapsdk.antiaddiction.models.UpdateAccountAction;
 import com.tapsdk.antiaddiction.models.UserModel;
 import com.tapsdk.antiaddiction.reactor.Observable;
+import com.tapsdk.antiaddiction.reactor.RxBus;
 import com.tapsdk.antiaddiction.reactor.Subscriber;
 import com.tapsdk.antiaddiction.reactor.Subscription;
+import com.tapsdk.antiaddiction.reactor.functions.Action1;
 import com.tapsdk.antiaddiction.reactor.functions.Func1;
 import com.tapsdk.antiaddiction.reactor.rxandroid.schedulers.AndroidSchedulers;
 import com.tapsdk.antiaddiction.reactor.schedulers.Schedulers;
@@ -217,24 +222,23 @@ public class AntiAddictionImpl implements IAntiAddiction {
                         AntiAddictionLogger.d(gson.toJson(config));
                         AntiAddictionSettings.getInstance().setCommonConfig(config);
 
-                        long serverTime = TimeModel.getServerTimeSync();
-
+                        long serverTimeInSecond = TimeModel.getServerTimeSync();
                         AntiAddictionLogger.d("------sync server time------");
-                        if (serverTime == -1L) {
+                        if (serverTimeInSecond == -1L) {
                             AntiAddictionLogger.d("fetch server time fail");
-                            serverTime = System.currentTimeMillis();
+                            serverTimeInSecond = System.currentTimeMillis() / 1000;
                         } else {
-                            AntiAddictionLogger.d("fetch server time success:" + serverTime);
+                            AntiAddictionLogger.d("fetch server time success:" + serverTimeInSecond);
                         }
-                        timingModel.setRecentServerTimeInSecond(serverTime);
+                        timingModel.setRecentServerTimeInSecond(serverTimeInSecond);
 
                         AntiAddictionLogger.d("------get player left time------");
                         PlayLogRequestParams playLogRequestParams
                                 = PlayLogModel.getPlayLog(context
                                 , userInfo
                                 , gameIdentifier
-                                , serverTime, serverTime, serverTime
-                                , serverTime, serverTime);
+                                , serverTimeInSecond, serverTimeInSecond, serverTimeInSecond
+                                , serverTimeInSecond, serverTimeInSecond);
                         com.tapsdk.antiaddiction.skynet.retrofit2.Response<SubmitPlayLogResult> response
                                 = PlayLogModel.checkUserStateSync(playLogRequestParams);
                         if (response.code() == 200) {
@@ -270,6 +274,13 @@ public class AntiAddictionImpl implements IAntiAddiction {
                     @Override
                     public void onNext(TwoTuple<Boolean, SubmitPlayLogResult> result) {
                         UserInfo currentUser = userModel.getCurrentUser();
+
+                        if (BuildConfig.DEBUG) {
+                            if (currentUser != null)
+                                RxBus.getInstance().send(new UpdateAccountAction(userModel.getCurrentUser()
+                                        , userModel.getIdentificationInfo()));
+                        }
+
                         if (currentUser == null) {
                             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
                             return;
@@ -430,8 +441,20 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 || userModel.getCurrentUser() == null
                 || !initialized
                 || !canPlay) return;
+        paymentModel.checkPay(amount, gameIdentifier)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<CheckPayResult>() {
+                    @Override
+                    public void call(CheckPayResult checkPayResult) {
 
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
 
+                    }
+                });
     }
 
     @Override
@@ -440,6 +463,20 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 || userModel.getCurrentUser() == null
                 || !initialized
                 || !canPlay) return;
+        paymentModel.paySuccess(amount, gameIdentifier)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SubmitPayResult>() {
+                    @Override
+                    public void call(SubmitPayResult submitPayResult) {
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
     }
 
     @Override
