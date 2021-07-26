@@ -33,8 +33,11 @@ import com.tapsdk.antiaddiction.demo.widget.AbstractAlertDialog;
 import com.tapsdk.antiaddiction.demo.widget.DashboardView;
 import com.tapsdk.antiaddiction.demo.widget.IdentifyDialog;
 import com.tapsdk.antiaddiction.demo.widget.ModifyAttrsDialog;
+import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
+import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
 import com.tapsdk.antiaddiction.models.UpdateAccountAction;
+import com.tapsdk.antiaddiction.models.UpdateAntiAddictionInfoAction;
 import com.tapsdk.antiaddiction.reactor.RxBus;
 import com.tapsdk.antiaddiction.reactor.functions.Action1;
 import com.tapsdk.antiaddiction.reactor.rxandroid.schedulers.AndroidSchedulers;
@@ -50,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String DEFAULT_USER_ID = "791";
 
-    public static final int DEFAULT_PAY_AMOUNT = 100;
+    public static final long DEFAULT_PAY_AMOUNT = 100L;
 
     private String currentUserId = DEFAULT_USER_ID;
+
+    private long payAmount = DEFAULT_PAY_AMOUNT;
 
     List<FuncBase> unLoginSupportFuncList;
     List<FuncBase> loginSupportFuncList;
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DashboardView dashboardView;
 
-    private Gson gson = new GsonBuilder().create();
+    private final Gson gson = new GsonBuilder().create();
 
     private void initFuncItems() {
         unLoginSupportFuncList = Arrays.asList(
@@ -142,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                                             if (!TextUtils.isEmpty(extra)) {
                                                 IdentificationInfo identificationInfo = gson.fromJson(extra, IdentificationInfo.class);
                                                 if (!TextUtils.isEmpty(identificationInfo.userName)
-                                                && !TextUtils.isEmpty(identificationInfo.idCard)) {
+                                                        && !TextUtils.isEmpty(identificationInfo.idCard)) {
                                                     AntiAddictionKit.authIdentity(currentUserId
                                                             , identificationInfo.userName
                                                             , identificationInfo.idCard
@@ -164,6 +169,64 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     }
                             ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
+                        } else if (funcAction instanceof EnterGameAction) {
+                            AntiAddictionKit.enterGame();
+                        } else if (funcAction instanceof LeaveGameAction) {
+                            AntiAddictionKit.leaveGame();
+                        } else if (funcAction instanceof CheckPayAction) {
+                            AntiAddictionKit.checkPayLimit(payAmount, new Callback<CheckPayResult>() {
+                                @Override
+                                public void onSuccess(CheckPayResult result) {
+                                    if (result.status) {
+                                        Toast.makeText(MainActivity.this, Toast.LENGTH_SHORT, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        dashboardView.updatePromptInfo(result.title, result.description);
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable throwable) {
+                                    dashboardView.updatePromptInfo("", "");
+                                }
+                            });
+                        } else if (funcAction instanceof PayAction) {
+                            AntiAddictionKit.paySuccess(payAmount, new Callback<SubmitPayResult>() {
+
+                                @Override
+                                public void onSuccess(SubmitPayResult result) {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable throwable) {
+
+                                }
+                            });
+                        } else if (funcAction instanceof ChangePayAmountAction) {
+                            ModifyAttrsDialog.newInstance("修改支付金额"
+                                    , String.valueOf(payAmount)
+                                    , "取消"
+                                    , "确定"
+                                    , new AbstractAlertDialog.AlertClickCallback() {
+                                        @Override
+                                        public void onLeftClick(String extra) {
+
+                                        }
+
+                                        @Override
+                                        public void onRightClick(String extra) {
+                                            if (!TextUtils.isEmpty(extra)) {
+                                                try {
+                                                    payAmount = Long.parseLong(extra);
+                                                    Toast.makeText(MainActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                                } catch (Exception e) {
+                                                    Toast.makeText(MainActivity.this, "金额格式不正确", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }
+                                    }
+                            ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
+                            ;
                         }
                     }
                 }, new Action1<Throwable>() {
@@ -176,12 +239,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void listenToDebugEvent() {
         RxBus.getInstance().toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {
                     @Override
                     public void call(Object event) {
                         if (event instanceof UpdateAccountAction) {
                             dashboardView.updateUserInfo(((UpdateAccountAction) event).userInfo
                                     , ((UpdateAccountAction) event).identificationInfo);
+                        } else if (event instanceof UpdateAntiAddictionInfoAction) {
+                            dashboardView.updateAntiAddictionInfo(((UpdateAntiAddictionInfoAction) event).serverTimeInSeconds
+                                    , ((UpdateAntiAddictionInfoAction) event).remainTime, ((UpdateAntiAddictionInfoAction) event).playing);
                         }
                     }
                 }, new Action1<Throwable>() {
@@ -191,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCallback(int code, Map<String, Object> msg) {
                         AntiAddictionLogger.d("result:(" + code + "," + msg + ")");
-
                         if (code == AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS) {
                             funcBaseList.clear();
                             funcBaseList.addAll(loginSupportFuncList);
@@ -224,6 +289,9 @@ public class MainActivity extends AppCompatActivity {
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);
                             funcItemAdapter.notifyDataSetChanged();
+                            dashboardView.updatePromptInfo(
+                                    String.valueOf(msg.get("title"))
+                                    , String.valueOf(msg.get("description")));
                         }
                     }
                 }

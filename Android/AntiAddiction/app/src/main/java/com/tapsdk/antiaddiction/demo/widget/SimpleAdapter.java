@@ -10,13 +10,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tapsdk.antiaddiction.demo.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleHolder> {
 
-    List<String> data;
+    public List<String> data;
+
+    public SimpleAdapter() {
+        data = new ArrayList<>();
+    }
 
     public SimpleAdapter(List<String> data) {
+        this.data = data;
+    }
+
+    public void reset(List<String> data) {
         this.data = data;
     }
 

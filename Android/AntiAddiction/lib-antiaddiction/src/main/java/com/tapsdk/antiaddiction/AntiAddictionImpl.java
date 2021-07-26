@@ -57,7 +57,6 @@ import com.tapsdk.antiaddiction.ws.IReceiveMessage;
 import com.tapsdk.antiaddiction.ws.WebSocketManager;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -178,7 +177,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
         this.gameIdentifier = gameIdentifier;
         this.antiAddictionFunctionConfig = antiAddictionFunctionConfig;
         this.antiAddictionCallback = antiAddictionCallback;
-        this.timingModel = new TimingModel(userModel, activity.getApplicationContext(), gameIdentifier);
+        this.timingModel = new TimingModel(userModel, activity.getApplicationContext(), gameIdentifier, antiAddictionCallback);
         initSkynet();
         initialized = true;
     }
@@ -300,17 +299,6 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 });
     }
 
-    private Map<String, Object> generateAlertMessage(String content, String description, AccountLimitTipEnum limitTipEnum, int strictType) {
-        AntiAddictionLogger.d("-------generateAlertMessage-------");
-        Map<String, Object> result = new HashMap<>();
-        result.put("content", content);
-        result.put("description", description);
-        result.put("limit_tip_type", limitTipEnum);
-        result.put("strict_type", strictType);
-        AntiAddictionLogger.d("generateAlertMessage:" + gson.toJson(result));
-        return result;
-    }
-
     private void processGuest(SubmitPlayLogResult result, UserInfo userInfo) {
         AntiAddictionLogger.d("processGuest:" + userInfo.userId);
         AccountLimitTipEnum limitTipEnum;
@@ -341,7 +329,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
         }
         String description = tipContent.secondParam.replace("${remaining}", String.valueOf(TimeUtil.getMinute(result.remainTime)));
-        notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT, generateAlertMessage(tipContent.firstParam
+        notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+                , AntiAddictionSettings.getInstance().generateAlertMessage(tipContent.firstParam
                 , description, limitTipEnum, strictType));
     }
 
@@ -366,7 +355,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 }
             }
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
-                    , generateAlertMessage(result.title, result.description, limitTipEnum, result.restrictType));
+                    , AntiAddictionSettings.getInstance().generateAlertMessage(result.title
+                            , result.description, limitTipEnum, result.restrictType));
         } else {
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
         }
@@ -420,15 +410,16 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 || !initialized
                 || !canPlay
                 || (!AntiAddictionSettings.getInstance().needUploadAllData()
-                && userModel.getCurrentUser().accountType == Constants.UserType.USER_TYPE_ADULT)) return;
+                && userModel.getCurrentUser().accountType == Constants.UserType.USER_TYPE_ADULT)
+                || timingModel.inTiming
+        ) return;
         timingModel.bind();
         WebSocketManager.getInstance().init(userModel.getCurrentUser().accessToken, gameIdentifier, receiveMessageImpl, Constants.API.WEB_SOCKET_HOST);
     }
 
     @Override
     public void leaveGame() {
-        if (!antiAddictionFunctionConfig.onLineTimeLimitEnabled()
-                || userModel.getCurrentUser() == null
+        if (userModel.getCurrentUser() == null
                 || !initialized
                 || !canPlay) return;
         timingModel.unbind();
@@ -436,45 +427,43 @@ public class AntiAddictionImpl implements IAntiAddiction {
     }
 
     @Override
-    public void checkPayLimit(long amount) {
+    public void checkPayLimit(long amount, Callback<CheckPayResult> callback) {
         if (!antiAddictionFunctionConfig.paymentLimitEnabled()
                 || userModel.getCurrentUser() == null
-                || !initialized
-                || !canPlay) return;
+                || !initialized) return;
         paymentModel.checkPay(amount, gameIdentifier)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CheckPayResult>() {
                     @Override
                     public void call(CheckPayResult checkPayResult) {
-
+                        callback.onSuccess(checkPayResult);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
+                        callback.onError(throwable);
                     }
                 });
     }
 
     @Override
-    public void paySuccess(long amount) {
+    public void paySuccess(long amount, Callback<SubmitPayResult> callback) {
         if (!antiAddictionFunctionConfig.paymentLimitEnabled()
                 || userModel.getCurrentUser() == null
-                || !initialized
-                || !canPlay) return;
+                || !initialized) return;
         paymentModel.paySuccess(amount, gameIdentifier)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<SubmitPayResult>() {
                     @Override
                     public void call(SubmitPayResult submitPayResult) {
-
+                        callback.onSuccess(submitPayResult);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
+                        callback.onError(throwable);
                     }
                 });
     }

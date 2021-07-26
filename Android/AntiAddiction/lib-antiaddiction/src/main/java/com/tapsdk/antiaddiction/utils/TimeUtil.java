@@ -134,11 +134,11 @@ public class TimeUtil {
         }
     }
 
-    public static int getAntiAddictionTime(int accountType, ChildProtectedConfig config, long serverTime) {
+    public static int getAntiAddictionTime(int accountType, ChildProtectedConfig config, long timeInMillis) {
         int gameTime = 0;
         if (accountType == 5 || accountType == 0) {
             gameTime = config.noIdentifyTime;
-        } else if (AntiAddictionSettings.getInstance().isHolidayInMillis(new Date(serverTime).getTime())) {
+        } else if (AntiAddictionSettings.getInstance().isHolidayInMillis(new Date(timeInMillis).getTime())) {
             gameTime = config.childHolidayTime;
         } else {
             gameTime = config.childCommonTime;

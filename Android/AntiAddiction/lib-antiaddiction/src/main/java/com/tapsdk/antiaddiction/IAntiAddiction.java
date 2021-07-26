@@ -5,7 +5,9 @@ import android.app.Activity;
 import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
 import com.tapsdk.antiaddiction.entities.AuthIdentityResult;
 import com.tapsdk.antiaddiction.entities.IdentificationInfo;
+import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
+import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
 
 public interface IAntiAddiction {
 
@@ -35,13 +37,13 @@ public interface IAntiAddiction {
      * check consumption limit
      * @param amount amount of consumption (ps.currency unit cent)
      */
-    void checkPayLimit(long amount);
+    void checkPayLimit(long amount, Callback<CheckPayResult> callback);
 
     /**
      * callback for anti-addiction after successful consumption
      * @param amount
      */
-    void paySuccess(long amount);
+    void paySuccess(long amount, Callback<SubmitPayResult> callback);
 
     void authIdentity(String token, String name, String idCard, String phoneNumber, Callback<IdentifyResult> callback);
 

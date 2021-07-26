@@ -32,7 +32,7 @@ public class TransactionHandler extends Handler {
 
         void stopCountDownTimerAndUpdateServerTime();
 
-        void childTimeRunOut(int strictType);
+        void childTimeRunOut(int strictType) throws Throwable;
 
         void logout();
     }
@@ -76,6 +76,8 @@ public class TransactionHandler extends Handler {
         } catch (Exception e) {
             AntiAddictionLogger.e("TransactionHandler handleMessage error");
             AntiAddictionLogger.printStackTrace(e);
+        } catch (Throwable throwable) {
+            AntiAddictionLogger.printStackTrace(throwable);
         }
     }
 }

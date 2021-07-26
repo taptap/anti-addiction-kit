@@ -7,8 +7,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.os.SystemClock;
+import android.text.TextUtils;
+
 import java.util.Date;
 
+import com.tapsdk.antiaddiction.AntiAddictionCallback;
+import com.tapsdk.antiaddiction.AntiAddictionKit;
 import com.tapsdk.antiaddiction.BuildConfig;
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.entities.ChildProtectedConfig;
@@ -17,7 +21,9 @@ import com.tapsdk.antiaddiction.entities.ThreeTuple;
 import com.tapsdk.antiaddiction.entities.TwoTuple;
 import com.tapsdk.antiaddiction.entities.UserInfo;
 import com.tapsdk.antiaddiction.entities.request.PlayLogRequestParams;
+import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
 import com.tapsdk.antiaddiction.models.internal.TransactionHandler;
+import com.tapsdk.antiaddiction.reactor.RxBus;
 import com.tapsdk.antiaddiction.reactor.functions.Action1;
 import com.tapsdk.antiaddiction.reactor.rxandroid.schedulers.AndroidSchedulers;
 import com.tapsdk.antiaddiction.settings.AntiAddictionSettings;
@@ -31,6 +37,7 @@ public class TimingModel {
     private final Context context;
     private final String game;
     private final Handler mainLooperHandler = new Handler(Looper.getMainLooper());
+    private final AntiAddictionCallback antiAddictionCallback;
 
     private volatile long lastProcessTimeInSecond = -1L;
     private long recentServerTimeInSecond = -1L;
@@ -38,13 +45,16 @@ public class TimingModel {
     private boolean isCountDown1 = false;
     private boolean isCountDown2 = false;
 
-    private int countDownRemainTime = 0;
-    private int remainTime = 0;
+    public boolean inTiming = false;
 
-    public TimingModel(UserModel userModel, Context context, String game) {
+    private int countDownRemainTime = 0;
+    private volatile int remainTime = 0;
+
+    public TimingModel(UserModel userModel, Context context, String game, AntiAddictionCallback antiAddictionCallback) {
         this.userModel = userModel;
         this.context = context;
         this.game = game;
+        this.antiAddictionCallback = antiAddictionCallback;
         initLoginStatusChangedListener();
     }
 
@@ -81,6 +91,7 @@ public class TimingModel {
                 Message msg = mHandler.obtainMessage();
                 msg.what = TransactionHandler.MESSAGE_COUNT_TIME;
                 mHandler.sendMessage(msg);
+                inTiming = true;
             }
         });
     }
@@ -98,6 +109,11 @@ public class TimingModel {
                 if (mHandler != null) {
                     mHandler.removeCallbacksAndMessages(null);
                     mHandler = null;
+                }
+                inTiming = false;
+
+                if (BuildConfig.DEBUG) {
+                    RxBus.getInstance().send(new UpdateAntiAddictionInfoAction(recentServerTimeInSecond, remainTime, false));
                 }
             }
         });
@@ -121,29 +137,31 @@ public class TimingModel {
 
         long curTimeInSecond = SystemClock.elapsedRealtime() / 1000;
         AntiAddictionLogger.d("elapsedRealTimeInSecond:" + curTimeInSecond + " lastProcessGameTimeInSeconds:" + lastProcessTimeInSecond);
-        long diff = 0;
+        long diffInSeconds = 0;
         if (lastProcessTimeInSecond == -1L) {
             localStartSeconds = recentServerTimeInSecond;
             localEndSeconds = recentServerTimeInSecond;
             serverStartSeconds = recentServerTimeInSecond;
             serverEndSeconds = recentServerTimeInSecond;
         } else {
-            diff = curTimeInSecond - lastProcessTimeInSecond;
+            diffInSeconds = curTimeInSecond - lastProcessTimeInSecond;
             localStartSeconds = recentServerTimeInSecond;
-            localEndSeconds = Math.round(recentServerTimeInSecond + diff);
+            localEndSeconds = recentServerTimeInSecond + diffInSeconds;
             serverStartSeconds = recentServerTimeInSecond;
-            serverEndSeconds = Math.round(recentServerTimeInSecond + diff);
+            serverEndSeconds = recentServerTimeInSecond + diffInSeconds;
         }
 
         PlayLogRequestParams playLogRequestParams = PlayLogModel.getPlayLog(context, userInfo
                 , game, serverStartSeconds, serverEndSeconds, localStartSeconds, localEndSeconds
                 , recentServerTimeInSecond);
         Response<SubmitPlayLogResult> response = PlayLogModel.uploadPlayLogSync(playLogRequestParams, false);
+
         if (response.code() == 200) {
-            setRecentServerTimeInSecond(recentServerTimeInSecond + diff);
-            AntiAddictionLogger.d("after update elapsedRealtime:" + recentServerTimeInSecond);
+            lastProcessTimeInSecond = curTimeInSecond;
+            setRecentServerTimeInSecond(recentServerTimeInSecond + diffInSeconds);
         }
-        lastProcessTimeInSecond = curTimeInSecond;
+        AntiAddictionLogger.d("after update elapsedRealtime:" + recentServerTimeInSecond);
+        AntiAddictionLogger.d("after update serverTime:" + TimeUtil.getFullTime(recentServerTimeInSecond * 1000));
 
         return response;
     }
@@ -151,29 +169,28 @@ public class TimingModel {
     private SubmitPlayLogResult syncTime() throws Throwable {
         if (userModel == null || userModel.getCurrentUser() == null)
             throw new Exception("syncTime exception");
-
-        UserInfo userInfo = userModel.getCurrentUser().clone();
+        UserInfo userInfo = userModel.getCurrentUser();
         Response<SubmitPlayLogResult> response = sendGameTimeToServerSync();
         SubmitPlayLogResult result = response.body();
         if (result != null && response.code() == 200) {
             AntiAddictionSettings.getInstance().clearHistoricalData(context, userInfo.userId);
-            if (mHandler != null) userInfo.resetRemainTime(result.remainTime);
-            AntiAddictionLogger.d("local left time:" + result.remainTime);
         } else {
             // 使用本地时间计算
             result = handleLocalePlayLog(userInfo);
         }
-//        if (AntiAddictionKit.isDebug()) {
-//
-//        }
         remainTime = result.remainTime;
+        AntiAddictionLogger.d("local left time:" + remainTime);
+        userModel.getCurrentUser().resetRemainTime(remainTime);
+        if (BuildConfig.DEBUG) {
+            RxBus.getInstance().send(new UpdateAntiAddictionInfoAction(recentServerTimeInSecond, remainTime, true));
+        }
+
         return result;
     }
 
     private void reset() {
-        AntiAddictionLogger.d("reset:" + TimeUtil.getFullTime(recentServerTimeInSecond));
         if (recentServerTimeInSecond != -1L && lastProcessTimeInSecond != -1) {
-            setRecentServerTimeInSecond(recentServerTimeInSecond + (SystemClock.elapsedRealtime() - lastProcessTimeInSecond));
+            setRecentServerTimeInSecond(recentServerTimeInSecond + (SystemClock.elapsedRealtime() / 1000 - lastProcessTimeInSecond));
 
             AntiAddictionLogger.d("reset:" + TimeUtil.getFullTime(recentServerTimeInSecond * 1000));
         }
@@ -193,31 +210,19 @@ public class TimingModel {
             serverEndSeconds = recentServerTimeInSecond;
         } else {
             long diffInSecond = curTimeInSecond - lastProcessTimeInSecond;
+            AntiAddictionLogger.d("diffInSecond:" + diffInSecond);
             localStartSeconds = recentServerTimeInSecond;
-            localEndSeconds = Math.round(recentServerTimeInSecond + diffInSecond);
+            localEndSeconds = recentServerTimeInSecond + diffInSecond;
             serverStartSeconds = recentServerTimeInSecond;
-            serverEndSeconds = Math.round(recentServerTimeInSecond + diffInSecond);
-            setRecentServerTimeInSecond(recentServerTimeInSecond + diffInSecond);
+            serverEndSeconds = recentServerTimeInSecond + diffInSecond;
         }
-
-        lastProcessTimeInSecond = curTimeInSecond;
-        print(localStartSeconds
-                , localEndSeconds
-                , serverStartSeconds
-                , serverEndSeconds);
         saveLostTimestamp(userInfo, serverStartSeconds, serverEndSeconds, localStartSeconds, localEndSeconds);
+        lastProcessTimeInSecond = curTimeInSecond;
+        setRecentServerTimeInSecond(serverEndSeconds);
+
         if (userModel != null)
             userModel.getCurrentUser().updateRemainTime((int) (localEndSeconds - localStartSeconds));
         return generateLocalPlayLogResult(userInfo);
-    }
-
-    private static void print(long serverStartSeconds, long serverEndSeconds, long localStartSeconds, long localEndSeconds) {
-        AntiAddictionLogger.d("print local process result");
-        AntiAddictionLogger.d("server start time:" + TimeUtil.getFullTime(serverStartSeconds * 1000) + ","
-                + "server end time:" + TimeUtil.getFullTime(serverEndSeconds * 1000) + ","
-                + "local start time:" + TimeUtil.getFullTime(localStartSeconds * 1000) + ","
-                + "local end time:" + TimeUtil.getFullTime(localEndSeconds * 1000)
-        );
     }
 
     private SubmitPlayLogResult generateLocalPlayLogResult(UserInfo userInfo) {
@@ -343,6 +348,7 @@ public class TimingModel {
                     }
                 }
 
+                UserInfo userInfo = userModel.getCurrentUser().clone();
                 if (countDownRemainTime <= 60) {
                     Message msg = mHandler.obtainMessage();
                     msg.what = TransactionHandler.MESSAGE_CHILD_TIME_RUN_OUT;
@@ -351,11 +357,27 @@ public class TimingModel {
                     AntiAddictionLogger.d("count down time:" + countDownRemainTime);
                     // 延迟1秒发送
                     mHandler.sendMessageDelayed(msg, countDownRemainTime * 1000 + 800);
+                    title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                            , (restrictType == 1) ? 12 : 13).secondParam
+                            .replace("${remaining}", String.valueOf(countDownRemainTime))
+                            .replace("分钟", "秒");
+                } else {
+                    title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                            , (restrictType == 1) ? 12 : 13).secondParam
+                            .replace("${remaining}", String.valueOf(TimeUtil.getMinute(countDownRemainTime)));
                 }
-
-                if (title == null) title = "";
-                if (description == null) description = "";
-                // todo according to title && description && seconds && restrictType to make a prompt
+                description = "";
+                AntiAddictionLogger.d("count down popup:" + title);
+                final String targetTitle = title;
+                final String targetDescription = description;
+                mainLooperHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+                                , AntiAddictionSettings.getInstance().generateAlertMessage(targetTitle
+                                        , targetDescription, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, restrictType));
+                    }
+                });
                 return true;
             }
             return false;
@@ -363,22 +385,70 @@ public class TimingModel {
 
         @Override
         public void updateServerTime() {
-
+            try {
+                syncTime();
+            } catch (Throwable throwable) {
+                AntiAddictionLogger.printStackTrace(throwable);
+            }
         }
 
         @Override
         public void stopCountDownTimerAndUpdateServerTime() {
-
+            try {
+                syncTime();
+            } catch (Throwable throwable) {
+                AntiAddictionLogger.printStackTrace(throwable);
+            }
+            unbind();
         }
 
         @Override
-        public void childTimeRunOut(int strictType) {
+        public void childTimeRunOut(int strictType) throws Throwable {
+            SubmitPlayLogResult result = syncTime();
+            if (result.remainTime != 0) AntiAddictionLogger.w("childTimeRunOut wrong ?:" + result.remainTime);
+            UserInfo userInfo = userModel.getCurrentUser().clone();
 
+            TwoTuple<String, String> tuple;
+            if (strictType == 1) {
+                // 只有类型1有宵禁信息 -> 线上版只有1有宵禁信息
+                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, 5);
+                if (TextUtils.isEmpty(tuple.firstParam)) {tuple = AntiAddictionSettings.getInstance().getPromptInfo(1, 5);}
+            } else {
+                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, 6);
+            }
+            int costTime = TimeUtil.getAntiAddictionTime(userInfo.accountType
+                    , AntiAddictionSettings.getInstance().getCommonConfig().childProtectedConfig
+                    , recentServerTimeInSecond * 1000);
+
+            String title = tuple.firstParam;
+            String description = tuple.secondParam.replace("${remaining}", String.valueOf(costTime / 60));
+            AccountLimitTipEnum limitTipEnum;
+            if (userInfo.accountType == Constants.UserType.USER_TYPE_UNREALNAME || userInfo.accountType == Constants.UserType.USER_TYPE_UNKNOWN) {
+                limitTipEnum = AccountLimitTipEnum.STATE_QUIT_TIP;
+            } else {
+                limitTipEnum = AccountLimitTipEnum.STATE_CHILD_QUIT_TIP;
+            }
+            mainLooperHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+                            , AntiAddictionSettings.getInstance().generateAlertMessage(title
+                                    , description, limitTipEnum, strictType));
+                }
+            });
+
+            unbind();
         }
 
         @Override
         public void logout() {
-
+            try {
+                syncTime();
+            } catch (Throwable throwable) {
+                AntiAddictionLogger.printStackTrace(throwable);
+            }
+            unbind();
+            userModel.logout();
         }
     }
 }

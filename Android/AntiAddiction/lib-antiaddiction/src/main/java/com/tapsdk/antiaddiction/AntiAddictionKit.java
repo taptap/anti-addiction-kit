@@ -5,7 +5,9 @@ import android.app.Activity;
 import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
 import com.tapsdk.antiaddiction.entities.AuthIdentityResult;
 import com.tapsdk.antiaddiction.entities.IdentificationInfo;
+import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
+import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
 
 public class AntiAddictionKit {
 
@@ -52,14 +54,6 @@ public class AntiAddictionKit {
         antiAddiction.leaveGame();
     }
 
-    public static void checkPayLimit(long amount) {
-        antiAddiction.checkPayLimit(amount);
-    }
-
-    public static void paySuccess(long amount) {
-        antiAddiction.paySuccess(amount);
-    }
-
     public static void authIdentity(String token, String name, String idCard, String phoneNumber
             , Callback<IdentifyResult> callback) {
         antiAddiction.authIdentity(token, name, idCard, phoneNumber, callback);
@@ -75,5 +69,13 @@ public class AntiAddictionKit {
 
     public static boolean isDebug() {
         return isDebug;
+    }
+
+    public static void checkPayLimit(long amount, Callback<CheckPayResult> callback) {
+        antiAddiction.checkPayLimit(amount, callback);
+    }
+
+    public static void paySuccess(long amount, Callback<SubmitPayResult> callback) {
+        antiAddiction.paySuccess(amount, callback);
     }
 }

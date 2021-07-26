@@ -11,6 +11,7 @@ import com.tapsdk.antiaddiction.settings.AntiAddictionSettings;
 import com.tapsdk.antiaddiction.skynet.Skynet;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.RealResponseBody;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
+import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 import com.tapsdk.antiaddiction.utils.TimeUtil;
 import java.io.IOException;
 import java.util.Arrays;
@@ -54,6 +55,7 @@ public class PlayLogModel {
     private static long[][] getUnSentGameTimes(Context context, UserInfo userInfo) {
         if (userInfo == null) return new long[1][];
         String savedTimes = AntiAddictionSettings.getInstance().getHistoricalData(context, userInfo.userId);
+        AntiAddictionLogger.d("savedTimes:" + savedTimes);
         if (savedTimes.length() == 0) return null;
         long[][] timeArray;
         String[] segments = savedTimes.split(";");
@@ -69,11 +71,11 @@ public class PlayLogModel {
         return timeArray;
     }
 
-    private static boolean checkSavedTimeStamp(long[][] saved, long serverTime) {
+    private static boolean checkSavedTimeStamp(long[][] saved, long serverTimeInSeconds) {
         if (null != saved && saved.length > 0 && saved[0] != null) {
             //保存的第一个时间戳的起始时间
-            long firstStart = saved[0][0];
-            return TimeUtil.isSameDayOfMillis(firstStart * 1000, serverTime);
+            long firstStartTimeInMillis = saved[0][0];
+            return TimeUtil.isSameDayOfMillis(firstStartTimeInMillis * 1000, serverTimeInSeconds * 1000);
         }
         return false;
     }

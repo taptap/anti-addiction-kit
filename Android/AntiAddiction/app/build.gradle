@@ -17,9 +17,25 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'wxlogin'
+            keyPassword '111111'
+            storeFile file('keystore/sign_password_111111.keystore')
+            storePassword '111111'
+        }
+    }
+
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.config
+        }
+
         release {
             minifyEnabled false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,6 +43,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
+
+
 }
 
 dependencies {

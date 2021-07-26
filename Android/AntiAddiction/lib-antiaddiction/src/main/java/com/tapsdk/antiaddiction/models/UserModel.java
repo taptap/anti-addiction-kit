@@ -15,7 +15,7 @@ public class UserModel {
 
     private IdentificationInfo identificationInfo = null;
 
-    private UserInfo userInfo = null;
+    private volatile UserInfo userInfo = null;
 
     private final PublishSubject<Boolean> userLoginStatusChangedPublishSubject = PublishSubject.create();
 

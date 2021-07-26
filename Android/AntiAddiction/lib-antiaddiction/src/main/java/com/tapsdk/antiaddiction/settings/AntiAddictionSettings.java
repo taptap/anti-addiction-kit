@@ -3,6 +3,8 @@ package com.tapsdk.antiaddiction.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ import com.tapsdk.antiaddiction.entities.CommonConfig;
 import com.tapsdk.antiaddiction.entities.HealthPromptGroup;
 import com.tapsdk.antiaddiction.entities.Prompt;
 import com.tapsdk.antiaddiction.entities.TwoTuple;
+import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 import com.tapsdk.antiaddiction.utils.FileUtil;
@@ -29,6 +32,7 @@ public class AntiAddictionSettings {
     // tuple first param is title and second param is description
     private final Map<Integer, Map<Integer, TwoTuple<String, String>>> promptDict = new HashMap<>();
     private Set<String> holidaySet = new HashSet<>();
+    private Gson gson = new GsonBuilder().create();
 
     static class Holder {
         static AntiAddictionSettings INSTANCE = new AntiAddictionSettings();
@@ -155,5 +159,16 @@ public class AntiAddictionSettings {
     public boolean needUploadAllData() {
         if (commonConfig != null && commonConfig.childProtectedConfig != null) return commonConfig.childProtectedConfig.uploadAllData == 1;
         return false;
+    }
+
+    public Map<String, Object> generateAlertMessage(String content, String description, AccountLimitTipEnum limitTipEnum, int strictType) {
+        AntiAddictionLogger.d("-------generateAlertMessage-------");
+        Map<String, Object> result = new HashMap<>();
+        result.put("title", content);
+        result.put("description", description);
+        result.put("limit_tip_type", limitTipEnum);
+        result.put("strict_type", strictType);
+        AntiAddictionLogger.d("generateAlertMessage:" + gson.toJson(result));
+        return result;
     }
 }
