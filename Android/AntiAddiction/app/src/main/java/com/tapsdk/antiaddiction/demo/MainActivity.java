@@ -2,6 +2,7 @@ package com.tapsdk.antiaddiction.demo;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import com.tapsdk.antiaddiction.demo.models.FuncAction;
 import com.tapsdk.antiaddiction.demo.models.FuncBase;
 import com.tapsdk.antiaddiction.demo.models.FuncCategroyInfo;
 import com.tapsdk.antiaddiction.demo.models.FuncItemInfo;
+import com.tapsdk.antiaddiction.demo.models.GetIdentifyInfoAction;
 import com.tapsdk.antiaddiction.demo.models.IdentificationInfo;
 import com.tapsdk.antiaddiction.demo.models.IdentifyAction;
 import com.tapsdk.antiaddiction.demo.models.LeaveGameAction;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         unLoginSupportFuncList = Arrays.asList(
                 new FuncCategroyInfo("设置")
                 , new FuncItemInfo("设置用户ID", new SetUserIdAction())
+                , new FuncItemInfo("查询当前用户实名情况", new GetIdentifyInfoAction())
                 , new FuncItemInfo("对当前用户实名认证", new IdentifyAction())
                 , new FuncCategroyInfo("防沉迷功能")
                 , new FuncItemInfo("登录防沉迷用户", new LoginAntiAddictionAction())
@@ -226,7 +229,18 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     }
                             ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
-                            ;
+                        } else if (funcAction instanceof GetIdentifyInfoAction) {
+                            AntiAddictionKit.fetchUserIdentifyInfo(currentUserId, new Callback<com.tapsdk.antiaddiction.entities.IdentificationInfo>() {
+                                @Override
+                                public void onSuccess(com.tapsdk.antiaddiction.entities.IdentificationInfo result) {
+                                    Log.d("hxh", "identifyInfo:" + result.toString());
+                                }
+
+                                @Override
+                                public void onError(Throwable throwable) {
+                                    Log.d("hxh", "identifyInfo:" + throwable.toString());
+                                }
+                            });
                         }
                     }
                 }, new Action1<Throwable>() {
@@ -284,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);
                             funcItemAdapter.notifyDataSetChanged();
-                        } else if (code == AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT) {
+                        } else if (code == AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP) {
                             funcBaseList.clear();
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);

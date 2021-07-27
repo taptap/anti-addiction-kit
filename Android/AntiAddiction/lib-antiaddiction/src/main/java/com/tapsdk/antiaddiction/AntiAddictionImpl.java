@@ -183,12 +183,12 @@ public class AntiAddictionImpl implements IAntiAddiction {
     }
 
     @Override
-    public void login(final String gameToken) {
+    public void login(final String userId) {
         if (loginSubscription != null && !loginSubscription.isUnsubscribed()) {
             AntiAddictionLogger.w("login in progress, call it later");
             return;
         }
-        loginSubscription = identityModel.inquireState(gameToken)
+        loginSubscription = identityModel.inquireState(userId)
                 .map(new Func1<IdentificationInfo, IdentificationInfo>() {
                     @Override
                     public IdentificationInfo call(IdentificationInfo identificationInfo) {
@@ -329,7 +329,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
             notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
         }
         String description = tipContent.secondParam.replace("${remaining}", String.valueOf(TimeUtil.getMinute(result.remainTime)));
-        notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+        notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
                 , AntiAddictionSettings.getInstance().generateAlertMessage(tipContent.firstParam
                 , description, limitTipEnum, strictType));
     }
@@ -354,7 +354,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                     notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
                 }
             }
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
                     , AntiAddictionSettings.getInstance().generateAlertMessage(result.title
                             , result.description, limitTipEnum, result.restrictType));
         } else {

@@ -328,10 +328,9 @@ public class TimingModel {
         @Override
         public boolean countDown(String title, String description, int restrictType) {
             countDownRemainTime--;
+
             // 在15分钟左右 或者 小于 60 秒
             if (countDownRemainTime == 15 * 60 || countDownRemainTime <= 60) {
-                int seconds = countDownRemainTime;
-
                 if (countDownRemainTime > 60) {
                     Message msg = mHandler.obtainMessage();
                     msg.what = TransactionHandler.MESSAGE_SEND_TIME;
@@ -373,7 +372,7 @@ public class TimingModel {
                 mainLooperHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+                        antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
                                 , AntiAddictionSettings.getInstance().generateAlertMessage(targetTitle
                                         , targetDescription, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, restrictType));
                     }
@@ -431,7 +430,7 @@ public class TimingModel {
             mainLooperHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT
+                    antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
                             , AntiAddictionSettings.getInstance().generateAlertMessage(title
                                     , description, limitTipEnum, strictType));
                 }

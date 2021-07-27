@@ -4,15 +4,17 @@ plugins {
 
 apply from: '../buildsystem/flavors.gradle'
 
+def versions = rootProject.ext.versions
+
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion versions.compileSdkVersion
+    buildToolsVersion versions.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.AntiAddictionSDKVersionCode
+        versionName versions.AntiAddictionSDKVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -40,6 +42,15 @@ android {
             buildConfigField("String", "IDENTIFICATION_HOST", "\"http://172.19.101.76\"")
             buildConfigField("String", "ANTI_ADDICTION_HOST", "\"http://172.19.56.86:7005\"")
             buildConfigField("String", "WEB_SOCKET_HOST", "\"ws://172.19.101.76/ws/v1\"")
+        }
+    }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == 'release') {
+                def fileName = "AntiAddiction_${versions.AntiAddictionSDKVersion}.aar"
+                outputFileName = fileName
+            }
         }
     }
 

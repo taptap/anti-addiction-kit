@@ -187,12 +187,10 @@ public class Observable<T> {
      * @see #observeOn
      */
     public final Observable<T> subscribeOn(final Scheduler scheduler) {
-        Log.d("test", "subscribeOn 111");
         return subscribeOn(scheduler, !(this.onSubscribe instanceof OnSubscribeCreate));
     }
 
     public final Observable<T> subscribeOn(Scheduler scheduler, boolean requestOn) {
-        Log.d("test", "subscribeOn 222");
         return unsafeCreate(new OperatorSubscribeOn<T>(this, scheduler, requestOn));
     }
 
