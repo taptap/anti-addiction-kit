@@ -23,9 +23,9 @@ public interface IAntiAddiction {
 
     /**
      * unique identity of the user
-     * @param gameToken
+     * @param userId
      */
-    void login(String gameToken);
+    void login(String userId);
 
     void logout();
 

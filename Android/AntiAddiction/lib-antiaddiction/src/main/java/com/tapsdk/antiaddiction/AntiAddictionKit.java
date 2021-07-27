@@ -12,24 +12,15 @@ import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
 public class AntiAddictionKit {
 
     public final static int CALLBACK_CODE_TIME_LIMIT_NONE = 100;
-    //回调状态码
-    public final static int CALLBACK_CODE_TIME_LIMIT = 1030;
-    public final static int CALLBACK_CODE_NIGHT_STRICT = 1050;
-
-    public final static int CALLBACK_CODE_SUBMIT_PAY_SUCCESS = 3000;
-    public final static int CALLBACK_CODE_SUBMIT_PAY_FAIL = 3500;
-    //回调状态码
     public final static int CALLBACK_CODE_LOGIN_SUCCESS = 500;
-    // 单机登出
-    public final static int CALLBACK_CODE_SWITCH_ACCOUNT = 1000;
-
+    public final static int CALLBACK_CODE_LOGOUT = 1000;
     public final static int CALLBACK_CODE_PAY_NO_LIMIT = 1020;
     public final static int CALLBACK_CODE_PAY_LIMIT = 1025;
-    public final static int CALLBACK_CODE_OPEN_REAL_NAME = 1060;
+    public final static int CALLBACK_CODE_TIME_LIMIT = 1030;
+    public final static int CALLBACK_CODE_NIGHT_STRICT = 1050;
+    public final static int CALLBACK_CODE_OPEN_ALERT_TIP = 1095;
 
-    public final static int CALLBACK_CODE_OPEN_ALERT = 1095;
-
-    private static IAntiAddiction antiAddiction = new AntiAddictionImpl();
+    private static final IAntiAddiction antiAddiction = new AntiAddictionImpl();
 
     private static boolean isDebug = false;
 
@@ -38,8 +29,8 @@ public class AntiAddictionKit {
         antiAddiction.init(activity, gameIdentifier, antiAddictionFunctionConfig, callback);
     }
 
-    public static void login(String gameToken) {
-        antiAddiction.login(gameToken);
+    public static void login(String userId) {
+        antiAddiction.login(userId);
     }
 
     public static void logout() {
