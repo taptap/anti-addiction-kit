@@ -54,7 +54,7 @@ CALLBACK_CODE_OPEN_ALERT_TIP | 1095 | SDK 请求打开弹窗提示，具体内�
 // 登录
 AntiAddictionKit.login(userId)
 // 登出
-AntiAddictionService.logout()
+AntiAddictionKit.logout()
 ```
 
 如果步骤一配置的 `AntiAddictionFunctionConfig.useSdkOnlineTimeLimit` 值为 `true`，则 sdk 会根据当前政策主动限制游戏时长，反之不会限制用户游戏时长。

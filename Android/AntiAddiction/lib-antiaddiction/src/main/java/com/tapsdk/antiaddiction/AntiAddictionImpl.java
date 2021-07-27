@@ -72,7 +72,6 @@ public class AntiAddictionImpl implements IAntiAddiction {
     private AntiAddictionFunctionConfig antiAddictionFunctionConfig;
     private AntiAddictionCallback antiAddictionCallback;
     private final Handler mainLooperHandler = new Handler(Looper.getMainLooper());
-
     private boolean canPlay = false;
 
     private final UserModel userModel = new UserModel();
@@ -267,7 +266,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        AntiAddictionLogger.e("login error");
+                        AntiAddictionLogger.printStackTrace(e);
+                        notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
                     }
 
                     @Override
@@ -318,7 +319,11 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 tipContent = settings.getPromptInfo(userInfo.accountType, 9);
             }
             strictType = result.restrictType;
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_TIME_LIMIT, null);
+            if (antiAddictionFunctionConfig.onLineTimeLimitEnabled()) {
+                notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_TIME_LIMIT, null);
+            } else {
+                notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+            }
         } else if (result.costTime == 0) {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
             tipContent = settings.getPromptInfo(userInfo.accountType, 7);
@@ -381,7 +386,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
         canPlay = false;
     }
 
-    private IReceiveMessage receiveMessageImpl = new IReceiveMessage() {
+    private final IReceiveMessage receiveMessageImpl = new IReceiveMessage() {
         @Override
         public void onConnectSuccess() {
             AntiAddictionLogger.d("webSocket onConnectSuccess");
