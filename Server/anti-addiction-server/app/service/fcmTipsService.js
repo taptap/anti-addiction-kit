@@ -30,9 +30,6 @@ class FcmTipsService extends Service {
   }
   //
   async InCurfew(belong_group,userInfo,current_time,remain_time,switches){
-    if(belong_group ===1 && userInfo.identify_state === 0){//线上版，未实名,没有宵禁
-      return false;
-    }
     //当日宵禁时间戳
     let curfew_start = this.ctx.helper.getTimeStamp(switches.night_strict_start);
     let curfew_end = this.ctx.helper.getTimeStamp(switches.night_strict_end);
@@ -45,9 +42,6 @@ class FcmTipsService extends Service {
   }
 
   async WarningCurfew(belong_group,userInfo,current_time,remain_time,switches){
-    if(belong_group ===1 && userInfo.identify_state === 0){//线上版，未实名,没有宵禁
-      return false;
-    }
     //当日宵禁开始时间戳
     let curfew_start = this.ctx.helper.getTimeStamp(switches.night_strict_start);
     //宵禁剩余时间，单位秒
