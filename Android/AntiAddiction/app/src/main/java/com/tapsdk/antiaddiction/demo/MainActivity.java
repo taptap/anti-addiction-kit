@@ -233,12 +233,12 @@ public class MainActivity extends AppCompatActivity {
                             AntiAddictionKit.fetchUserIdentifyInfo(currentUserId, new Callback<com.tapsdk.antiaddiction.entities.IdentificationInfo>() {
                                 @Override
                                 public void onSuccess(com.tapsdk.antiaddiction.entities.IdentificationInfo result) {
-                                    Log.d("hxh", "identifyInfo:" + result.toString());
+                                    Log.d("test", "identifyInfo:" + result.toString());
                                 }
 
                                 @Override
                                 public void onError(Throwable throwable) {
-                                    Log.d("hxh", "identifyInfo:" + throwable.toString());
+                                    Log.d("test", "identifyInfo:" + throwable.toString());
                                 }
                             });
                         }

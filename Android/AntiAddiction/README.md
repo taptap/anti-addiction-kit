@@ -74,21 +74,21 @@ AntiAddictionKit.enterGame()
  * @param callback 
  */
 AntiAddictionKit.checkPayLimit(payAmount, new Callback<CheckPayResult>() {
-@Override
-public void onSuccess(CheckPayResult result) {
-    // 可以购买
-    if (result.status) {
-    } 
-    // 不可以购买
-    else {
-        // result.title返回失败提示标题, result.description返回失败提示描述
+    @Override
+    public void onSuccess(CheckPayResult result) {
+        // 可以购买
+        if (result.status) {
+        } 
+        // 不可以购买
+        else {
+            // result.title返回失败提示标题, result.description返回失败提示描述
+        }
     }
-}
 
-@Override
-public void onError(Throwable throwable) {
-    // 检查时出现异常（比如网络出错）游戏自行决定提示方式
-}
+    @Override
+    public void onError(Throwable throwable) {
+        // 检查时出现异常（比如网络出错）游戏自行决定提示方式
+    }
 });
 ```
 
