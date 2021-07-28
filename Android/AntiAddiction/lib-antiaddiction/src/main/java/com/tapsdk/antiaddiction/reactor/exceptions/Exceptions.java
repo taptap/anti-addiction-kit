@@ -1,10 +1,6 @@
 package com.tapsdk.antiaddiction.reactor.exceptions;
 
 import com.tapsdk.antiaddiction.reactor.Observer;
-import com.tapsdk.antiaddiction.reactor.exceptions.CompositeException;
-import com.tapsdk.antiaddiction.reactor.exceptions.OnCompletedFailedException;
-import com.tapsdk.antiaddiction.reactor.exceptions.OnErrorFailedException;
-import com.tapsdk.antiaddiction.reactor.exceptions.OnErrorNotImplementedException;
 
 import java.util.HashSet;
 import java.util.List;

@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.retrofit2;
 
-import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-
 import static com.tapsdk.antiaddiction.skynet.retrofit2.Utils.checkNotNull;
 
 /**

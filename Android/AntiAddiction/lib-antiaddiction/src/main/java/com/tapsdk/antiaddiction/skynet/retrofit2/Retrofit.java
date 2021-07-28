@@ -19,20 +19,14 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
 import com.tapsdk.antiaddiction.skynet.okhttp3.OkHttpClient;
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
-import com.tapsdk.antiaddiction.skynet.retrofit2.BuiltInConverters;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
-import com.tapsdk.antiaddiction.skynet.retrofit2.CallAdapter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Callback;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Converter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.OkHttpCall;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Platform;
-import com.tapsdk.antiaddiction.skynet.retrofit2.ServiceMethod;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Body;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.DELETE;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Field;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.FormUrlEncoded;
+import com.tapsdk.antiaddiction.skynet.retrofit2.http.GET;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.HEAD;
+import com.tapsdk.antiaddiction.skynet.retrofit2.http.HTTP;
+import com.tapsdk.antiaddiction.skynet.retrofit2.http.Header;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Headers;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Multipart;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.OPTIONS;
@@ -54,10 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
-
-import com.tapsdk.antiaddiction.skynet.retrofit2.http.GET;
-import com.tapsdk.antiaddiction.skynet.retrofit2.http.HTTP;
-import com.tapsdk.antiaddiction.skynet.retrofit2.http.Header;
 
 import static java.util.Collections.unmodifiableList;
 

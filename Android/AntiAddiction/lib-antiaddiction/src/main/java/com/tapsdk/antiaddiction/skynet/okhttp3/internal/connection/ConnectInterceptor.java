@@ -20,8 +20,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.Interceptor;
 import com.tapsdk.antiaddiction.skynet.okhttp3.OkHttpClient;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.RealConnection;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.StreamAllocation;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.HttpCodec;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.RealInterceptorChain;
 

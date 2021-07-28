@@ -17,7 +17,6 @@ package com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Platform;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

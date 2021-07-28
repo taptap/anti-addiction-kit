@@ -15,13 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Authenticator;
-import com.tapsdk.antiaddiction.skynet.okhttp3.CertificatePinner;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Connection;
-import com.tapsdk.antiaddiction.skynet.okhttp3.ConnectionSpec;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Dns;
-import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
 
 import java.net.Proxy;

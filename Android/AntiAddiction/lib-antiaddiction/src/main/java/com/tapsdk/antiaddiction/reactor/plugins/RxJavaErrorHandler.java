@@ -16,7 +16,6 @@
 package com.tapsdk.antiaddiction.reactor.plugins;
 
 import com.tapsdk.antiaddiction.reactor.exceptions.Exceptions;
-import com.tapsdk.antiaddiction.reactor.plugins.RxJavaPlugins;
 
 /**
  * Abstract class for defining error handling logic in addition to the normal

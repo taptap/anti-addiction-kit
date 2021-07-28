@@ -15,7 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.ws;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.ws.WebSocketProtocol;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;

@@ -1,7 +1,5 @@
 package com.tapsdk.antiaddiction;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,12 +19,15 @@ import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
 import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
 import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
+import com.tapsdk.antiaddiction.models.AntiAddictionLimitInfoAction;
 import com.tapsdk.antiaddiction.models.ConfigModel;
-import com.tapsdk.antiaddiction.models.PaymentModel;
-import com.tapsdk.antiaddiction.models.TimingModel;
 import com.tapsdk.antiaddiction.models.IdentityModel;
+import com.tapsdk.antiaddiction.models.PaymentModel;
 import com.tapsdk.antiaddiction.models.PlayLogModel;
+import com.tapsdk.antiaddiction.models.PromptType;
+import com.tapsdk.antiaddiction.models.StrictType;
 import com.tapsdk.antiaddiction.models.TimeModel;
+import com.tapsdk.antiaddiction.models.TimingModel;
 import com.tapsdk.antiaddiction.models.UpdateAccountAction;
 import com.tapsdk.antiaddiction.models.UserModel;
 import com.tapsdk.antiaddiction.reactor.Observable;
@@ -67,12 +68,11 @@ import static com.tapsdk.antiaddiction.constants.Constants.API.ACCESS_TOKEN_TYPE
 public class AntiAddictionImpl implements IAntiAddiction {
 
     private boolean initialized = false;
-    private Application application;
+    private Context applicationContext;
     private String gameIdentifier;
     private AntiAddictionFunctionConfig antiAddictionFunctionConfig;
     private AntiAddictionCallback antiAddictionCallback;
     private final Handler mainLooperHandler = new Handler(Looper.getMainLooper());
-
     private boolean canPlay = false;
 
     private final UserModel userModel = new UserModel();
@@ -170,14 +170,19 @@ public class AntiAddictionImpl implements IAntiAddiction {
     }
 
     @Override
-    public synchronized void init(Activity activity, String gameIdentifier
+    public synchronized void init(Context context, String gameIdentifier
             , AntiAddictionFunctionConfig antiAddictionFunctionConfig, AntiAddictionCallback antiAddictionCallback) {
         if (initialized) return;
-        this.application = activity.getApplication();
+        this.applicationContext = context.getApplicationContext();
         this.gameIdentifier = gameIdentifier;
         this.antiAddictionFunctionConfig = antiAddictionFunctionConfig;
         this.antiAddictionCallback = antiAddictionCallback;
-        this.timingModel = new TimingModel(userModel, activity.getApplicationContext(), gameIdentifier, antiAddictionCallback);
+        this.timingModel = new TimingModel(userModel, applicationContext, gameIdentifier, new TimingModel.TimingMessageListener() {
+            @Override
+            public void onMessage(int type, Map<String, Object> extras) {
+                notifyAntiAddictionMessage(type, extras);
+            }
+        });
         initSkynet();
         initialized = true;
     }
@@ -202,7 +207,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                     public Observable<UserInfo> call(IdentificationInfo identificationInfo) {
                         AntiAddictionLogger.d("user authenticate");
                         return userModel.authenticate(identificationInfo.antiAddictionToken
-                                , gameIdentifier, DeviceUtil.getOperatorInfo(application.getApplicationContext()));
+                                , gameIdentifier, DeviceUtil.getOperatorInfo(applicationContext.getApplicationContext()));
                     }
                 })
                 .map(new Func1<UserInfo, TwoTuple<Boolean, SubmitPlayLogResult>>() {
@@ -210,7 +215,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                     public TwoTuple<Boolean, SubmitPlayLogResult> call(UserInfo userInfo) {
                         AntiAddictionLogger.d("check user state");
                         userModel.setCurrentUser(userInfo);
-                        Context context = application.getApplicationContext();
+                        Context context = applicationContext.getApplicationContext();
                         CommonConfig defaultConfig = AntiAddictionSettings.getInstance().getCommonDefaultConfig(context);
                         AntiAddictionLogger.d("------fetch config------");
                         CommonConfig config = configModel.fetchCommonConfig(gameIdentifier);
@@ -267,7 +272,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        AntiAddictionLogger.e("login error");
+                        AntiAddictionLogger.printStackTrace(e);
+                        notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
                     }
 
                     @Override
@@ -281,7 +288,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                         }
 
                         if (currentUser == null) {
-                            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+                            notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
                             return;
                         }
                         // firstParam -> needAntiAddiction
@@ -293,7 +300,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                                 processNonage(result.secondParam);
                             }
                         } else {
-                            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+                            notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
                         }
                     }
                 });
@@ -304,67 +311,97 @@ public class AntiAddictionImpl implements IAntiAddiction {
         AccountLimitTipEnum limitTipEnum;
         AntiAddictionSettings settings = AntiAddictionSettings.getInstance();
         TwoTuple<String, String> tipContent;
-        int strictType = 0;
+        int strictType = StrictType.NONE;
         if (result.remainTime == 0) {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_LIMIT;
-            if (result.restrictType == 1) {
+            if (result.restrictType == StrictType.NIGHT) {
                 // 线上版未实名和游客没有宵禁类型
                 // so只有版暑版会出现此条逻辑
-                tipContent = settings.getPromptInfo(userInfo.accountType, 10);
+                tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.LOGIN_IN_NIGHT_WITH_NO_REMAINING_TIME);
                 if (tipContent == null) {
-                    tipContent = settings.getPromptInfo(userInfo.accountType, 9);
+                    tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.LOGIN_WITH_NO_REMAINING_TIME);
                 }
             } else {
-                tipContent = settings.getPromptInfo(userInfo.accountType, 9);
+                tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.LOGIN_WITH_NO_REMAINING_TIME);
             }
             strictType = result.restrictType;
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_TIME_LIMIT, null);
+            if (antiAddictionFunctionConfig.onLineTimeLimitEnabled()) {
+                notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT, null);
+            } else {
+                notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
+            }
         } else if (result.costTime == 0) {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
-            tipContent = settings.getPromptInfo(userInfo.accountType, 7);
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+            tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.DAILY_FIRST_LOGIN);
+            notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
         } else {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
-            tipContent = settings.getPromptInfo(userInfo.accountType, 8);
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+            tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.DAILY_FIRST_LOGIN_IN_NIGHT);
+            notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
         }
         String description = tipContent.secondParam.replace("${remaining}", String.valueOf(TimeUtil.getMinute(result.remainTime)));
-        notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
+        notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP
                 , AntiAddictionSettings.getInstance().generateAlertMessage(tipContent.firstParam
-                , description, limitTipEnum, strictType));
+                        , description, limitTipEnum, strictType));
     }
 
     private void processNonage(SubmitPlayLogResult result) {
-        if (result.restrictType > 0) {
+        if (result.restrictType != StrictType.NONE) {
             AccountLimitTipEnum limitTipEnum;
-            if (result.restrictType == 1) {
+            if (result.restrictType == StrictType.NIGHT) {
                 if (result.remainTime <= 0) {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT;
-                    notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_NIGHT_STRICT, null);
+                    notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT, null);
                 } else {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_NO_LIMIT;
-                    notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+                    notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
                 }
             } else {
                 if (result.remainTime <= 0) {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT;
-                    notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_TIME_LIMIT, null);
+                    notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT, null);
                 } else {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_NO_LIMIT;
-                    notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+                    notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
                 }
             }
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
+            notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP
                     , AntiAddictionSettings.getInstance().generateAlertMessage(result.title
                             , result.description, limitTipEnum, result.restrictType));
         } else {
-            notifyAntiAddictionMessage(AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS, null);
+            notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
         }
     }
 
     public void notifyAntiAddictionMessage(int type, Map<String, Object> extras) {
-        if (AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS == type) {
-            canPlay = true;
+        switch (type) {
+            case Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS:
+                canPlay = true;
+                break;
+            case Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT:
+            case Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT:
+            case Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGOUT:
+                canPlay = false;
+                break;
+            default:
+                break;
+        }
+        if (BuildConfig.DEBUG
+                && (Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT == type
+                || Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT == type
+                || Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS == type
+                || Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGOUT == type
+        )
+        ) {
+            boolean loggedIn = userModel.getCurrentUser() != null;
+            if (Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGOUT == type) {
+                loggedIn = false;
+            }
+            int strictType = (Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT == type)
+                    ? StrictType.TIME_LIMIT : StrictType.NIGHT;
+            RxBus.getInstance().send(new AntiAddictionLimitInfoAction(canPlay
+                    , strictType
+                    , loggedIn));
         }
         mainLooperHandler.post(new Runnable() {
             @Override
@@ -376,12 +413,13 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
     @Override
     public void logout() {
+        notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGOUT, null);
         WebSocketManager.getInstance().close();
         userModel.logout();
         canPlay = false;
     }
 
-    private IReceiveMessage receiveMessageImpl = new IReceiveMessage() {
+    private final IReceiveMessage receiveMessageImpl = new IReceiveMessage() {
         @Override
         public void onConnectSuccess() {
             AntiAddictionLogger.d("webSocket onConnectSuccess");

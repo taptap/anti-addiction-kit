@@ -9,10 +9,6 @@ import android.os.Process;
 import android.os.SystemClock;
 import android.text.TextUtils;
 
-import java.util.Date;
-
-import com.tapsdk.antiaddiction.AntiAddictionCallback;
-import com.tapsdk.antiaddiction.AntiAddictionKit;
 import com.tapsdk.antiaddiction.BuildConfig;
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.entities.ChildProtectedConfig;
@@ -22,7 +18,7 @@ import com.tapsdk.antiaddiction.entities.TwoTuple;
 import com.tapsdk.antiaddiction.entities.UserInfo;
 import com.tapsdk.antiaddiction.entities.request.PlayLogRequestParams;
 import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
-import com.tapsdk.antiaddiction.models.internal.TransactionHandler;
+import com.tapsdk.antiaddiction.models.internal.TimingHandler;
 import com.tapsdk.antiaddiction.reactor.RxBus;
 import com.tapsdk.antiaddiction.reactor.functions.Action1;
 import com.tapsdk.antiaddiction.reactor.rxandroid.schedulers.AndroidSchedulers;
@@ -31,30 +27,35 @@ import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 import com.tapsdk.antiaddiction.utils.TimeUtil;
 
+import java.util.Date;
+import java.util.Map;
+
 public class TimingModel {
 
     private final UserModel userModel;
     private final Context context;
     private final String game;
     private final Handler mainLooperHandler = new Handler(Looper.getMainLooper());
-    private final AntiAddictionCallback antiAddictionCallback;
 
-    private volatile long lastProcessTimeInSecond = -1L;
+    private long lastProcessTimeInSecond = -1L;
     private long recentServerTimeInSecond = -1L;
-
     private boolean isCountDown1 = false;
     private boolean isCountDown2 = false;
-
+    private int countDownRemainTime = 0;
+    private int remainTime = 0;
     public boolean inTiming = false;
 
-    private int countDownRemainTime = 0;
-    private volatile int remainTime = 0;
+    public interface TimingMessageListener {
+        void onMessage(int type, Map<String, Object> extras);
+    }
 
-    public TimingModel(UserModel userModel, Context context, String game, AntiAddictionCallback antiAddictionCallback) {
+    private final TimingMessageListener timingMessageListener;
+
+    public TimingModel(UserModel userModel, Context context, String game, TimingMessageListener timingMessageListener) {
         this.userModel = userModel;
         this.context = context;
         this.game = game;
-        this.antiAddictionCallback = antiAddictionCallback;
+        this.timingMessageListener = timingMessageListener;
         initLoginStatusChangedListener();
     }
 
@@ -87,9 +88,9 @@ public class TimingModel {
                 if (userModel == null || userModel.getCurrentUser() == null) return;
                 mHandlerThread = new HandlerThread("AntiAddictionMonitor", Process.THREAD_PRIORITY_BACKGROUND);
                 mHandlerThread.start();
-                mHandler = new TransactionHandler(mHandlerThread.getLooper(), interactiveOperation);
+                mHandler = new TimingHandler(mHandlerThread.getLooper(), interactiveOperation);
                 Message msg = mHandler.obtainMessage();
-                msg.what = TransactionHandler.MESSAGE_COUNT_TIME;
+                msg.what = TimingHandler.MESSAGE_COUNT_TIME;
                 mHandler.sendMessage(msg);
                 inTiming = true;
             }
@@ -111,7 +112,6 @@ public class TimingModel {
                     mHandler = null;
                 }
                 inTiming = false;
-
                 if (BuildConfig.DEBUG) {
                     RxBus.getInstance().send(new UpdateAntiAddictionInfoAction(recentServerTimeInSecond, remainTime, false));
                 }
@@ -124,8 +124,163 @@ public class TimingModel {
     }
 
     private HandlerThread mHandlerThread = null;
-    private final CountTimeInteractiveOperation interactiveOperation = new CountTimeInteractiveOperation();
-    private TransactionHandler mHandler = null;
+
+    private TimingHandler mHandler = null;
+
+    private final TimingHandler.InteractiveOperation interactiveOperation = new TimingHandler.InteractiveOperation() {
+        @Override
+        public void countTime() {
+            if (userModel == null) return;
+
+            if (recentServerTimeInSecond == -1L) {
+                recentServerTimeInSecond = TimeModel.getServerTimeSync();
+            }
+
+            try {
+                SubmitPlayLogResult result = syncTime();
+                if (result.restrictType != StrictType.NONE) {
+                    setTimerForPrompt(result);
+                }
+            } catch (Throwable e) {
+                AntiAddictionLogger.printStackTrace(e);
+            }
+        }
+
+        @Override
+        public boolean countDown(String title, String description, int restrictType) {
+            int localCountDownRemainTime = countDownRemainTime--;
+            // 在15分钟左右 或者 小于 60 秒
+            if (localCountDownRemainTime == 15 * 60 || localCountDownRemainTime <= 60) {
+                if (localCountDownRemainTime > 60) {
+                    Message msg = mHandler.obtainMessage();
+                    msg.what = TimingHandler.MESSAGE_SEND_TIME;
+                    mHandler.sendMessage(msg);
+                } else {
+                    int updateTime = localCountDownRemainTime;
+                    int accum = 1;
+                    while (updateTime > 10) {
+                        Message msg = mHandler.obtainMessage();
+                        msg.what = TimingHandler.MESSAGE_SEND_TIME;
+                        mHandler.sendMessageDelayed(msg, accum * 10 * 1000);
+                        updateTime -= 10;
+                        accum++;
+                    }
+                }
+                UserInfo userInfo = userModel.getCurrentUser().clone();
+                if (localCountDownRemainTime <= 60) {
+                    Message msg = mHandler.obtainMessage();
+                    msg.what = TimingHandler.MESSAGE_CHILD_TIME_RUN_OUT;
+                    msg.obj = restrictType;
+                    AntiAddictionLogger.d("remain time:" + remainTime);
+                    AntiAddictionLogger.d("count down time:" + localCountDownRemainTime);
+                    // 延迟1秒发送
+                    mHandler.sendMessageDelayed(msg, localCountDownRemainTime * 1000 + 800);
+                    title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                            , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam
+                            .replace("${remaining}", String.valueOf(localCountDownRemainTime))
+                            .replace("分钟", "秒");
+                } else {
+                    title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                            , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam
+                            .replace("${remaining}", String.valueOf(TimeUtil.getMinute(localCountDownRemainTime)));
+                }
+                description = "";
+                AntiAddictionLogger.d("count down popup:" + title);
+                final String targetTitle = title;
+                final String targetDescription = description;
+                mainLooperHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (timingMessageListener != null) timingMessageListener.onMessage(
+                                Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP
+                                , AntiAddictionSettings.getInstance().generateAlertMessage(targetTitle
+                                        , targetDescription, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, restrictType)
+                        );
+                    }
+                });
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void updateServerTime() {
+            try {
+                syncTime();
+            } catch (Throwable throwable) {
+                AntiAddictionLogger.printStackTrace(throwable);
+            }
+        }
+
+        @Override
+        public void stopCountDownTimerAndUpdateServerTime() {
+            try {
+                syncTime();
+            } catch (Throwable throwable) {
+                AntiAddictionLogger.printStackTrace(throwable);
+            }
+            unbind();
+        }
+
+        @Override
+        public void childTimeRunOut(final int strictType) throws Throwable {
+            SubmitPlayLogResult result = syncTime();
+            if (result.remainTime != 0)
+                AntiAddictionLogger.w("childTimeRunOut wrong ?:" + result.remainTime);
+            UserInfo userInfo = userModel.getCurrentUser().clone();
+
+            TwoTuple<String, String> tuple;
+            if (strictType == StrictType.NIGHT) {
+                // 只有类型1有宵禁信息 -> 线上版只有1有宵禁信息
+                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                        , PromptType.IN_NIGHT_STRICT);
+                if (TextUtils.isEmpty(tuple.firstParam)) {
+                    tuple = AntiAddictionSettings.getInstance().getPromptInfo(Constants.UserType.USER_TYPE_CHILD
+                            , PromptType.IN_NIGHT_STRICT);
+                }
+            } else {
+                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                        , PromptType.TIME_EXHAUSTED);
+            }
+            int costTime = TimeUtil.getAntiAddictionTime(userInfo.accountType
+                    , AntiAddictionSettings.getInstance().getCommonConfig().childProtectedConfig
+                    , recentServerTimeInSecond * 1000);
+            String title = tuple.firstParam;
+            String description = tuple.secondParam.replace("${remaining}", String.valueOf(costTime / 60));
+            AccountLimitTipEnum limitTipEnum;
+            if (userInfo.accountType == Constants.UserType.USER_TYPE_UNREALNAME || userInfo.accountType == Constants.UserType.USER_TYPE_UNKNOWN) {
+                limitTipEnum = AccountLimitTipEnum.STATE_QUIT_TIP;
+            } else {
+                limitTipEnum = AccountLimitTipEnum.STATE_CHILD_QUIT_TIP;
+            }
+            mainLooperHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    int msgType = strictType == StrictType.TIME_LIMIT
+                            ? Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT
+                            : Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT;
+                    timingMessageListener.onMessage(msgType, null);
+                    timingMessageListener.onMessage(
+                            Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP
+                            , AntiAddictionSettings.getInstance().generateAlertMessage(title
+                                    , description, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, strictType)
+                    );
+                }
+            });
+            unbind();
+        }
+
+        @Override
+        public void logout() {
+            try {
+                syncTime();
+            } catch (Throwable throwable) {
+                AntiAddictionLogger.printStackTrace(throwable);
+            }
+            unbind();
+            userModel.logout();
+        }
+    };
 
     private Response<SubmitPlayLogResult> sendGameTimeToServerSync() throws Throwable {
         if (userModel == null || userModel.getCurrentUser() == null)
@@ -227,19 +382,19 @@ public class TimingModel {
 
     private SubmitPlayLogResult generateLocalPlayLogResult(UserInfo userInfo) {
 
-        int restrictType = 0; //1 宵禁 2 在线时长限制
-        int remainTime = 0;
+        int restrictType; //1 宵禁 2 在线时长限制
+        int remainTime;
         SubmitPlayLogResult result = new SubmitPlayLogResult();
         // 成年人不需要防沉迷
         if (userInfo.accountType == Constants.UserType.USER_TYPE_ADULT) {
-            result.restrictType = 0;
+            result.restrictType = StrictType.NONE;
             return result;
         }
         AntiAddictionLogger.d("generateLocalPlayLogResult [serverTime]:" + TimeUtil.getFullTime(recentServerTimeInSecond * 1000));
         ChildProtectedConfig config = AntiAddictionSettings.getInstance().getCommonConfig().childProtectedConfig;
         int toNightTime = TimeUtil.getTimeToNightStrict(config.nightStrictStart, config.nightStrictEnd, recentServerTimeInSecond * 1000);
         int toLimitTime = userInfo.remainTime;
-        restrictType = toNightTime > toLimitTime ? 2 : 1;
+        restrictType = toNightTime > toLimitTime ? StrictType.TIME_LIMIT : StrictType.NIGHT;
         remainTime = Math.min(Math.max(toLimitTime, 0), Math.max(toNightTime, 0));
         AntiAddictionLogger.d("toNightTime:" + toNightTime + " toLimitTime:" + toLimitTime);
 
@@ -253,13 +408,13 @@ public class TimingModel {
                     || userInfo.accountType == Constants.UserType.USER_TYPE_UNREALNAME) {
                 type = 6;
             } else {
-                if (restrictType == 1) {
+                if (restrictType == StrictType.NIGHT) {
                     type = 5;
                 } else {
                     type = 6;
                 }
             }
-            int costTime = 0;
+            int costTime;
             if (userInfo.accountType == 5) {
                 costTime = config.noIdentifyTime;
             } else if (TimeUtil.isHoliday(new Date().getTime())) {
@@ -286,7 +441,7 @@ public class TimingModel {
             countDownRemainTime = seconds;
             if (!isCountDown1) {
                 Message msg = mHandler.obtainMessage();
-                msg.what = TransactionHandler.MESSAGE_COUNT_DOWN;
+                msg.what = TimingHandler.MESSAGE_COUNT_DOWN;
                 msg.obj = ThreeTuple.create(result.title, result.description, result.restrictType);
                 mHandler.sendMessage(msg);
                 isCountDown1 = true;
@@ -296,7 +451,7 @@ public class TimingModel {
             if (!isCountDown2) {
                 if (mHandler != null) {
                     Message msg = mHandler.obtainMessage();
-                    msg.what = TransactionHandler.MESSAGE_COUNT_DOWN;
+                    msg.what = TimingHandler.MESSAGE_COUNT_DOWN;
                     msg.obj = ThreeTuple.create(result.title, result.description, result.restrictType);
                     mHandler.sendMessage(msg);
                     isCountDown2 = true;
@@ -305,149 +460,4 @@ public class TimingModel {
         }
     }
 
-    class CountTimeInteractiveOperation implements TransactionHandler.InteractiveOperation {
-
-        @Override
-        public void countTime() {
-            if (userModel == null) return;
-
-            if (recentServerTimeInSecond == -1L) {
-                recentServerTimeInSecond = TimeModel.getServerTimeSync();
-            }
-
-            try {
-                SubmitPlayLogResult result = syncTime();
-                if (result.restrictType > 0) {
-                    setTimerForPrompt(result);
-                }
-            } catch (Throwable e) {
-                AntiAddictionLogger.printStackTrace(e);
-            }
-        }
-
-        @Override
-        public boolean countDown(String title, String description, int restrictType) {
-            countDownRemainTime--;
-
-            // 在15分钟左右 或者 小于 60 秒
-            if (countDownRemainTime == 15 * 60 || countDownRemainTime <= 60) {
-                if (countDownRemainTime > 60) {
-                    Message msg = mHandler.obtainMessage();
-                    msg.what = TransactionHandler.MESSAGE_SEND_TIME;
-                    mHandler.sendMessage(msg);
-                } else {
-                    int updateTime = countDownRemainTime;
-                    int accum = 1;
-                    while (updateTime > 10) {
-                        Message msg = mHandler.obtainMessage();
-                        msg.what = TransactionHandler.MESSAGE_SEND_TIME;
-                        mHandler.sendMessageDelayed(msg, accum * 10 * 1000);
-                        updateTime -= 10;
-                        accum++;
-                    }
-                }
-
-                UserInfo userInfo = userModel.getCurrentUser().clone();
-                if (countDownRemainTime <= 60) {
-                    Message msg = mHandler.obtainMessage();
-                    msg.what = TransactionHandler.MESSAGE_CHILD_TIME_RUN_OUT;
-                    msg.obj = restrictType;
-                    AntiAddictionLogger.d("remain time:" + remainTime);
-                    AntiAddictionLogger.d("count down time:" + countDownRemainTime);
-                    // 延迟1秒发送
-                    mHandler.sendMessageDelayed(msg, countDownRemainTime * 1000 + 800);
-                    title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
-                            , (restrictType == 1) ? 12 : 13).secondParam
-                            .replace("${remaining}", String.valueOf(countDownRemainTime))
-                            .replace("分钟", "秒");
-                } else {
-                    title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
-                            , (restrictType == 1) ? 12 : 13).secondParam
-                            .replace("${remaining}", String.valueOf(TimeUtil.getMinute(countDownRemainTime)));
-                }
-                description = "";
-                AntiAddictionLogger.d("count down popup:" + title);
-                final String targetTitle = title;
-                final String targetDescription = description;
-                mainLooperHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
-                                , AntiAddictionSettings.getInstance().generateAlertMessage(targetTitle
-                                        , targetDescription, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, restrictType));
-                    }
-                });
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public void updateServerTime() {
-            try {
-                syncTime();
-            } catch (Throwable throwable) {
-                AntiAddictionLogger.printStackTrace(throwable);
-            }
-        }
-
-        @Override
-        public void stopCountDownTimerAndUpdateServerTime() {
-            try {
-                syncTime();
-            } catch (Throwable throwable) {
-                AntiAddictionLogger.printStackTrace(throwable);
-            }
-            unbind();
-        }
-
-        @Override
-        public void childTimeRunOut(int strictType) throws Throwable {
-            SubmitPlayLogResult result = syncTime();
-            if (result.remainTime != 0) AntiAddictionLogger.w("childTimeRunOut wrong ?:" + result.remainTime);
-            UserInfo userInfo = userModel.getCurrentUser().clone();
-
-            TwoTuple<String, String> tuple;
-            if (strictType == 1) {
-                // 只有类型1有宵禁信息 -> 线上版只有1有宵禁信息
-                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, 5);
-                if (TextUtils.isEmpty(tuple.firstParam)) {tuple = AntiAddictionSettings.getInstance().getPromptInfo(1, 5);}
-            } else {
-                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, 6);
-            }
-            int costTime = TimeUtil.getAntiAddictionTime(userInfo.accountType
-                    , AntiAddictionSettings.getInstance().getCommonConfig().childProtectedConfig
-                    , recentServerTimeInSecond * 1000);
-
-            String title = tuple.firstParam;
-            String description = tuple.secondParam.replace("${remaining}", String.valueOf(costTime / 60));
-            AccountLimitTipEnum limitTipEnum;
-            if (userInfo.accountType == Constants.UserType.USER_TYPE_UNREALNAME || userInfo.accountType == Constants.UserType.USER_TYPE_UNKNOWN) {
-                limitTipEnum = AccountLimitTipEnum.STATE_QUIT_TIP;
-            } else {
-                limitTipEnum = AccountLimitTipEnum.STATE_CHILD_QUIT_TIP;
-            }
-            mainLooperHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    antiAddictionCallback.onCallback(AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP
-                            , AntiAddictionSettings.getInstance().generateAlertMessage(title
-                                    , description, limitTipEnum, strictType));
-                }
-            });
-
-            unbind();
-        }
-
-        @Override
-        public void logout() {
-            try {
-                syncTime();
-            } catch (Throwable throwable) {
-                AntiAddictionLogger.printStackTrace(throwable);
-            }
-            unbind();
-            userModel.logout();
-        }
-    }
 }

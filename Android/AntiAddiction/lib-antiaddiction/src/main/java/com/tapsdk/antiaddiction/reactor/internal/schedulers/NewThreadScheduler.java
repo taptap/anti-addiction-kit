@@ -15,7 +15,6 @@
  */
 package com.tapsdk.antiaddiction.reactor.internal.schedulers;
 
-import com.tapsdk.antiaddiction.reactor.internal.schedulers.NewThreadWorker;
 import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
 
 import java.util.concurrent.ThreadFactory;

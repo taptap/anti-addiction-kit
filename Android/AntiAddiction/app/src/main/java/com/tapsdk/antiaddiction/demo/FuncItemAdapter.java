@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.tapsdk.antiaddiction.demo.models.FuncAction;
 import com.tapsdk.antiaddiction.demo.models.FuncBase;
 import com.tapsdk.antiaddiction.demo.models.FuncCategroyInfo;

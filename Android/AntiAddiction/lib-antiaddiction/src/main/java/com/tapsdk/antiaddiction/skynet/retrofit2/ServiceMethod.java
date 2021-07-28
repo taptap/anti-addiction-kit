@@ -21,29 +21,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.MediaType;
 import com.tapsdk.antiaddiction.skynet.okhttp3.MultipartBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
-import com.tapsdk.antiaddiction.skynet.retrofit2.CallAdapter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Converter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.ParameterHandler;
-import com.tapsdk.antiaddiction.skynet.retrofit2.RequestBuilder;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
-import com.tapsdk.antiaddiction.skynet.retrofit2.http.PUT;
-import com.tapsdk.antiaddiction.skynet.retrofit2.http.Query;
-
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Body;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.DELETE;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Field;
@@ -58,12 +35,26 @@ import com.tapsdk.antiaddiction.skynet.retrofit2.http.Multipart;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.OPTIONS;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.PATCH;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.POST;
+import com.tapsdk.antiaddiction.skynet.retrofit2.http.PUT;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Part;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.PartMap;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Path;
+import com.tapsdk.antiaddiction.skynet.retrofit2.http.Query;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.QueryMap;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.QueryName;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Url;
+
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Adapts an invocation of an interface method into an HTTP call.

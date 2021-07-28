@@ -15,10 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Call;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Callback;
-import com.tapsdk.antiaddiction.skynet.okhttp3.MediaType;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;

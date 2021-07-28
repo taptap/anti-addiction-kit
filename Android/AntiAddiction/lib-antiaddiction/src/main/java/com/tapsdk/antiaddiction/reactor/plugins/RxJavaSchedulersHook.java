@@ -18,7 +18,6 @@ package com.tapsdk.antiaddiction.reactor.plugins;
 
 import com.tapsdk.antiaddiction.reactor.functions.Action0;
 import com.tapsdk.antiaddiction.reactor.internal.schedulers.NewThreadScheduler;
-import com.tapsdk.antiaddiction.reactor.plugins.RxJavaPlugins;
 import com.tapsdk.antiaddiction.reactor.schedulers.CachedThreadScheduler;
 import com.tapsdk.antiaddiction.reactor.schedulers.EventLoopsScheduler;
 import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;

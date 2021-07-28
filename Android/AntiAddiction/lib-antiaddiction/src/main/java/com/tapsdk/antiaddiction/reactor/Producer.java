@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.reactor;
 
-import com.tapsdk.antiaddiction.reactor.Subscriber;
-
 /**
  * Interface that establishes a request-channel between an Observable and a Subscriber and allows
  * the Subscriber to request a certain amount of items from the Observable (otherwise known as

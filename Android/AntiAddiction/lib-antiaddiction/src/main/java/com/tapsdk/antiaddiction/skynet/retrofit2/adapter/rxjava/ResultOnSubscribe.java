@@ -3,7 +3,6 @@ package com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava;
 import com.tapsdk.antiaddiction.reactor.Observable;
 import com.tapsdk.antiaddiction.reactor.Subscriber;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.Result;
 
 final class ResultOnSubscribe<T> implements Observable.OnSubscribe<com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.Result<T>> {
     private final Observable.OnSubscribe<Response<T>> upstream;

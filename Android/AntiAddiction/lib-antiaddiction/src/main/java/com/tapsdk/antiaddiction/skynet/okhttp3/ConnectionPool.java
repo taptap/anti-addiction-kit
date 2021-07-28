@@ -16,9 +16,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Address;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Connection;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Route;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.RealConnection;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.RouteDatabase;

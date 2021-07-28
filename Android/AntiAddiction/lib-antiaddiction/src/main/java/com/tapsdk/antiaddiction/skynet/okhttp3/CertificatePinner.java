@@ -15,7 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.CertificateChainCleaner;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 

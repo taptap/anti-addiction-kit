@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.reactor.functions;
 
-import com.tapsdk.antiaddiction.reactor.functions.Action;
-
 /**
  * A one-argument action.
  * @param <T> the first argument type

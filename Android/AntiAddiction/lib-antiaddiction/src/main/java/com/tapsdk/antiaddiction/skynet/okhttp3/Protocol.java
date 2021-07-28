@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.CipherSuite;
-
 import java.io.IOException;
 
 /**

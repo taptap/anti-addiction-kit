@@ -26,10 +26,12 @@ dependencies {
 ### 2.1 初始化
 示例如下：
 ```
-AntiAddiction.init(activity, gameIdentifier, antiAddictionFunctionConfig, antiAddictionCallback); 
+AntiAddiction.init(context, gameIdentifier
+, antiAddictionFunctionConfig
+, antiAddictionCallback); 
 ```
 
-其中 antiAddictionFunctionConfig` 为防沉迷配置（打开时长限制，打开付费限制）, `gameIdentifier ` 为该游戏唯一标识符，`antiAddictionCallback` 为游戏内接受回调的对象`。
+其中 context`android系统的上下文，这边可以传activity,也可以传application,`antiAddictionFunctionConfig` 为防沉迷配置（打开时长限制，打开付费限制）, `gameIdentifier ` 为该游戏唯一标识符，`antiAddictionCallback` 为游戏内接受回调的对象`。
 回调中会返回对应的回调类型码 `code` 和相应信息 `message`。部分 `code` 为预留，游戏只需处理必要的回调即可。
 
 <a name="回调类型"></a>
@@ -54,7 +56,7 @@ CALLBACK_CODE_OPEN_ALERT_TIP | 1095 | SDK 请求打开弹窗提示，具体内�
 // 登录
 AntiAddictionKit.login(userId)
 // 登出
-AntiAddictionService.logout()
+AntiAddictionKit.logout()
 ```
 
 如果步骤一配置的 `AntiAddictionFunctionConfig.useSdkOnlineTimeLimit` 值为 `true`，则 sdk 会根据当前政策主动限制游戏时长，反之不会限制用户游戏时长。

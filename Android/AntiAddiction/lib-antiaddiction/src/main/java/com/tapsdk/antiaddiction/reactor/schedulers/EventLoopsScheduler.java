@@ -18,13 +18,12 @@ package com.tapsdk.antiaddiction.reactor.schedulers;
 import com.tapsdk.antiaddiction.reactor.Subscription;
 import com.tapsdk.antiaddiction.reactor.functions.Action0;
 import com.tapsdk.antiaddiction.reactor.internal.schedulers.NewThreadWorker;
-import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
-import com.tapsdk.antiaddiction.reactor.schedulers.SchedulerLifecycle;
 import com.tapsdk.antiaddiction.reactor.subscriptions.Subscriptions;
 import com.tapsdk.antiaddiction.reactor.util.RxThreadFactory;
 import com.tapsdk.antiaddiction.reactor.util.SubscriptionList;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public final class EventLoopsScheduler extends Scheduler implements SchedulerLifecycle {

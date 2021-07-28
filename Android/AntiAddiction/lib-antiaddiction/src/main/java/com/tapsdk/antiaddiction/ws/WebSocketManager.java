@@ -2,7 +2,6 @@ package com.tapsdk.antiaddiction.ws;
 
 import android.text.TextUtils;
 
-
 import com.tapsdk.antiaddiction.skynet.okhttp3.OkHttpClient;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Response;

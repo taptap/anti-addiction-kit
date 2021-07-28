@@ -25,7 +25,6 @@ import com.tapsdk.antiaddiction.reactor.operators.BackpressureUtils;
 import com.tapsdk.antiaddiction.reactor.operators.NotificationLite;
 import com.tapsdk.antiaddiction.reactor.plugins.RxJavaHooks;
 import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
-import com.tapsdk.antiaddiction.reactor.schedulers.Schedulers;
 
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicLong;

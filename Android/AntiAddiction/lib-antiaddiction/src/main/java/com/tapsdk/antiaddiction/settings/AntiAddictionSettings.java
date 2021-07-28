@@ -6,14 +6,6 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.entities.CommonConfig;
 import com.tapsdk.antiaddiction.entities.HealthPromptGroup;
@@ -23,6 +15,15 @@ import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 import com.tapsdk.antiaddiction.utils.AntiAddictionLogger;
 import com.tapsdk.antiaddiction.utils.FileUtil;
+
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 public class AntiAddictionSettings {
 

@@ -16,12 +16,6 @@
 package com.tapsdk.antiaddiction.skynet.retrofit2;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
-import com.tapsdk.antiaddiction.skynet.retrofit2.CallAdapter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Callback;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

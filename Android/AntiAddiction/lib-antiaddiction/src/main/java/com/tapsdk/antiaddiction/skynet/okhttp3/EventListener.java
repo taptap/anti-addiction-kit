@@ -15,16 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Call;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Connection;
-import com.tapsdk.antiaddiction.skynet.okhttp3.ConnectionPool;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Dns;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Handshake;
-import com.tapsdk.antiaddiction.skynet.okhttp3.OkHttpClient;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;

@@ -23,7 +23,6 @@ import com.tapsdk.antiaddiction.reactor.functions.Func0;
 import com.tapsdk.antiaddiction.reactor.functions.Func1;
 import com.tapsdk.antiaddiction.reactor.functions.Func2;
 import com.tapsdk.antiaddiction.reactor.operators.OnSubscribeOnAssembly;
-import com.tapsdk.antiaddiction.reactor.plugins.RxJavaPlugins;
 import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
 
 import java.lang.Thread.UncaughtExceptionHandler;

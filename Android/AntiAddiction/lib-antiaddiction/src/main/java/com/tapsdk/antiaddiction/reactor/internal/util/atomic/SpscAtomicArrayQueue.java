@@ -16,9 +16,8 @@
  */
 package com.tapsdk.antiaddiction.reactor.internal.util.atomic;
 
-import com.tapsdk.antiaddiction.reactor.internal.util.atomic.AtomicReferenceArrayQueue;
-
-import java.util.concurrent.atomic.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * A Single-Producer-Single-Consumer queue backed by a pre-allocated buffer.

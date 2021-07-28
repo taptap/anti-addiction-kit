@@ -15,10 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.retrofit2;
 
-import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
-
 /**
  * Communicates responses from a server or offline requests. One and only one method will be
  * invoked in response to a given request.

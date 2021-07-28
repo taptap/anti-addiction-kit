@@ -16,8 +16,6 @@
 package com.tapsdk.antiaddiction.skynet.okio;
 
 
-import com.tapsdk.antiaddiction.skynet.okio.Segment;
-
 /**
  * A collection of unused segments, necessary to avoid GC churn and zero-fill.
  * This pool is a thread-safe static singleton.

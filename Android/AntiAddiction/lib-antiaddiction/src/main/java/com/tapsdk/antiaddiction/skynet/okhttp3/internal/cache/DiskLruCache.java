@@ -16,7 +16,6 @@
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache.FaultHidingSink;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.io.FileSystem;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Platform;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSink;

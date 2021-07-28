@@ -15,10 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.retrofit2;
 
-import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

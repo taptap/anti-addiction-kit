@@ -22,11 +22,6 @@ import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;
 import com.tapsdk.antiaddiction.skynet.okio.ForwardingSource;
 import com.tapsdk.antiaddiction.skynet.okio.Okio;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Callback;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.ServiceMethod;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
 
 import java.io.IOException;
 

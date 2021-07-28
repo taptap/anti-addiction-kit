@@ -1,6 +1,5 @@
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.HttpHeaders;
 
 import java.util.concurrent.TimeUnit;

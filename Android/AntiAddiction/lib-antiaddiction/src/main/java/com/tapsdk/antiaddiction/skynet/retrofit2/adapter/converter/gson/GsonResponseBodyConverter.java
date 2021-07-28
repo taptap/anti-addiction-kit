@@ -6,9 +6,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import java.io.IOException;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Converter;
+
+import java.io.IOException;
 
 final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     private final Gson gson;

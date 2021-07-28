@@ -15,11 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.ErrorCode;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Header;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Hpack;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Http2;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Settings;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;

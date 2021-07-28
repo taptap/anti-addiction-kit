@@ -2,8 +2,6 @@ package com.tapsdk.antiaddiction.models;
 
 import android.text.TextUtils;
 
-import com.tapsdk.antiaddiction.Callback;
-import com.tapsdk.antiaddiction.entities.AuthIdentityResult;
 import com.tapsdk.antiaddiction.entities.IdentificationInfo;
 import com.tapsdk.antiaddiction.entities.request.IdentifyRequestParams;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;

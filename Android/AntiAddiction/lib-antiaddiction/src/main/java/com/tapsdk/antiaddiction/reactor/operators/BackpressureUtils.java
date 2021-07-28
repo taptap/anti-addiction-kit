@@ -20,7 +20,7 @@ import com.tapsdk.antiaddiction.reactor.functions.Func1;
 import com.tapsdk.antiaddiction.reactor.internal.util.UtilityFunctions;
 
 import java.util.Queue;
-import java.util.concurrent.atomic.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Utility functions for use with backpressure.

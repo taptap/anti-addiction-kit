@@ -23,7 +23,8 @@ import com.tapsdk.antiaddiction.reactor.subscriptions.CompositeSubscription;
 import com.tapsdk.antiaddiction.reactor.util.SubscriptionList;
 
 import java.util.concurrent.Future;
-import java.util.concurrent.atomic.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 /**

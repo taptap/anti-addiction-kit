@@ -18,7 +18,8 @@ package com.tapsdk.antiaddiction.reactor.internal.util.atomic;
 
 import com.tapsdk.antiaddiction.reactor.internal.util.unsafe.Pow2;
 
-import java.util.*;
+import java.util.AbstractQueue;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 

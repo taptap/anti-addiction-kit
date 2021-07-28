@@ -15,9 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Cookie;
-import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
-
 import java.util.Collections;
 import java.util.List;
 

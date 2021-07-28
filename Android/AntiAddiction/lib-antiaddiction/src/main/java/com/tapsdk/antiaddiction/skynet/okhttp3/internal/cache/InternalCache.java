@@ -17,8 +17,6 @@ package com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache.CacheRequest;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache.CacheStrategy;
 
 import java.io.IOException;
 

@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.ErrorCode;
-
 import java.io.IOException;
 
 /**

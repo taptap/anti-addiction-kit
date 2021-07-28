@@ -16,12 +16,11 @@
 package com.tapsdk.antiaddiction.skynet.retrofit2.http;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
+import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
 
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

@@ -19,11 +19,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
-
-import com.tapsdk.antiaddiction.skynet.retrofit2.CallAdapter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.DefaultCallAdapterFactory;
-import com.tapsdk.antiaddiction.skynet.retrofit2.ExecutorCallAdapterFactory;
-
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

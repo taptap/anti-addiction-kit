@@ -3,8 +3,6 @@ package com.tapsdk.antiaddiction.reactor.schedulers;
 import com.tapsdk.antiaddiction.reactor.plugins.RxJavaHooks;
 import com.tapsdk.antiaddiction.reactor.plugins.RxJavaPlugins;
 import com.tapsdk.antiaddiction.reactor.plugins.RxJavaSchedulersHook;
-import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
-import com.tapsdk.antiaddiction.reactor.schedulers.SchedulerLifecycle;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
