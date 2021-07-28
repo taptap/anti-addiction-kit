@@ -19,7 +19,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
 import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Internal;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Header;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;

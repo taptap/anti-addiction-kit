@@ -15,9 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.CipherSuite;
-import com.tapsdk.antiaddiction.skynet.okhttp3.ConnectionSpec;
-import com.tapsdk.antiaddiction.skynet.okhttp3.TlsVersion;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
 
 import java.io.IOException;

@@ -21,7 +21,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.EventListener;
 import com.tapsdk.antiaddiction.skynet.okhttp3.HttpUrl;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Route;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.RouteDatabase;
 
 import java.io.IOException;
 import java.net.InetAddress;

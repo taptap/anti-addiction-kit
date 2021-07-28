@@ -16,8 +16,6 @@
 
 package com.tapsdk.antiaddiction.skynet.okio;
 
-import com.tapsdk.antiaddiction.skynet.okio.Timeout;
-
 import java.util.concurrent.TimeUnit;
 
 /**

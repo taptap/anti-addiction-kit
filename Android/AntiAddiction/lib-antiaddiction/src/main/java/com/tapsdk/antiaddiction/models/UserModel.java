@@ -7,7 +7,6 @@ import com.tapsdk.antiaddiction.reactor.Observable;
 import com.tapsdk.antiaddiction.reactor.subjects.PublishSubject;
 import com.tapsdk.antiaddiction.rest.api.AntiAddictionApi;
 import com.tapsdk.antiaddiction.skynet.Skynet;
-import com.tapsdk.antiaddiction.utils.DeviceUtil;
 
 public class UserModel {
 

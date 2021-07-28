@@ -18,8 +18,6 @@ package com.tapsdk.antiaddiction.skynet.retrofit2;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
 import com.tapsdk.antiaddiction.skynet.okhttp3.MultipartBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Converter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.RequestBuilder;
 
 import java.io.IOException;
 import java.lang.reflect.Array;

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tapsdk.antiaddiction.demo.R;
 import com.tapsdk.antiaddiction.entities.IdentificationInfo;
 import com.tapsdk.antiaddiction.entities.UserInfo;
+import com.tapsdk.antiaddiction.models.StrictType;
 import com.tapsdk.antiaddiction.utils.TimeUtil;
 
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class DashboardView extends ConstraintLayout {
                 LinearLayoutManager.VERTICAL));
         antiAddictionInfoAdapter = new SimpleAdapter();
         antiAddictionInfoRecyclerView.setAdapter(antiAddictionInfoAdapter);
+        ((TextView) findViewById(R.id.antiAddictionLimitInfoTextView)).setText("未登录防沉迷");
     }
 
     private List<String> getUserInfoList(UserInfo userInfo, IdentificationInfo identificationInfo) {
@@ -95,6 +97,21 @@ public class DashboardView extends ConstraintLayout {
             ((TextView) findViewById(R.id.promptDescriptionTextView)).setText(description);
         } else {
             ((TextView) findViewById(R.id.promptDescriptionTextView)).setText("");
+        }
+    }
+
+    public void updateAntiAddictionLimitInfo(boolean loggedIn, boolean canPlay, int strictType) {
+        if (loggedIn) {
+            if (canPlay) {
+                ((TextView) findViewById(R.id.antiAddictionLimitInfoTextView)).setText("防沉迷授权成功，可以开始计时");
+            } else {
+                String prompt = "已启动防沉迷时长限制，原因:";
+                if (strictType == StrictType.TIME_LIMIT) prompt += "时长限制";
+                else prompt += "宵禁限制";
+                ((TextView) findViewById(R.id.antiAddictionLimitInfoTextView)).setText(prompt);
+            }
+        } else {
+            ((TextView) findViewById(R.id.antiAddictionLimitInfoTextView)).setText("未登录防沉迷");
         }
     }
 

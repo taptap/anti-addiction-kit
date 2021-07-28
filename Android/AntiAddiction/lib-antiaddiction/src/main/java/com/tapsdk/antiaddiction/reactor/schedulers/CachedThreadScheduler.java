@@ -18,15 +18,18 @@ package com.tapsdk.antiaddiction.reactor.schedulers;
 import com.tapsdk.antiaddiction.reactor.Subscription;
 import com.tapsdk.antiaddiction.reactor.functions.Action0;
 import com.tapsdk.antiaddiction.reactor.internal.schedulers.NewThreadWorker;
-import com.tapsdk.antiaddiction.reactor.schedulers.ScheduledAction;
-import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
-import com.tapsdk.antiaddiction.reactor.schedulers.SchedulerLifecycle;
 import com.tapsdk.antiaddiction.reactor.subscriptions.CompositeSubscription;
 import com.tapsdk.antiaddiction.reactor.subscriptions.Subscriptions;
 import com.tapsdk.antiaddiction.reactor.util.RxThreadFactory;
 
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public final class CachedThreadScheduler extends Scheduler implements SchedulerLifecycle {
     private static final long KEEP_ALIVE_TIME;

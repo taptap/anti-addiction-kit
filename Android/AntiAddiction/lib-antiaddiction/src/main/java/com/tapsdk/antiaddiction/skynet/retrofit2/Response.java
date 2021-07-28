@@ -19,7 +19,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
 
 /**
  * An HTTP response.

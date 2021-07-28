@@ -25,8 +25,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Version;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.HttpHeaders;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.RealResponseBody;
 import com.tapsdk.antiaddiction.skynet.okio.GzipSource;
 import com.tapsdk.antiaddiction.skynet.okio.Okio;
 

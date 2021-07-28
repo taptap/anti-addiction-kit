@@ -1,9 +1,8 @@
 package com.tapsdk.antiaddiction;
 
-import android.app.Activity;
+import android.content.Context;
 
 import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
-import com.tapsdk.antiaddiction.entities.AuthIdentityResult;
 import com.tapsdk.antiaddiction.entities.IdentificationInfo;
 import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
@@ -13,12 +12,12 @@ public interface IAntiAddiction {
 
     /**
      * anti-addiction init
-     * @param activity game main activity
+     * @param context
      * @param gameIdentifier
      * @param antiAddictionFunctionConfig
      * @param callback
      */
-    void init(Activity activity, String gameIdentifier
+    void init(Context context, String gameIdentifier
             , AntiAddictionFunctionConfig antiAddictionFunctionConfig, AntiAddictionCallback callback);
 
     /**

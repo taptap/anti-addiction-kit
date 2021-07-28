@@ -28,9 +28,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Route;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.RouteException;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.StreamAllocation;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.HttpMethod;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.RealInterceptorChain;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.UnrepeatableRequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.ConnectionShutdownException;
 
 import java.io.FileNotFoundException;

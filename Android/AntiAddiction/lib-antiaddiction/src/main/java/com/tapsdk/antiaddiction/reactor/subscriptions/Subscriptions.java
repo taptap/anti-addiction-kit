@@ -17,8 +17,6 @@ package com.tapsdk.antiaddiction.reactor.subscriptions;
 
 import com.tapsdk.antiaddiction.reactor.Subscription;
 import com.tapsdk.antiaddiction.reactor.functions.Action0;
-import com.tapsdk.antiaddiction.reactor.subscriptions.BooleanSubscription;
-import com.tapsdk.antiaddiction.reactor.subscriptions.CompositeSubscription;
 
 import java.util.concurrent.Future;
 

@@ -17,10 +17,6 @@ package com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.ErrorCode;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Header;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.Http2Connection;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http2.StreamResetException;
 import com.tapsdk.antiaddiction.skynet.okio.AsyncTimeout;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;

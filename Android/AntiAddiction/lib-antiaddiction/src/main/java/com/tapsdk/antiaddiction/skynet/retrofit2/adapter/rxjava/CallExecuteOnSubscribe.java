@@ -4,7 +4,6 @@ import com.tapsdk.antiaddiction.reactor.Observable;
 import com.tapsdk.antiaddiction.reactor.Subscriber;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.CallArbiter;
 
 final class CallExecuteOnSubscribe<T> implements Observable.OnSubscribe<Response<T>> {
     private final Call<T> originalCall;

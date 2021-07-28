@@ -18,11 +18,6 @@ package com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.OkHttpClient;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Android10Platform;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.AndroidPlatform;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.ConscryptPlatform;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Jdk9Platform;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.JdkWithJettyBootPlatform;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.BasicCertificateChainCleaner;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.BasicTrustRootIndex;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.CertificateChainCleaner;

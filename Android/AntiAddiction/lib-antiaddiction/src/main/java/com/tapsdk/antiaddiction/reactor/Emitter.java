@@ -17,9 +17,6 @@
 package com.tapsdk.antiaddiction.reactor;
 
 
-import com.tapsdk.antiaddiction.reactor.Observer;
-import com.tapsdk.antiaddiction.reactor.Subscription;
-
 /**
  * Abstraction over a RxJava Subscriber that allows associating
  * a resource with it and exposes the current number of downstream

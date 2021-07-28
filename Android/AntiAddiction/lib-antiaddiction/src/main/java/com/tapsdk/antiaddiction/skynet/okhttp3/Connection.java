@@ -16,11 +16,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.ConnectionPool;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Handshake;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Route;
-
 import java.net.Socket;
 
 /**

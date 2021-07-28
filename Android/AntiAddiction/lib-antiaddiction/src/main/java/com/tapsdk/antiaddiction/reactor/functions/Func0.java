@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.reactor.functions;
 
-import com.tapsdk.antiaddiction.reactor.functions.Function;
-
 import java.util.concurrent.Callable;
 
 /**

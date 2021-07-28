@@ -15,9 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
-import com.tapsdk.antiaddiction.skynet.okhttp3.MediaType;
-import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSink;

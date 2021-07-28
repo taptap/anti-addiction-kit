@@ -15,10 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Call;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
-import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
-
 import java.io.IOException;
 
 public interface Callback {

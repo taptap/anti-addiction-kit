@@ -15,15 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.CacheControl;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Call;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Callback;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Challenge;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Handshake;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Headers;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
-import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.HttpHeaders;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.BufferedSource;

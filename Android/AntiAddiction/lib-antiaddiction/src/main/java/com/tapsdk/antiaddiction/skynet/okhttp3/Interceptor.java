@@ -15,11 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Call;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Connection;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 

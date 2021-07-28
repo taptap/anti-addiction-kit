@@ -16,7 +16,6 @@
 package com.tapsdk.antiaddiction.reactor.subscriptions;
 
 import com.tapsdk.antiaddiction.reactor.Subscription;
-import com.tapsdk.antiaddiction.reactor.subscriptions.SequentialSubscription;
 
 /**
  * Represents a subscription whose underlying subscription can be swapped for another subscription which causes

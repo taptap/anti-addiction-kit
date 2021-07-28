@@ -1,10 +1,19 @@
 package com.tapsdk.antiaddiction.constants;
 
-import android.os.Build;
-
 import com.tapsdk.antiaddiction.BuildConfig;
 
 public class Constants {
+
+    public static class ANTI_ADDICTION_CALLBACK_CODE {
+        public final static int TIME_LIMIT_NONE = 100;
+        public final static int LOGIN_SUCCESS = 500;
+        public final static int LOGOUT = 1000;
+        public final static int PAY_NO_LIMIT = 1020;
+        public final static int PAY_LIMIT = 1025;
+        public final static int TIME_LIMIT = 1030;
+        public final static int NIGHT_STRICT = 1050;
+        public final static int OPEN_ALERT_TIP = 1095;
+    }
 
     public static class API {
         public static final String ANTI_ADDICTION_BASE_URL = BuildConfig.ANTI_ADDICTION_HOST;

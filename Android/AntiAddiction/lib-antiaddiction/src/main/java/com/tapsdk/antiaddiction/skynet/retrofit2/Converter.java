@@ -17,14 +17,6 @@ package com.tapsdk.antiaddiction.skynet.retrofit2;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
-
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Utils;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Body;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Field;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.FieldMap;
@@ -35,6 +27,11 @@ import com.tapsdk.antiaddiction.skynet.retrofit2.http.PartMap;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Path;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.Query;
 import com.tapsdk.antiaddiction.skynet.retrofit2.http.QueryMap;
+
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * Convert objects to and from their representation in HTTP. Instances are created by {@linkplain

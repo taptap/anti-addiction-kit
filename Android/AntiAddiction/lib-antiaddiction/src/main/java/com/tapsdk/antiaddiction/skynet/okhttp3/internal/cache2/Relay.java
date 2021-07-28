@@ -15,7 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache2;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.cache2.FileOperator;
 import com.tapsdk.antiaddiction.skynet.okio.Buffer;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 import com.tapsdk.antiaddiction.skynet.okio.Source;

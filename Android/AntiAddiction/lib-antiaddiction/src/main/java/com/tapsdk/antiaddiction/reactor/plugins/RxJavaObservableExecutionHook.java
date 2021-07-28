@@ -17,7 +17,6 @@ package com.tapsdk.antiaddiction.reactor.plugins;
 
 import com.tapsdk.antiaddiction.reactor.Observable;
 import com.tapsdk.antiaddiction.reactor.Subscription;
-import com.tapsdk.antiaddiction.reactor.plugins.RxJavaPlugins;
 
 /**
  * Abstract ExecutionHook with invocations at different lifecycle points of {@link Observable} execution with a

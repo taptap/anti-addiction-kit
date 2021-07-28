@@ -5,7 +5,6 @@ import com.tapsdk.antiaddiction.reactor.Subscriber;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Callback;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.CallArbiter;
 
 public class CallEnqueueOnSubscribe<T> implements Observable.OnSubscribe<Response<T>> {
     private final Call<T> originalCall;

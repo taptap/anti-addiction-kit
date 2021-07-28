@@ -20,7 +20,6 @@ import android.util.Log;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Platform;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.BasicTrustRootIndex;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.CertificateChainCleaner;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.TrustRootIndex;

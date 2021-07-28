@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-
 import com.tapsdk.antiaddiction.reactor.Subscription;
 import com.tapsdk.antiaddiction.reactor.exceptions.OnErrorNotImplementedException;
 import com.tapsdk.antiaddiction.reactor.functions.Action0;

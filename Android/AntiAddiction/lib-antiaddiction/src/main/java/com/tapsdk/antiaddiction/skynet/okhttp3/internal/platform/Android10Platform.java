@@ -19,9 +19,6 @@ import android.annotation.SuppressLint;
 import android.net.ssl.SSLSockets;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Protocol;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.AndroidPlatform;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Platform;
-
 
 import java.io.IOException;
 import java.util.List;

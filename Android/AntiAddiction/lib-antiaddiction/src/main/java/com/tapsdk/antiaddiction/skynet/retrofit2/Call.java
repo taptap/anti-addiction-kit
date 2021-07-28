@@ -16,8 +16,6 @@
 package com.tapsdk.antiaddiction.skynet.retrofit2;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Callback;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
 
 import java.io.IOException;
 

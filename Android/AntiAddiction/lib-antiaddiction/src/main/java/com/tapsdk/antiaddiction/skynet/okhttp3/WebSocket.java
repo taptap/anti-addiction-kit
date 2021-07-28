@@ -15,9 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.OkHttpClient;
-import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
-import com.tapsdk.antiaddiction.skynet.okhttp3.WebSocketListener;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 
 /**

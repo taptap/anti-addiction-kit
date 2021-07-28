@@ -15,9 +15,6 @@
  */
 package com.tapsdk.antiaddiction.reactor;
 
-import com.tapsdk.antiaddiction.reactor.Observable;
-import com.tapsdk.antiaddiction.reactor.Subscriber;
-
 /**
  * Subscription returns from {@link Observable#subscribe(com.tapsdk.antiaddiction.reactor.Subscriber)} to allow unsubscribing.
  * <p>

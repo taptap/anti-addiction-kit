@@ -2,7 +2,6 @@ package com.tapsdk.antiaddiction.demo;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +15,7 @@ import com.tapsdk.antiaddiction.AntiAddictionCallback;
 import com.tapsdk.antiaddiction.AntiAddictionKit;
 import com.tapsdk.antiaddiction.Callback;
 import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
+import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.demo.models.ChangePayAmountAction;
 import com.tapsdk.antiaddiction.demo.models.CheckPayAction;
 import com.tapsdk.antiaddiction.demo.models.EnterGameAction;
@@ -38,6 +38,7 @@ import com.tapsdk.antiaddiction.demo.widget.ModifyAttrsDialog;
 import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
 import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
+import com.tapsdk.antiaddiction.models.AntiAddictionLimitInfoAction;
 import com.tapsdk.antiaddiction.models.UpdateAccountAction;
 import com.tapsdk.antiaddiction.models.UpdateAntiAddictionInfoAction;
 import com.tapsdk.antiaddiction.reactor.RxBus;
@@ -181,15 +182,16 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(CheckPayResult result) {
                                     if (result.status) {
-                                        Toast.makeText(MainActivity.this, Toast.LENGTH_SHORT, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "付费检查通过，可以付费", Toast.LENGTH_SHORT).show();
                                     } else {
+                                        Toast.makeText(MainActivity.this, "付费检查未通过，详情请见右方提示", Toast.LENGTH_SHORT).show();
                                         dashboardView.updatePromptInfo(result.title, result.description);
                                     }
                                 }
 
                                 @Override
                                 public void onError(Throwable throwable) {
-                                    dashboardView.updatePromptInfo("", "");
+                                    dashboardView.updatePromptInfo("", throwable.getMessage());
                                 }
                             });
                         } else if (funcAction instanceof PayAction) {
@@ -197,12 +199,12 @@ public class MainActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onSuccess(SubmitPayResult result) {
-
+                                    Toast.makeText(MainActivity.this, "提交付费信息成功", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void onError(Throwable throwable) {
-
+                                    Toast.makeText(MainActivity.this, "提交付费信息失败" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else if (funcAction instanceof ChangePayAmountAction) {
@@ -233,12 +235,14 @@ public class MainActivity extends AppCompatActivity {
                             AntiAddictionKit.fetchUserIdentifyInfo(currentUserId, new Callback<com.tapsdk.antiaddiction.entities.IdentificationInfo>() {
                                 @Override
                                 public void onSuccess(com.tapsdk.antiaddiction.entities.IdentificationInfo result) {
-                                    Log.d("test", "identifyInfo:" + result.toString());
+                                    Toast.makeText(MainActivity.this
+                                            ,"result" + result.toString(), Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void onError(Throwable throwable) {
-                                    Log.d("test", "identifyInfo:" + throwable.toString());
+                                    Toast.makeText(MainActivity.this
+                                            ,"throwable:" + throwable.toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -263,6 +267,11 @@ public class MainActivity extends AppCompatActivity {
                         } else if (event instanceof UpdateAntiAddictionInfoAction) {
                             dashboardView.updateAntiAddictionInfo(((UpdateAntiAddictionInfoAction) event).serverTimeInSeconds
                                     , ((UpdateAntiAddictionInfoAction) event).remainTime, ((UpdateAntiAddictionInfoAction) event).playing);
+                        } else if (event instanceof AntiAddictionLimitInfoAction) {
+                            dashboardView.updateAntiAddictionLimitInfo(((AntiAddictionLimitInfoAction) event).loggedIn
+                                    , ((AntiAddictionLimitInfoAction) event).canPlay
+                                    , ((AntiAddictionLimitInfoAction) event).strictType
+                            );
                         }
                     }
                 }, new Action1<Throwable>() {
@@ -293,12 +302,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCallback(int code, Map<String, Object> msg) {
                         AntiAddictionLogger.d("result:(" + code + "," + msg + ")");
-                        if (code == AntiAddictionKit.CALLBACK_CODE_LOGIN_SUCCESS) {
+                        if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS) {
                             funcBaseList.clear();
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);
                             funcItemAdapter.notifyDataSetChanged();
-                        } else if (code == AntiAddictionKit.CALLBACK_CODE_OPEN_ALERT_TIP) {
+                        } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP) {
                             funcBaseList.clear();
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);

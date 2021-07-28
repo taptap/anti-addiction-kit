@@ -11,7 +11,6 @@
  * the License for the specific language governing permissions and limitations under the License.
  */
 package com.tapsdk.antiaddiction.reactor;
-import android.util.Log;
 
 import com.tapsdk.antiaddiction.reactor.exceptions.Exceptions;
 import com.tapsdk.antiaddiction.reactor.exceptions.OnErrorFailedException;

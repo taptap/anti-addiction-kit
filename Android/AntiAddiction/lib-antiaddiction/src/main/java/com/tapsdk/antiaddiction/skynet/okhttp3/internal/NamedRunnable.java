@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.Util;
-
 /**
  * Runnable implementation which always sets its thread name.
  */

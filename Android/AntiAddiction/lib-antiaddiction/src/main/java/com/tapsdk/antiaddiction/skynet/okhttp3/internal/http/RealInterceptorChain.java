@@ -23,7 +23,6 @@ import com.tapsdk.antiaddiction.skynet.okhttp3.Request;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.RealConnection;
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.connection.StreamAllocation;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.http.HttpCodec;
 
 import java.io.IOException;
 import java.util.List;

@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.reactor.plugins;
 
-import com.tapsdk.antiaddiction.reactor.plugins.RxJavaObservableExecutionHook;
-
 /**
  * Default no-op implementation of {@link com.tapsdk.antiaddiction.reactor.plugins.RxJavaObservableExecutionHook}
  */

@@ -17,14 +17,11 @@ package com.tapsdk.antiaddiction.skynet.retrofit2;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
+import com.tapsdk.antiaddiction.skynet.retrofit2.http.Streaming;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-
-import com.tapsdk.antiaddiction.skynet.retrofit2.Converter;
-import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
-import com.tapsdk.antiaddiction.skynet.retrofit2.http.Streaming;
 
 final class BuiltInConverters extends Converter.Factory {
     @Override

@@ -20,10 +20,6 @@ import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Call;
 import com.tapsdk.antiaddiction.skynet.retrofit2.CallAdapter;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Response;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.BodyOnSubscribe;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.CallEnqueueOnSubscribe;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.CallExecuteOnSubscribe;
-import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.rxjava.ResultOnSubscribe;
 
 import java.lang.reflect.Type;
 

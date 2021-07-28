@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.Response;
-import com.tapsdk.antiaddiction.skynet.okhttp3.WebSocket;
 import com.tapsdk.antiaddiction.skynet.okio.ByteString;
 
 public abstract class WebSocketListener {

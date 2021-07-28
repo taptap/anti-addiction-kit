@@ -15,7 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.logging;
 
-import com.tapsdk.antiaddiction.skynet.logging.HttpLoggingInterceptor;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Call;
 import com.tapsdk.antiaddiction.skynet.okhttp3.Connection;
 import com.tapsdk.antiaddiction.skynet.okhttp3.EventListener;

@@ -15,8 +15,6 @@
  */
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls;
 
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.TrustRootIndex;
-
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.LinkedHashMap;

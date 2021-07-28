@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 package com.tapsdk.antiaddiction.skynet.retrofit2.adapter.converter.gson;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import com.tapsdk.antiaddiction.skynet.okhttp3.RequestBody;
 import com.tapsdk.antiaddiction.skynet.okhttp3.ResponseBody;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Converter;
 import com.tapsdk.antiaddiction.skynet.retrofit2.Retrofit;
 import com.tapsdk.antiaddiction.skynet.retrofit2.adapter.converter.StringResponseBodyConverter;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 
 /**
  * A {@linkplain Converter.Factory converter} which uses Gson for JSON.

@@ -16,9 +16,6 @@
 package com.tapsdk.antiaddiction.reactor.schedulers;
 
 
-import com.tapsdk.antiaddiction.reactor.schedulers.Scheduler;
-import com.tapsdk.antiaddiction.reactor.schedulers.Schedulers;
-
 /**
  * @deprecated This type was never publicly instantiable. Use {@link Schedulers#newThread()}.
  */

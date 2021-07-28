@@ -17,8 +17,6 @@
 package com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls;
 
 import com.tapsdk.antiaddiction.skynet.okhttp3.internal.platform.Platform;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.BasicCertificateChainCleaner;
-import com.tapsdk.antiaddiction.skynet.okhttp3.internal.tls.BasicTrustRootIndex;
 
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
