@@ -631,6 +631,15 @@ module.exports = {
                     "title": "健康游戏提示",
                     "description": "根据国家相关规定，每日 22 点 - 次日 8 点为健康保护时段，当前无法进入游戏。",
 
+                },
+                {
+                    "id": "67",
+                    "group": "1",
+                    "type": "1",
+                    "account_type": "5",
+                    "title": "健康游戏提示",
+                    "description": "距离健康保护时间还剩余# ${remaining} #分钟，请注意适度游戏。",
+
                 }
             ],
             {}
