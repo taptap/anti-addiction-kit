@@ -10,6 +10,7 @@ struct Networking {
     
     // MARK: - API URLs
     private static var baseUrl: String = AntiAddictionService.configuration.host ?? ""
+    private static var identifyBaseUrl: String = AntiAddictionService.configuration.identifyHost ?? ""
     
     private static let configUrl        = "/v3/fcm/get_config"      // GET
     private static let tokenUrl         = "/v3/fcm/authorizations"  // POST
@@ -79,9 +80,9 @@ struct Networking {
     
     /// 获取防沉迷相关配置
     static func getSdkConfig() {
-        AntiAddictionAsyncHttp.httpGet(baseUrl+configUrl, requestParams: nil, customHeader: nil, params: antiaddictionCommonParams(), callBack: { (r) in
+        AntiAddictionAsyncHttp.httpGet(baseUrl + configUrl, requestParams: nil, customHeader: nil, params: antiaddictionCommonParams(), callBack: { (r) in
             guard let data = r?.data else {
-                Logger.debug(baseUrl+configUrl+networkRequestError)
+                Logger.debug(baseUrl + configUrl+networkRequestError)
                 return
             }
             
@@ -412,7 +413,7 @@ struct Networking {
                             failureHandler: ((_ message: String) -> Void)? = nil) {
         var identifyState = AntiAddictionRealNameAuthState.success
         var errorMsg = "实名出错，请稍候重试"
-        let realnameUrl = baseUrl + setUserInfoUrl
+        let realnameUrl = identifyBaseUrl + setUserInfoUrl
 
         var userInfo: [String: Any] = ["name": name,
                                        "id_card": identify,
@@ -427,7 +428,7 @@ struct Networking {
 
         AntiAddictionAsyncHttp.httpPost(realnameUrl, requestParams: nil, customHeader: header, params: userInfo,paramsJson: userInfoJson, callBack: { (r) in
             guard let data = r?.data else {
-                Logger.debug(baseUrl+setUserInfoUrl+networkRequestError)
+                Logger.debug(identifyBaseUrl+setUserInfoUrl+networkRequestError)
                 failureHandler?(errorMsg)
                 return
             }
@@ -440,24 +441,24 @@ struct Networking {
             {
                 identifyState = AntiAddictionRealNameAuthState.init(rawValue: state.intValue) ?? .success
                 let antiToken = dataDic?["anti_addiction_token"] as? String
-                Logger.debug(baseUrl+setUserInfoUrl+networkRequestSuccess)
+                Logger.debug(identifyBaseUrl+setUserInfoUrl+networkRequestSuccess)
                 successHandler?(identifyState,antiToken ?? "")
                 return
             }else {
                 let msg = jsonDic?["msg"] as? String
                 if msg != nil {
-                    Logger.debug(baseUrl+setUserInfoUrl+msg!)
+                    Logger.debug(identifyBaseUrl+setUserInfoUrl+msg!)
                     failureHandler?(msg!)
                     return
                 }
             }
             
-            Logger.debug(baseUrl+setUserInfoUrl+dataFormatError)
+            Logger.debug(identifyBaseUrl+setUserInfoUrl+dataFormatError)
             failureHandler?(dataFormatError)
         }) { (httpResult) in
-            Logger.debug(baseUrl+setUserInfoUrl+dataFormatError)
+            Logger.debug(identifyBaseUrl+setUserInfoUrl+dataFormatError)
             guard let data = httpResult?.data else {
-                Logger.debug(baseUrl+setUserInfoUrl+networkRequestError)
+                Logger.debug(identifyBaseUrl+setUserInfoUrl+networkRequestError)
                 failureHandler?(errorMsg)
                 return
             }
@@ -481,12 +482,12 @@ struct Networking {
         var idCard = ""
         var antiAddictionToken = ""
         var errorMsg = "实名查询出错，请稍候重试"
-        let checkUrl = baseUrl + checkRealnameUrl + "?user_id=\(token)"
+        let checkUrl = identifyBaseUrl + checkRealnameUrl + "?user_id=\(token)"
         let sign = clientSecretKey + "user_id\(token)"
 
         AntiAddictionAsyncHttp.httpGet(checkUrl, requestParams: nil, customHeader: ["sign":sign.sha256()], params: nil) { httpResult in
             guard let data = httpResult?.data else {
-                Logger.debug(baseUrl+checkRealnameUrl+networkRequestError)
+                Logger.debug(identifyBaseUrl+checkRealnameUrl+networkRequestError)
                 failureHandler?(errorMsg)
                 return
             }
@@ -508,23 +509,23 @@ struct Networking {
                 idCard = userIdCard
                 antiAddictionToken = userAntiToken
                 
-                Logger.debug(baseUrl+checkRealnameUrl+networkRequestSuccess)
+                Logger.debug(identifyBaseUrl+checkRealnameUrl+networkRequestSuccess)
                 successHandler?(identifyState,userToken,idCard,name,antiAddictionToken)
                 return
             }else {
                 let msg = jsonDic?["msg"] as? String
                 if msg != nil {
-                    Logger.debug(baseUrl+checkRealnameUrl+msg!)
+                    Logger.debug(identifyBaseUrl+checkRealnameUrl+msg!)
                     failureHandler?(msg!)
                     return
                 }
             }
             
-            Logger.debug(baseUrl+checkRealnameUrl+dataFormatError)
+            Logger.debug(identifyBaseUrl+checkRealnameUrl+dataFormatError)
             failureHandler?(dataFormatError)
         } failedCallback: { httpResult in
             guard let data = httpResult?.data else {
-                Logger.debug(baseUrl+checkRealnameUrl+networkRequestError)
+                Logger.debug(identifyBaseUrl+checkRealnameUrl+networkRequestError)
                 failureHandler?(errorMsg)
                 return
             }
@@ -536,7 +537,7 @@ struct Networking {
                 errorMsg = msg
             }
             
-            Logger.debug(baseUrl+checkRealnameUrl+networkRequestError)
+            Logger.debug(identifyBaseUrl+checkRealnameUrl+networkRequestError)
             failureHandler?(errorMsg)
         }
 

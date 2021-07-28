@@ -22,7 +22,9 @@ static NSString *testUserId = @"123456";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [AntiAddictionService setHost:@"http://172.19.101.76"];
+    [AntiAddictionService setHost:@"http://172.19.56.86:7005"];
+    [AntiAddictionService setIdentifyHost:@"http://172.19.101.76"];
+    
 //    [AntiAddictionService setWebsocketAddress:@""];
     [AntiAddictionService setFunctionConfig:YES :YES];
     [AntiAddictionService init:self gameIdentifier:@"demo"];
@@ -56,6 +58,10 @@ static NSString *testUserId = @"123456";
     [AntiAddictionService enterGame];
 }
 
+- (void)leaveGame {
+    [AntiAddictionService leaveGame];
+}
+
 - (void)realName {
     [AntiAddictionService realNameAuthWithUserToken:testUserId name:@"name" idCard:@"idcard" phone:@"135xxxxxx" completion:^(enum AntiAddictionRealNameAuthState identifyState, NSString * _Nonnull errorMessage) {
         [self.resultLabel setText:[NSString stringWithFormat:@"实名结果：%ld,失败原因：%@", (long)identifyState,errorMessage]];
@@ -72,9 +78,13 @@ static NSString *testUserId = @"123456";
 
 - (void)addButtons {
     [self addButton:@"登录" selector:@selector(login)];
-//    [self addButton:@"进入游戏" selector:@selector(enterGame)];
+    [self addButton:@"进入游戏" selector:@selector(enterGame)];
+    [self addButton:@"离开游戏" selector:@selector(leaveGame)];
     [self addButton:@"实名认证" selector:@selector(realName)];
     [self addButton:@"检查实名" selector:@selector(checkRealname)];
+    
+    
+    
     [self addButton:@"登出" selector:@selector(logout)];
 }
 

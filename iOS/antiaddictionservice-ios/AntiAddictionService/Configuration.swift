@@ -7,6 +7,8 @@ public final class AntiAddictionConfiguration: NSObject {
     /// 联网服务器地址，默认值为 nil，仅通过 `setHost()`来设置
     internal var host: String? = nil
     
+    internal var identifyHost: String? = nil
+    
     /// 长连接地址，用于上报上下线时间
     internal var websocketAddress:String? = nil
     
@@ -18,6 +20,7 @@ public final class AntiAddictionConfiguration: NSObject {
     public var gameIdentifier:String? = nil
     ///
     public let bundleId:String = Bundle.main.bundleIdentifier!
+    
     
     /// AAKit 在线时长限制开关，默认值为 true
     public var useSdkOnlineTimeLimit: Bool = true

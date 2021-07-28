@@ -53,6 +53,13 @@ class AntiAddictionServiceManager {
         }
     }
     
+    func leaveGame() {
+        if playingGame {
+            playingGame = false
+            stopAll()
+        }
+    }
+    
     func setupReachability() {
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {

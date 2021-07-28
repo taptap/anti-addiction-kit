@@ -103,6 +103,10 @@ public final class AntiAddictionService:NSObject {
 
     }
     
+    public class func setIdentifyHost(_ host: String) {
+        AntiAddictionService.configuration.identifyHost = host
+    }
+    
     /// 设置长连接地址，设置以后，进入游戏将会连接，退出登录会断开
     /// - Parameter address: 长连接地址
     public class func setWebsocketAddress(_ address:String) {
@@ -187,6 +191,12 @@ public final class AntiAddictionService:NSObject {
     public class func enterGame() {
         AntiAddictionServiceManager.shared.enterGame()
         AntiAddictionSocket.shared.connect()
+    }
+    
+    /// 离开游戏
+    public class func leaveGame() {
+        AntiAddictionServiceManager.shared.leaveGame()
+        AntiAddictionSocket.shared.disconnect()
     }
     
     /// 退出用户登录
