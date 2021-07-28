@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 , new FuncItemInfo("离开游戏", new LeaveGameAction())
                 , new FuncItemInfo("修改支付金额", new ChangePayAmountAction())
                 , new FuncItemInfo("检查付费", new CheckPayAction())
-                , new FuncItemInfo("实际支付", new PayAction())
+                , new FuncItemInfo("上报支付金额", new PayAction())
                 , new FuncItemInfo("登出", new LogoutAction())
         );
 
@@ -319,120 +319,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
-//        findViewById(R.id.fetchUserIdentifyInfo).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AntiAddictionKit.fetchUserIdentifyInfo("123", new Callback<IdentificationInfo>() {
-//                    @Override
-//                    public void onSuccess(IdentificationInfo result) {
-//                        Toast.makeText(MainActivity.this
-//                                , "fetchUserIdentifyInfo success:" + result.toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        Toast.makeText(MainActivity.this
-//                                , "fetchUserIdentifyInfo fail", Toast.LENGTH_SHORT
-//                        ).show();
-//                    }
-//                });
-//            }
-//        });
-//
-//        findViewById(R.id.identifyUser).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AntiAddictionKit.authIdentity("791"
-//                        , "李四"
-//                        , "310101200803070290"
-//                        , "13580460916"
-//                        , new Callback<IdentifyResult>() {
-//                            @Override
-//                            public void onSuccess(IdentifyResult result) {
-//                                Toast.makeText(MainActivity.this
-//                                        , "identifyUser success:" + result.toString(), Toast.LENGTH_SHORT).show();
-//                                AntiAddictionLogger.d("identifyUser success:" + result.toString());
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable throwable) {
-//                                Toast.makeText(MainActivity.this
-//                                        , "identifyUser success:" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-//                                AntiAddictionLogger.e(throwable.getMessage());
-//                            }
-//                        });
-//            }
-//        });
-//
-//        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AntiAddictionKit.login("791");
-//            }
-//        });
-//
-//        findViewById(R.id.startTimingButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AntiAddictionKit.enterGame();
-//            }
-//        });
-//
-//        findViewById(R.id.stopTimingButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AntiAddictionKit.leaveGame();
-//            }
-//        });
-//
-//        findViewById(R.id.testSubscribeOnTwice).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Observable.create(new Observable.OnSubscribe<Object>(){
-//                    @Override
-//                    public void call(Subscriber<? super Object> subscriber) {
-//                        Object message = new Object();
-//                        subscriber.onNext(message);
-//                        subscriber.onCompleted();
-//                    }
-//                })
-//                        .subscribeOn(Schedulers.newThread())
-//                        .map(new Func1<Object, Object>() {
-//                            @Override
-//                            public Object call(Object o) {
-//                                Log.d("test", "map1 emitting source from thread:" + Thread.currentThread());
-//                                return o;
-//                            }
-//                        })
-//                        .subscribeOn(Schedulers.io())
-//                        .map(new Func1<Object, Object>() {
-//                            @Override
-//                            public Object call(Object o) {
-//                                Log.d("test", "map2 emitting source from thread:" + Thread.currentThread());
-//                                return null;
-//                            }
-//                        })
-//                        .subscribe(new Subscriber<Object>() {
-//
-//                            @Override
-//                            public void onCompleted() {
-//
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(Object o) {
-//                                Log.d("test", "oNext:" + Thread.currentThread());
-//                            }
-//                        });
-//            }
-//        });
     }
 
     private void bindView() {
