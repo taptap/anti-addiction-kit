@@ -24,6 +24,7 @@ import com.tapsdk.antiaddiction.models.ConfigModel;
 import com.tapsdk.antiaddiction.models.IdentityModel;
 import com.tapsdk.antiaddiction.models.PaymentModel;
 import com.tapsdk.antiaddiction.models.PlayLogModel;
+import com.tapsdk.antiaddiction.models.PromptType;
 import com.tapsdk.antiaddiction.models.StrictType;
 import com.tapsdk.antiaddiction.models.TimeModel;
 import com.tapsdk.antiaddiction.models.TimingModel;
@@ -316,12 +317,12 @@ public class AntiAddictionImpl implements IAntiAddiction {
             if (result.restrictType == StrictType.NIGHT) {
                 // 线上版未实名和游客没有宵禁类型
                 // so只有版暑版会出现此条逻辑
-                tipContent = settings.getPromptInfo(userInfo.accountType, 10);
+                tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.LOGIN_IN_NIGHT_WITH_NO_REMAINING_TIME);
                 if (tipContent == null) {
-                    tipContent = settings.getPromptInfo(userInfo.accountType, 9);
+                    tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.LOGIN_WITH_NO_REMAINING_TIME);
                 }
             } else {
-                tipContent = settings.getPromptInfo(userInfo.accountType, 9);
+                tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.LOGIN_WITH_NO_REMAINING_TIME);
             }
             strictType = result.restrictType;
             if (antiAddictionFunctionConfig.onLineTimeLimitEnabled()) {
@@ -331,11 +332,11 @@ public class AntiAddictionImpl implements IAntiAddiction {
             }
         } else if (result.costTime == 0) {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
-            tipContent = settings.getPromptInfo(userInfo.accountType, 7);
+            tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.DAILY_FIRST_LOGIN);
             notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
         } else {
             limitTipEnum = AccountLimitTipEnum.STATE_ENTER_NO_LIMIT;
-            tipContent = settings.getPromptInfo(userInfo.accountType, 8);
+            tipContent = settings.getPromptInfo(userInfo.accountType, PromptType.DAILY_FIRST_LOGIN_IN_NIGHT);
             notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
         }
         String description = tipContent.secondParam.replace("${remaining}", String.valueOf(TimeUtil.getMinute(result.remainTime)));

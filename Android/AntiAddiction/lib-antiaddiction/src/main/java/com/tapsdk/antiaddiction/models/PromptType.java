@@ -1,0 +1,37 @@
+package com.tapsdk.antiaddiction.models;
+
+import com.tapsdk.antiaddiction.annotation.IntDef;
+
+public interface PromptType {
+
+    int NIGHT_REMAINING_TIME = 1;
+
+    int TIME_LIMIT_REMAINING_TIME = 2;
+
+    int IN_NIGHT_STRICT = 5;
+
+    int TIME_EXHAUSTED = 6;
+
+    int DAILY_FIRST_LOGIN = 7;
+
+    int DAILY_FIRST_LOGIN_IN_NIGHT = 8;
+
+    int LOGIN_WITH_NO_REMAINING_TIME = 9;
+
+    int LOGIN_IN_NIGHT_WITH_NO_REMAINING_TIME = 10;
+
+    int NOT_FIRST_LOGIN_WITH_REMAINING_TIME = 11;
+
+    int TIME_LIMIT_BUBBLE = 12;
+
+    int NIGHT_STRICT_BUBBLE = 13;
+
+    @IntDef({NIGHT_REMAINING_TIME, TIME_LIMIT_REMAINING_TIME, IN_NIGHT_STRICT
+            , TIME_EXHAUSTED, DAILY_FIRST_LOGIN, DAILY_FIRST_LOGIN_IN_NIGHT
+            , LOGIN_WITH_NO_REMAINING_TIME, LOGIN_IN_NIGHT_WITH_NO_REMAINING_TIME
+            , NOT_FIRST_LOGIN_WITH_REMAINING_TIME, TIME_LIMIT_BUBBLE
+            , NIGHT_STRICT_BUBBLE})
+    @interface Type {
+
+    }
+}

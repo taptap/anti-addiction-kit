@@ -176,12 +176,12 @@ public class TimingModel {
                     // 延迟1秒发送
                     mHandler.sendMessageDelayed(msg, localCountDownRemainTime * 1000 + 800);
                     title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
-                            , (restrictType == StrictType.TIME_LIMIT) ? 12 : 13).secondParam
+                            , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam
                             .replace("${remaining}", String.valueOf(localCountDownRemainTime))
                             .replace("分钟", "秒");
                 } else {
                     title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
-                            , (restrictType == StrictType.TIME_LIMIT) ? 12 : 13).secondParam
+                            , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam
                             .replace("${remaining}", String.valueOf(TimeUtil.getMinute(localCountDownRemainTime)));
                 }
                 description = "";
@@ -232,12 +232,15 @@ public class TimingModel {
             TwoTuple<String, String> tuple;
             if (strictType == StrictType.NIGHT) {
                 // 只有类型1有宵禁信息 -> 线上版只有1有宵禁信息
-                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, 5);
+                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                        , PromptType.IN_NIGHT_STRICT);
                 if (TextUtils.isEmpty(tuple.firstParam)) {
-                    tuple = AntiAddictionSettings.getInstance().getPromptInfo(1, 5);
+                    tuple = AntiAddictionSettings.getInstance().getPromptInfo(Constants.UserType.USER_TYPE_CHILD
+                            , PromptType.IN_NIGHT_STRICT);
                 }
             } else {
-                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType, 6);
+                tuple = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
+                        , PromptType.TIME_EXHAUSTED);
             }
             int costTime = TimeUtil.getAntiAddictionTime(userInfo.accountType
                     , AntiAddictionSettings.getInstance().getCommonConfig().childProtectedConfig
