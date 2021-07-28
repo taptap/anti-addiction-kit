@@ -391,12 +391,12 @@ Authorization: Bearer <access_token>
 }
 ```
 
-### 1.4服务端上传充值
+### 1.4游戏服务端上报充值金额
 >请求路由
 ```
 请求方式：POST-application/json
 
-/v3/fcm/check_pay
+/v3/fcm/submit_pay
 ```
 |参数|类型|含义|是否必须|
 |  ----  | ----  | ----  | ----  |
@@ -404,8 +404,11 @@ Authorization: Bearer <access_token>
 
 ```
 入参
-{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfaWQiOiJjZjc4N2E3MzhmNjRjZjVjOTI0MDk5ZWI0MTBiNDgwYSIsImFtb3VudCI6NDAwMCwiZ2FtZSI6InJvIiwiaWF0IjoxNjI0MDA0MzA1fQ.GfOVtpVxcIGvgxHvmfRmKXR0lrndQyOYycTJPE8SqpA"}
-
+Authorization: Bearer <access_token>
+{
+    "game":"demo",
+    "amount":4200
+}
 出参
 {
     "code": 200,

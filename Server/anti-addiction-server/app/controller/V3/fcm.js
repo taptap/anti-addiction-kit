@@ -65,6 +65,30 @@ class FcmController extends Controller {
       return ctx.helper.result(400, error.message);
     }
   }
+
+  /**
+   * 游戏充值成功后，上报充值金额（用户防沉迷统计累加金额）
+   * @param ctx
+   * @returns {Promise<*>}
+   */
+  async submit_pay(ctx){
+    let params = ctx.request.body;
+    let userInfo = ctx.user;
+    let amount = params.amount;
+    let game = params.game;
+    if (lodash.isEmpty(game)) {
+      return ctx.helper.result(400, '未上传正确的game');
+    }
+    if(amount === undefined || !lodash.isNumber(amount) && amount<0){
+      return ctx.helper.result(400, '未上传正确的金额');
+    }
+    try {
+      await ctx.service.chargeAmountService.submitPay(userInfo,game,amount);
+      return ctx.helper.result(200,'上传金额成功');
+    }catch (error) {
+      return ctx.helper.result(400, error.message);
+    }
+  }
 }
 
 module.exports = FcmController;
