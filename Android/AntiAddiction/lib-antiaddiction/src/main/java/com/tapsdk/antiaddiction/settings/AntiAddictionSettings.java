@@ -172,4 +172,16 @@ public class AntiAddictionSettings {
         AntiAddictionLogger.d("generateAlertMessage:" + gson.toJson(result));
         return result;
     }
+
+    public Map<String, Object> generateAlertMessage(String content, String description, AccountLimitTipEnum limitTipEnum, int strictType, String remainingTimeStr) {
+        AntiAddictionLogger.d("-------generateAlertMessage-------");
+        Map<String, Object> result = new HashMap<>();
+        result.put("title", content);
+        result.put("description", description);
+        result.put("limit_tip_type", limitTipEnum);
+        result.put("strict_type", strictType);
+        result.put("remaining_time", remainingTimeStr);
+        AntiAddictionLogger.d("generateAlertMessage:" + gson.toJson(result));
+        return result;
+    }
 }

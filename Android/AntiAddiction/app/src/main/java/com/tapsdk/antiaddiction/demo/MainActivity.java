@@ -38,6 +38,7 @@ import com.tapsdk.antiaddiction.demo.widget.ModifyAttrsDialog;
 import com.tapsdk.antiaddiction.entities.response.CheckPayResult;
 import com.tapsdk.antiaddiction.entities.response.IdentifyResult;
 import com.tapsdk.antiaddiction.entities.response.SubmitPayResult;
+import com.tapsdk.antiaddiction.enums.AccountLimitTipEnum;
 import com.tapsdk.antiaddiction.models.AntiAddictionLimitInfoAction;
 import com.tapsdk.antiaddiction.models.UpdateAccountAction;
 import com.tapsdk.antiaddiction.models.UpdateAntiAddictionInfoAction;
@@ -112,11 +113,6 @@ public class MainActivity extends AppCompatActivity {
                             AntiAddictionKit.login(currentUserId);
                         } else if (funcAction instanceof LogoutAction) {
                             AntiAddictionKit.logout();
-                            funcBaseList.clear();
-                            funcBaseList.addAll(unLoginSupportFuncList);
-                            funcItemAdapter.setFuncBaseList(funcBaseList);
-                            funcItemAdapter.notifyDataSetChanged();
-                            dashboardView.updateUserInfo(null, null);
                         } else if (funcAction instanceof SetUserIdAction) {
                             ModifyAttrsDialog.newInstance("设置用户ID"
                                     , currentUserId
@@ -307,14 +303,61 @@ public class MainActivity extends AppCompatActivity {
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);
                             funcItemAdapter.notifyDataSetChanged();
+
+                            dashboardView.updateAntiAddictionLimitInfo(true, true, 0);
+                            dashboardView.updatePromptInfo("", "");
                         } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP) {
+                            String title = String.valueOf(msg.get("title"));
+                            String description = String.valueOf(msg.get("description"));
+                            String targetTitle;
+                            String remainingTimeStr = "";
+                            if (msg.containsKey("remaining_time")) {
+                                try {
+                                    remainingTimeStr = (String) msg.get("remaining_time");
+                                } catch (Exception e) {
+                                }
+                            }
+                            if (!TextUtils.isEmpty(remainingTimeStr)) {
+                                targetTitle = title.replace("${remaining}", remainingTimeStr);
+                            } else {
+                                targetTitle = title;
+                            }
+                            dashboardView.updatePromptInfo(targetTitle
+                                    , description);
+                        } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGOUT) {
+                            dashboardView.updateAntiAddictionLimitInfo(true, true, 0);
+                            dashboardView.updatePromptInfo("", "");
                             funcBaseList.clear();
-                            funcBaseList.addAll(loginSupportFuncList);
+                            funcBaseList.addAll(unLoginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);
                             funcItemAdapter.notifyDataSetChanged();
-                            dashboardView.updatePromptInfo(
-                                    String.valueOf(msg.get("title"))
-                                    , String.valueOf(msg.get("description")));
+                            dashboardView.updateUserInfo(null, null);
+                        } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT
+                                || code  == Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT) {
+                            if (msg != null) {
+                                int strictType = 0;
+                                try {
+                                    if (msg.containsKey("strict_type")) {
+                                        strictType = (int) msg.get("strict_type");
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (msg.containsKey("limit_tip_type")) {
+                                    if (AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT.equals(msg.get("limit_tip_type"))
+                                        || AccountLimitTipEnum.STATE_ENTER_LIMIT.equals(msg.get("limit_tip_type"))
+                                    ) {
+                                        // 这边只是演示，登录时遇到宵禁或者时长耗尽，需要做什么处理
+                                        funcBaseList.clear();
+                                        funcBaseList.addAll(loginSupportFuncList);
+                                        funcItemAdapter.setFuncBaseList(funcBaseList);
+                                        funcItemAdapter.notifyDataSetChanged();
+                                        dashboardView.updateAntiAddictionLimitInfo(true, false, strictType);
+                                        dashboardView.updatePromptInfo("", "");
+                                    }
+                                }
+                            }
                         }
                     }
                 }

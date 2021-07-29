@@ -189,10 +189,16 @@ public class TimingModel {
                 mainLooperHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        String remainTimeString = "";
+                        if (localCountDownRemainTime <= 60) {
+                            remainTimeString = String.valueOf(localCountDownRemainTime);
+                        } else {
+                            remainTimeString = String.valueOf(TimeUtil.getMinute(localCountDownRemainTime));
+                        }
                         if (timingMessageListener != null) timingMessageListener.onMessage(
                                 Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP
                                 , AntiAddictionSettings.getInstance().generateAlertMessage(targetTitle
-                                        , targetDescription, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, restrictType)
+                                        , targetDescription, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, restrictType, remainTimeString)
                         );
                     }
                 });
