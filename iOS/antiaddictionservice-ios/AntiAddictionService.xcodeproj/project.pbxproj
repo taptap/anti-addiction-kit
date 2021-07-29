@@ -38,12 +38,10 @@
 		C193B87224B458E0007DDCA2 /* RegionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85624B458DF007DDCA2 /* RegionDetector.swift */; };
 		C193B87324B458E0007DDCA2 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85824B458DF007DDCA2 /* UserType.swift */; };
 		C193B87424B458E0007DDCA2 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85924B458DF007DDCA2 /* UserService.swift */; };
-		C193B87524B458E0007DDCA2 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85A24B458DF007DDCA2 /* ChatService.swift */; };
 		C193B87624B458E0007DDCA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85B24B458DF007DDCA2 /* User.swift */; };
 		C193B87724B458E0007DDCA2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85C24B458DF007DDCA2 /* Configuration.swift */; };
 		C193B87824B458E0007DDCA2 /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85E24B458DF007DDCA2 /* PaymentManager.swift */; };
 		C193B87924B458E0007DDCA2 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B85F24B458E0007DDCA2 /* AccountManager.swift */; };
-		C193B87A24B458E0007DDCA2 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86024B458E0007DDCA2 /* ChatManager.swift */; };
 		C193B87B24B458E0007DDCA2 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86124B458E0007DDCA2 /* TimeManager.swift */; };
 		C193B87C24B458E0007DDCA2 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86224B458E0007DDCA2 /* LoginManager.swift */; };
 		C193B87D24B458E0007DDCA2 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193B86324B458E0007DDCA2 /* Account.swift */; };
@@ -84,12 +82,10 @@
 		C193B85624B458DF007DDCA2 /* RegionDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionDetector.swift; sourceTree = "<group>"; };
 		C193B85824B458DF007DDCA2 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C193B85924B458DF007DDCA2 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
-		C193B85A24B458DF007DDCA2 /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		C193B85B24B458DF007DDCA2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C193B85C24B458DF007DDCA2 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		C193B85E24B458DF007DDCA2 /* PaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
 		C193B85F24B458E0007DDCA2 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
-		C193B86024B458E0007DDCA2 /* ChatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		C193B86124B458E0007DDCA2 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		C193B86224B458E0007DDCA2 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		C193B86324B458E0007DDCA2 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -236,7 +232,6 @@
 			children = (
 				C193B85824B458DF007DDCA2 /* UserType.swift */,
 				C193B85924B458DF007DDCA2 /* UserService.swift */,
-				C193B85A24B458DF007DDCA2 /* ChatService.swift */,
 				C193B85B24B458DF007DDCA2 /* User.swift */,
 			);
 			path = UserService;
@@ -247,7 +242,6 @@
 			children = (
 				C193B85E24B458DF007DDCA2 /* PaymentManager.swift */,
 				C193B85F24B458E0007DDCA2 /* AccountManager.swift */,
-				C193B86024B458E0007DDCA2 /* ChatManager.swift */,
 				C193B86124B458E0007DDCA2 /* TimeManager.swift */,
 				C193B86224B458E0007DDCA2 /* LoginManager.swift */,
 				C193B86324B458E0007DDCA2 /* Account.swift */,
@@ -456,7 +450,6 @@
 				C193B87C24B458E0007DDCA2 /* LoginManager.swift in Sources */,
 				C193B86524B458E0007DDCA2 /* String+Crypto.swift in Sources */,
 				C193B86F24B458E0007DDCA2 /* Networking.swift in Sources */,
-				C193B87524B458E0007DDCA2 /* ChatService.swift in Sources */,
 				C193B86424B458E0007DDCA2 /* HashIds.swift in Sources */,
 				C193B87624B458E0007DDCA2 /* User.swift in Sources */,
 				C193B87724B458E0007DDCA2 /* Configuration.swift in Sources */,
@@ -468,7 +461,6 @@
 				C193B88124B464AC007DDCA2 /* AntiAddictionServiceManager.swift in Sources */,
 				C18721ED259DD176006F04A1 /* AntiAddictionHttpManager.m in Sources */,
 				C193B86824B458E0007DDCA2 /* TimeService.swift in Sources */,
-				C193B87A24B458E0007DDCA2 /* ChatManager.swift in Sources */,
 				C193BAAD24B869A6007DDCA2 /* Notices.swift in Sources */,
 				C193B86924B458E0007DDCA2 /* SwiftTimer.swift in Sources */,
 				C193B87124B458E0007DDCA2 /* Logger.swift in Sources */,

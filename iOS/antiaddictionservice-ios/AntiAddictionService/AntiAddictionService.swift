@@ -23,9 +23,6 @@ public enum AntiAddictionServiceResult: Int {
     
     case openRealName           = 1060            // 打开实名
     
-    case noChatLimit            = 1080            // 用户已实名，可聊天
-    case hasChatLimit           = 1090            // 用户未实名，无法聊天
-    
     case openAlertTip           = 1095            // 打开弹窗提示
     case closeAlertTip          = 1096            // 关闭弹窗提示
 
