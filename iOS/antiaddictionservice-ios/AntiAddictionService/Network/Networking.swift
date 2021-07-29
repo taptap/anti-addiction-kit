@@ -29,7 +29,7 @@ struct Networking {
      使用 SHA256 算法对待加密字符串进行计算，放入header ， key 为sign
      */
     private static let clientSecretKey  = "e5d341b5aed6110da68f93e06aff47db"
-        
+    
     /// 字典数组Array<Dictionary>序列化成JSON字符串
     private static func dictionaryArrayToJSONString(_ array: [[String: Any]]?) -> String {
         var jsonString: String = ""
@@ -86,65 +86,65 @@ struct Networking {
                 return
             }
             
-           do {
-            let jsonString = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
-            if jsonString != nil {
-                AntiAddictionService.sendCallback(result: .updateConfig, extra: jsonString)
-            }
-            
-            // 防沉迷配置
-            let jsonDic = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? Dictionary<String,Any>
-            let code = jsonDic?["code"] as? NSNumber
-            let dataDic = jsonDic?["data"] as? Dictionary<String,Any>
-            if (code != nil) ,code == 200,
-               let normalConfigDic = dataDic?["child_protected_config"] as? Dictionary<String,Any>,
-               let nightStrictStart = normalConfigDic["night_strict_start"] as? String, // 宵禁开始时间
-               let nightStrictEnd = normalConfigDic["night_strict_end"] as? String,     // 宵禁结束时间
-               let childCommonTime = normalConfigDic["child_common_time"] as? NSNumber, // 未成年游戏时间
-               let childHolidayTime = normalConfigDic["child_holiday_time"] as? NSNumber,// 未成年节假日游戏时间
-               let guestTotalTime = normalConfigDic["no_identify_time"] as? NSNumber    // 游客游戏时间
-            {
-                AntiAddictionService.configuration.nightStrictStart = nightStrictStart
-                AntiAddictionService.configuration.nightStrictEnd = nightStrictEnd
-                AntiAddictionService.configuration.minorCommonDayTotalTime = Int(truncating: childCommonTime)
-                AntiAddictionService.configuration.minorHolidayTotalTime = Int(truncating: childHolidayTime)
-                AntiAddictionService.configuration.guestTotalTime = Int(truncating: guestTotalTime)
+            do {
+                let jsonString = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+                if jsonString != nil {
+                    AntiAddictionService.sendCallback(result: .updateConfig, extra: jsonString)
+                }
                 
-                if let uploadAll = normalConfigDic["upload_all_data"] as? NSNumber{
-                    AntiAddictionService.configuration.needUploadAllTimeData = Bool(truncating: uploadAll)
-                }
-                Logger.debug(baseUrl+configUrl+networkRequestSuccess)
-            }
-            
-            // 节假日
-            if (code != nil) ,code == 200,
-               let holidays = dataDic?["holiday"] as? Array<String> {
-                if holidays.count > 0 {
-                    var newHolidayConfig:[String] = []
-                    holidays.forEach { (oneDay) in
-                        newHolidayConfig.append(oneDay)
+                // 防沉迷配置
+                let jsonDic = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? Dictionary<String,Any>
+                let code = jsonDic?["code"] as? NSNumber
+                let dataDic = jsonDic?["data"] as? Dictionary<String,Any>
+                if (code != nil) ,code == 200,
+                   let normalConfigDic = dataDic?["child_protected_config"] as? Dictionary<String,Any>,
+                   let nightStrictStart = normalConfigDic["night_strict_start"] as? String, // 宵禁开始时间
+                   let nightStrictEnd = normalConfigDic["night_strict_end"] as? String,     // 宵禁结束时间
+                   let childCommonTime = normalConfigDic["child_common_time"] as? NSNumber, // 未成年游戏时间
+                   let childHolidayTime = normalConfigDic["child_holiday_time"] as? NSNumber,// 未成年节假日游戏时间
+                   let guestTotalTime = normalConfigDic["no_identify_time"] as? NSNumber    // 游客游戏时间
+                {
+                    AntiAddictionService.configuration.nightStrictStart = nightStrictStart
+                    AntiAddictionService.configuration.nightStrictEnd = nightStrictEnd
+                    AntiAddictionService.configuration.minorCommonDayTotalTime = Int(truncating: childCommonTime)
+                    AntiAddictionService.configuration.minorHolidayTotalTime = Int(truncating: childHolidayTime)
+                    AntiAddictionService.configuration.guestTotalTime = Int(truncating: guestTotalTime)
+                    
+                    if let uploadAll = normalConfigDic["upload_all_data"] as? NSNumber{
+                        AntiAddictionService.configuration.needUploadAllTimeData = Bool(truncating: uploadAll)
                     }
-                    AntiAddictionService.configuration.holiday = newHolidayConfig
+                    Logger.debug(baseUrl+configUrl+networkRequestSuccess)
                 }
-            }
-             
-            //获取文案
-            if (code != nil) ,code == 200,
-               let uiConfigDic = dataDic?["ui_config"] as? Dictionary<String,Any>,
-               let payLimitTips = uiConfigDic["pay_limit_words"] as? Array<Dictionary<String,Any>>,
-               let onlineTimeLimitTips = uiConfigDic["health_reminder_words"] as? Array<Dictionary<String,Any>>
-            {
-                payLimitTips.forEach { (oneTip) in
-                    if let accountType = oneTip["account_type"] as? NSNumber,
-                        let singleTitle = oneTip["single_title"] as? String,
-                        let singleDescription = oneTip["single_description"] as? String,
-                        let monthTitle = oneTip["month_title"] as? String,
-                        let monthDescription = oneTip["month_description"] as? String,
-                        let singleLimit = oneTip["single_limit"] as? NSNumber,
-                        let monthLimit = oneTip["month_limit"] as? NSNumber
-                    {
-                        let account_type = Int(truncating: accountType)
-                        switch (account_type) {
+                
+                // 节假日
+                if (code != nil) ,code == 200,
+                   let holidays = dataDic?["holiday"] as? Array<String> {
+                    if holidays.count > 0 {
+                        var newHolidayConfig:[String] = []
+                        holidays.forEach { (oneDay) in
+                            newHolidayConfig.append(oneDay)
+                        }
+                        AntiAddictionService.configuration.holiday = newHolidayConfig
+                    }
+                }
+                
+                //获取文案
+                if (code != nil) ,code == 200,
+                   let uiConfigDic = dataDic?["ui_config"] as? Dictionary<String,Any>,
+                   let payLimitTips = uiConfigDic["pay_limit_words"] as? Array<Dictionary<String,Any>>,
+                   let onlineTimeLimitTips = uiConfigDic["health_reminder_words"] as? Array<Dictionary<String,Any>>
+                {
+                    payLimitTips.forEach { (oneTip) in
+                        if let accountType = oneTip["account_type"] as? NSNumber,
+                           let singleTitle = oneTip["single_title"] as? String,
+                           let singleDescription = oneTip["single_description"] as? String,
+                           let monthTitle = oneTip["month_title"] as? String,
+                           let monthDescription = oneTip["month_description"] as? String,
+                           let singleLimit = oneTip["single_limit"] as? NSNumber,
+                           let monthLimit = oneTip["month_limit"] as? NSNumber
+                        {
+                            let account_type = Int(truncating: accountType)
+                            switch (account_type) {
                             case AccountType.unknown.rawValue:
                                 break
                             case AccountType.unknownAccount.rawValue:
@@ -169,104 +169,104 @@ struct Networking {
                                 break
                             default:
                                 break
+                            }
                         }
                     }
-                }
-
-                // accout_type:0,实名类型，0-未实名游客 1：8岁以下 ，2：8-15岁，  3：16-17岁， 4：18+ 5：未实名正式账号
-                /*
-                 type:
-                 1-宵禁剩余时间提示 2-时长剩余提示 3-单笔消费限制 4-月消费限制 5-已经处于宵禁提示 6-时长耗尽提示 7-首次登陆提示 8-非首次登录提示
-                */
-                onlineTimeLimitTips.forEach { (oneTip) in
-                    if let accountType = oneTip["account_type"] as? NSNumber ,
-                        let tips = oneTip["tips"] as? Array<Dictionary<String,Any>>
-                    {
-                        let account_type = Int(truncating: accountType)
-                        if tips.count <= 0 {
-                            return
-                        }
-                        tips.forEach { (curTip) in
-                            if let type = curTip["type"] as? NSNumber,
-                                let title = curTip["title"] as? String,
-                                let description = curTip["description"] as? String {
-                                let tipText = PlayTimeTipText(tipTitle: title, desc: description)
-                                switch (account_type) {
+                    
+                    // accout_type:0,实名类型，0-未实名游客 1：8岁以下 ，2：8-15岁，  3：16-17岁， 4：18+ 5：未实名正式账号
+                    /*
+                     type:
+                     1-宵禁剩余时间提示 2-时长剩余提示 3-单笔消费限制 4-月消费限制 5-已经处于宵禁提示 6-时长耗尽提示 7-首次登陆提示 8-非首次登录提示
+                     */
+                    onlineTimeLimitTips.forEach { (oneTip) in
+                        if let accountType = oneTip["account_type"] as? NSNumber ,
+                           let tips = oneTip["tips"] as? Array<Dictionary<String,Any>>
+                        {
+                            let account_type = Int(truncating: accountType)
+                            if tips.count <= 0 {
+                                return
+                            }
+                            tips.forEach { (curTip) in
+                                if let type = curTip["type"] as? NSNumber,
+                                   let title = curTip["title"] as? String,
+                                   let description = curTip["description"] as? String {
+                                    let tipText = PlayTimeTipText(tipTitle: title, desc: description)
+                                    switch (account_type) {
                                     case AccountType.unknown.rawValue:
                                         switch type {
-                                            case 1:
-                                                NoticeTemplate.guestNightStrictRemainTip = tipText
-                                            case 2:
-                                                NoticeTemplate.guestRemainTip = tipText
-                                            case 5:
-                                                NoticeTemplate.guestNightStrictLimitTip = tipText
-                                            case 6:
-                                                NoticeTemplate.guestLimitTip = tipText
-                                            case 7:
-                                                NoticeTemplate.guestFirstLoginTip = tipText
-                                            case 8:
-                                                NoticeTemplate.guestLoginTip = tipText
-                                            case 12:
-                                                NoticeTemplate.guestPopRemainTip = tipText
-                                            case 13:
-                                                NoticeTemplate.guestNightStrictPopRemainTip = tipText
-                                            default:
-                                                break
+                                        case 1:
+                                            NoticeTemplate.guestNightStrictRemainTip = tipText
+                                        case 2:
+                                            NoticeTemplate.guestRemainTip = tipText
+                                        case 5:
+                                            NoticeTemplate.guestNightStrictLimitTip = tipText
+                                        case 6:
+                                            NoticeTemplate.guestLimitTip = tipText
+                                        case 7:
+                                            NoticeTemplate.guestFirstLoginTip = tipText
+                                        case 8:
+                                            NoticeTemplate.guestLoginTip = tipText
+                                        case 12:
+                                            NoticeTemplate.guestPopRemainTip = tipText
+                                        case 13:
+                                            NoticeTemplate.guestNightStrictPopRemainTip = tipText
+                                        default:
+                                            break
                                         }
                                     case AccountType.unknownAccount.rawValue:
                                         switch type {
-                                            case 1:
-                                                NoticeTemplate.unknownAccountNightStrictRemainTip = tipText
-                                            case 2:
-                                                NoticeTemplate.unknownAccountRemainTip = tipText
-                                            case 5:
-                                                NoticeTemplate.unknownAccountNightStrictLimitTip = tipText
-                                            case 6:
-                                                NoticeTemplate.unknownAccountLimitTip = tipText
-                                            case 7:
-                                                NoticeTemplate.unknownAccountFirstLoginTip = tipText
-                                            case 8:
-                                                NoticeTemplate.unknownAccountLoginTip = tipText
-                                            case 12:
-                                                NoticeTemplate.unknownAccountPopRemainTip = tipText
-                                            case 13:
-                                                NoticeTemplate.unknownAccountNightStrictPopRemainTip = tipText
-                                            default:
-                                                break
+                                        case 1:
+                                            NoticeTemplate.unknownAccountNightStrictRemainTip = tipText
+                                        case 2:
+                                            NoticeTemplate.unknownAccountRemainTip = tipText
+                                        case 5:
+                                            NoticeTemplate.unknownAccountNightStrictLimitTip = tipText
+                                        case 6:
+                                            NoticeTemplate.unknownAccountLimitTip = tipText
+                                        case 7:
+                                            NoticeTemplate.unknownAccountFirstLoginTip = tipText
+                                        case 8:
+                                            NoticeTemplate.unknownAccountLoginTip = tipText
+                                        case 12:
+                                            NoticeTemplate.unknownAccountPopRemainTip = tipText
+                                        case 13:
+                                            NoticeTemplate.unknownAccountNightStrictPopRemainTip = tipText
+                                        default:
+                                            break
                                         }
                                     case AccountType.child.rawValue,AccountType.junior.rawValue,AccountType.senior.rawValue:
                                         switch type {
-                                            case 1:
-                                                NoticeTemplate.childNightStrictRemainTip = tipText
-                                            case 2:
-                                                NoticeTemplate.childRemainTip = tipText
-                                            case 5:
-                                                NoticeTemplate.childNightStrictLimitTip = tipText
-                                            case 6:
-                                                NoticeTemplate.childLimitTip = tipText
-                                            case 7:
-                                                NoticeTemplate.childFirstLoginTip = tipText
-                                            case 8:
-                                                NoticeTemplate.childLoginTip = tipText
-                                            case 12:
-                                                NoticeTemplate.childPopRemainTip = tipText
-                                            case 13:
-                                                NoticeTemplate.childNightStrictPopRemainTip = tipText
-                                            default:
-                                                break
+                                        case 1:
+                                            NoticeTemplate.childNightStrictRemainTip = tipText
+                                        case 2:
+                                            NoticeTemplate.childRemainTip = tipText
+                                        case 5:
+                                            NoticeTemplate.childNightStrictLimitTip = tipText
+                                        case 6:
+                                            NoticeTemplate.childLimitTip = tipText
+                                        case 7:
+                                            NoticeTemplate.childFirstLoginTip = tipText
+                                        case 8:
+                                            NoticeTemplate.childLoginTip = tipText
+                                        case 12:
+                                            NoticeTemplate.childPopRemainTip = tipText
+                                        case 13:
+                                            NoticeTemplate.childNightStrictPopRemainTip = tipText
+                                        default:
+                                            break
                                         }
                                     default:
                                         break
+                                    }
                                 }
                             }
                         }
                     }
-                }
-
+                    
                 }
                 return
-           } catch {}
-           Logger.debug(baseUrl+configUrl+dataFormatError)
+            } catch {}
+            Logger.debug(baseUrl+configUrl+dataFormatError)
         }) { (r) in
             Logger.debug(baseUrl+configUrl+networkRequestError)
         }
@@ -288,9 +288,9 @@ struct Networking {
         
         AntiAddictionAsyncHttp.httpPost(baseUrl+tokenUrl, requestParams: nil, customHeader: nil, params: form, callBack: { (r) in
             guard let data = r?.data else {
-                       Logger.debug(baseUrl+tokenUrl+networkRequestError)
-                       failureHandler?()
-                       return
+                Logger.debug(baseUrl+tokenUrl+networkRequestError)
+                failureHandler?()
+                return
             }
             let jsonDic = dataToDictionary(data)
             if jsonDic != nil,
@@ -304,9 +304,9 @@ struct Networking {
                 suceessHandler?(token, AccountType.type(rawValue: Int(truncating: type)),userId)
                 return
             }
-           
-           Logger.debug(baseUrl+tokenUrl+dataFormatError)
-           failureHandler?()
+            
+            Logger.debug(baseUrl+tokenUrl+dataFormatError)
+            failureHandler?()
         }) { (r) in
             Logger.debug(baseUrl+tokenUrl+dataFormatError)
             failureHandler?()
@@ -357,7 +357,7 @@ struct Networking {
             formData.updateValue(commonValue, forKey: commonKey)
         }
         
-//        let r = Just.post(baseUrl+setPlayLogUrl, data: formData, headers: header)
+        //        let r = Just.post(baseUrl+setPlayLogUrl, data: formData, headers: header)
         AntiAddictionAsyncHttp.httpPost(baseUrl+setPlayLogUrl, requestParams: nil, customHeader: header, params: formData, callBack: { (r) in
             guard let data = r?.data else {
                 Logger.debug(baseUrl+setPlayLogUrl+networkRequestError)
@@ -380,7 +380,7 @@ struct Networking {
                 let title = dataDic?["title"] as? String,
                 let description = dataDic?["description"] as? String,
                 let costTime = dataDic?["costTime"] as? NSNumber
-                {
+            {
                 
                 Logger.debug(baseUrl+setPlayLogUrl+networkRequestSuccess)
                 // clear local timestamps
@@ -414,7 +414,7 @@ struct Networking {
         var identifyState = AntiAddictionRealNameAuthState.success
         var errorMsg = "实名出错，请稍候重试"
         let realnameUrl = identifyBaseUrl + setUserInfoUrl
-
+        
         var userInfo: [String: Any] = ["name": name,
                                        "id_card": identify,
                                        "user_id":token]
@@ -425,7 +425,7 @@ struct Networking {
         let userInfoJson = dictionaryToJSONString(userInfo)
         let sign = clientSecretKey+userInfoJson
         let header: [String: String] = ["sign":sign.sha256()]
-
+        
         AntiAddictionAsyncHttp.httpPost(realnameUrl, requestParams: nil, customHeader: header, params: userInfo,paramsJson: userInfoJson, callBack: { (r) in
             guard let data = r?.data else {
                 Logger.debug(identifyBaseUrl+setUserInfoUrl+networkRequestError)
@@ -484,7 +484,7 @@ struct Networking {
         var errorMsg = "实名查询出错，请稍候重试"
         let checkUrl = identifyBaseUrl + checkRealnameUrl + "?user_id=\(token)"
         let sign = clientSecretKey + "user_id\(token)"
-
+        
         AntiAddictionAsyncHttp.httpGet(checkUrl, requestParams: nil, customHeader: ["sign":sign.sha256()], params: nil) { httpResult in
             guard let data = httpResult?.data else {
                 Logger.debug(identifyBaseUrl+checkRealnameUrl+networkRequestError)
@@ -497,11 +497,11 @@ struct Networking {
                let code = jsonDic?["code"] as? NSNumber,
                code == 200,
                let dataDic = jsonDic?["data"] as? Dictionary<String, Any>,
-                let state = dataDic["identify_state"] as? NSNumber,
-                let userId = dataDic["user_id"] as? String,
-                let userName = dataDic["name"] as? String,
-                let userIdCard = dataDic["id_card"] as? String,
-                let userAntiToken = dataDic["anti_addiction_token"] as? String
+               let state = dataDic["identify_state"] as? NSNumber,
+               let userId = dataDic["user_id"] as? String,
+               let userName = dataDic["name"] as? String,
+               let userIdCard = dataDic["id_card"] as? String,
+               let userAntiToken = dataDic["anti_addiction_token"] as? String
             {
                 identifyState = AntiAddictionRealNameAuthState.init(rawValue: state.intValue) ?? .success
                 userToken = userId
@@ -532,7 +532,7 @@ struct Networking {
             
             let jsonDic = dataToDictionary(data)
             if jsonDic != nil,
-                let msg = jsonDic?["msg"] as? String
+               let msg = jsonDic?["msg"] as? String
             {
                 errorMsg = msg
             }
@@ -540,13 +540,13 @@ struct Networking {
             Logger.debug(identifyBaseUrl+checkRealnameUrl+networkRequestError)
             failureHandler?(errorMsg)
         }
-
+        
     }
     /// 检查付费限制
     static func checkPayment(token: String,
                              amount: Int,
                              completionHandler: ((_ allow: Bool, _ title: String , _ description: String) -> Void)? = nil) {
-        var allow: Bool = true
+        var allow: Bool = false
         var title: String = "健康消费提示"
         var description: String = "请适度娱乐，理性消费。"
         
@@ -563,24 +563,36 @@ struct Networking {
             }
             
             let jsonDic = dataToDictionary(data)
+            
             if jsonDic != nil,
                let code = jsonDic?["code"] as? NSNumber,
                code == 200,
-               let check = jsonDic?["check"] as? NSNumber,
-                let t = jsonDic?["title"] as? String,
-                let d = jsonDic?["description"] as? String {
+               let dataDic = jsonDic?["data"] as? Dictionary<String, Any>
+            {
                 
-                allow = (check != 0) // check=0不能付费 1可以付费
-                title = t
-                description = d
+                if let t = dataDic["title"] as? String {
+                    title = t
+                }
                 
+                if let d = dataDic["description"] as? String {
+                    description = d
+                }
+                
+                if let status = dataDic["status"] as? Bool {
+                    allow = status
+                } else {
+                    allow = false
+                }
                 Logger.debug(baseUrl+checkPaymentUrl+networkRequestSuccess)
+                
                 completionHandler?(allow, title, description)
+                
                 return
             }
             
             Logger.debug(baseUrl+checkPaymentUrl+dataFormatError)
-            completionHandler?(allow, title, description)
+            completionHandler?(false, title, description)
+            
         }) { (r) in
             Logger.debug(baseUrl+checkPaymentUrl+dataFormatError)
             completionHandler?(allow, title, description)

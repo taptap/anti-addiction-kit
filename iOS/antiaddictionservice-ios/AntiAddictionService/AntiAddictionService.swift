@@ -11,7 +11,6 @@ import UIKit
 
 @objc
 public enum AntiAddictionServiceResult: Int {
-    case playTimeLimitNone      = 100             // 游戏时长无限制
     
     case loginSuccess           = 500             // 用户登录成功
     case logout                 = 1000            // 用户登出
@@ -58,7 +57,6 @@ enum AntiAddictionServiceRestrictType: Int,Codable {
 enum AntiAddictionServiceSourceType: Int,Codable {
     case playTime = 0                   // 时长
     case pay = 1                        // 付费
-    case chat = 2                       // 聊天
     case login = 3                      // 登录
 }
 
@@ -230,14 +228,7 @@ public final class AntiAddictionService:NSObject {
         if !self.isKitInstalled() { return }
         AntiAddictionServiceManager.shared.paySuccess(amount)
     }
-    
-    /// 查询当前用户能否聊天
-    public class func checkChatLimit() {
-        if !self.isKitInstalled() { return }
         
-        AntiAddictionServiceManager.shared.checkChatLimit()
-    }
-    
     /// 打开实名窗口，实名结果通过回调接受
     public class func openRealName() {
         if !self.isKitInstalled() { return }
@@ -304,7 +295,7 @@ public final class AntiAddictionService:NSObject {
         let restrictType: AntiAddictionServiceRestrictType?
         let userType:AntiAddictionServiceUserType?                  // 用户类型 0： 游客 1：非游客
         let forceOpen:Bool?
-        let extraSource:AntiAddictionServiceSourceType?             // 来源 0 时长 1 付费 2 聊天 3 登录
+        let extraSource:AntiAddictionServiceSourceType?             // 来源 0 时长 1 付费  3 登录
 
         init(description:String,userType:AntiAddictionServiceUserType? = .guest) {
             self.init(title: nil, description: description, remainTime: nil, restrictType: nil, userType: userType, forceOpen: nil, extraSource: nil)
@@ -334,7 +325,7 @@ public final class AntiAddictionService:NSObject {
         let description: String?
         let userType: AntiAddictionServiceUserType?                      // 用户类型(年龄段)
         let forceOpen:Bool?
-        let extraSource:AntiAddictionServiceSourceType?              // 实名来源 0 时长 1 付费 2 聊天 3 其他
+        let extraSource:AntiAddictionServiceSourceType?              // 实名来源 0 时长 1 付费 3 其他
         let amount:Int?
 
         init(description:String) {

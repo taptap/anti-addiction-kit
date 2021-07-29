@@ -254,14 +254,6 @@ extension AntiAddictionServiceManager {
         return getUserType(User.shared!.id)
     }
     
-    func checkChatLimit() {
-        if checkConnection(),needServerCheck {
-            ChatManager.check()
-        } else {
-            ChatService.checkChatLimit()
-        }
-    }
-    
     func paySuccess(_ amount: Int) {
         if isServerEnable() {
             DispatchQueue.global().async {

@@ -14,7 +14,7 @@
 
 @end
 
-static NSString *testUserId = @"123456";
+static NSString *testUserId = @"797";
 
 @implementation ViewController
 
@@ -47,7 +47,7 @@ static NSString *testUserId = @"123456";
 }
 
 - (void)login {
-    [AntiAddictionService login:@"123456"];
+    [AntiAddictionService login:testUserId];
 }
 
 - (void)logout {
@@ -76,6 +76,14 @@ static NSString *testUserId = @"123456";
     }];
 }
 
+- (void) checkPayLimit {
+    [AntiAddictionService checkPayLimit:10];
+}
+
+- (void) paySuccess {
+    [AntiAddictionService paySuccess:10];
+}
+
 - (void)addButtons {
     [self addButton:@"登录" selector:@selector(login)];
     [self addButton:@"进入游戏" selector:@selector(enterGame)];
@@ -83,7 +91,8 @@ static NSString *testUserId = @"123456";
     [self addButton:@"实名认证" selector:@selector(realName)];
     [self addButton:@"检查实名" selector:@selector(checkRealname)];
     
-    
+    [self addButton:@"检查付费" selector:@selector(checkPayLimit)];
+    [self addButton:@"上报付费结果" selector:@selector(paySuccess)];
     
     [self addButton:@"登出" selector:@selector(logout)];
 }
