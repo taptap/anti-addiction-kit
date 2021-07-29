@@ -100,21 +100,17 @@ AntiAddictionService.init(yourCallbackDelegate,gameIdentifier;
 
 回调类型 | `code` |  触发逻辑 | `message`（仅供游戏接受回调时参考）
 --- | --- | --- | ---
-playTimeLimitNone | 100 | 游戏时长无限制 | -
 loginSuccess | 500 | 游戏调用 login 后用户完成登录流程 | -
 logout | 1000 | 游戏调用 logout 登出账号 | -
 payLimitNone | 1020 | 付费不受限，sdk检查用户付费无限制时触发| -
 payLimitReachLimit | 1025 | 付费受限，付费受限触发,包括游客未实名或付费额达到限制等 | -
 playTimeLimitNoTime | 1030 | 时间受限，未成年人或游客游戏时长**接近或已达限制**，剩余时长请依据 remainTime 字段 | -
 openRealName | 1060 | SDK请求打开游戏的实名窗口，当游戏查询支付或聊天限制时触发 | -
-noChatLimit | 1080 | 聊天无限制，用户已通过实名，可进行聊天 | 无
-hasChatLimit | 1090 | 聊天限制，用户未通过实名，不可进行聊天 | 无
 openAlertTip | 1095 | SDK 请求打开弹窗提示，具体内容解析 json 格式的 message | 
 closeAlertTip | 1096 | SDK 请求关闭所有防沉迷弹窗 |
 updateConfig | 1100 | SDK 配置更新，如相关提示语等 |
 
 
-	
 ### 2.3 登录/登出
 游戏只需在用户登录时调用登录接口，传入用户唯一标识符（如用户 ID等）,SDK 即会接管所有防沉迷逻辑。
 在用户登出时调用登出接口，暂停防沉迷计时。

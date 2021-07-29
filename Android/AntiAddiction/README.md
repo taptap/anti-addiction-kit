@@ -6,7 +6,39 @@
 是为了应对最新防沉迷政策而编写的一个集实名登记、防沉迷时长限制、付费限制三部分功能的组件，方便国内游戏团队快速接入游戏实现防沉迷功能从而符合政策规定。
 
 **最低Android版本为4.4** .SDK编译环境为Android Studio。	
-### 1.2 导入 AntiAddiction
+
+### 1.2 配置 AntiAddiction 的服务器参数
+- 在`lib-antiaddiction`模块下的`build.gradle`文件下进行防沉迷参数的配置（详情请见防沉迷服务端说明）
+```
+Android {
+...
+    productFlavors {
+        // 正式环境
+        Publish {
+            dimension = "staging"
+            // 实名认证服务端配置的secretKey
+            buildConfigField("String", "IDENTIFICATION_SECRET_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
+            // 实名认证服务地址
+            buildConfigField("String", "IDENTIFICATION_HOST", "\"http://172.19.101.76\"")
+            // 防沉迷服务地址
+            buildConfigField("String", "ANTI_ADDICTION_HOST", "\"http://172.19.56.86:7005\"")
+            // 防沉迷对接中宣部服务长连接服务地址
+            buildConfigField("String", "WEB_SOCKET_HOST", "\"ws://172.19.101.76/ws/v1\"")
+        }
+        // 测试环境
+        Inhouse {
+            dimension = "staging"
+            buildConfigField("String", "IDENTIFICATION_SECRET_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
+            buildConfigField("String", "IDENTIFICATION_HOST", "\"http://172.19.101.76\"")
+            buildConfigField("String", "ANTI_ADDICTION_HOST", "\"http://172.19.56.86:7005\"")
+            buildConfigField("String", "WEB_SOCKET_HOST", "\"ws://172.19.101.76/ws/v1\"")
+        }
+    }
+...
+}
+```
+
+### 1.3 导入 AntiAddiction
 - 将编译好的AntiAddiction_${AntiAddictionVersion}.aar拷贝到游戏目录下的libs目录中
 - 在游戏目录下build.gradle文件中添加代码
 ```
@@ -38,7 +70,6 @@ AntiAddiction.init(context, gameIdentifier
 
 回调类型 | `code` |  触发逻辑 | `message`（仅供游戏接受回调时参考）
 --- | --- | --- | ---
-CALLBACK_CODE_TIME_LIMIT_NONE | 100 | 游戏时长无限制 | -
 CALLBACK_CODE_LOGIN_SUCCESS | 500 | 游戏调用 login 后用户完成登录流程 | -
 CALLBACK_CODE_LOGOUT | 1000 | 游戏调用 logout 登出账号 | -
 CALLBACK_CODE_PAY_NO_LIMIT | 1020 | 付费不受限，sdk检查用户付费无限制时触发| -

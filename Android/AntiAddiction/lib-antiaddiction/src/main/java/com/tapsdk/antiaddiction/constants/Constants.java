@@ -5,7 +5,6 @@ import com.tapsdk.antiaddiction.BuildConfig;
 public class Constants {
 
     public static class ANTI_ADDICTION_CALLBACK_CODE {
-        public final static int TIME_LIMIT_NONE = 100;
         public final static int LOGIN_SUCCESS = 500;
         public final static int LOGOUT = 1000;
         public final static int PAY_NO_LIMIT = 1020;

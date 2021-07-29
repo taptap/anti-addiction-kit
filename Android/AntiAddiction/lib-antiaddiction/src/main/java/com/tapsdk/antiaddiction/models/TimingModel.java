@@ -177,12 +177,10 @@ public class TimingModel {
                     mHandler.sendMessageDelayed(msg, localCountDownRemainTime * 1000 + 800);
                     title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
                             , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam
-                            .replace("${remaining}", String.valueOf(localCountDownRemainTime))
                             .replace("分钟", "秒");
                 } else {
                     title = AntiAddictionSettings.getInstance().getPromptInfo(userInfo.accountType
-                            , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam
-                            .replace("${remaining}", String.valueOf(TimeUtil.getMinute(localCountDownRemainTime)));
+                            , (restrictType == StrictType.TIME_LIMIT) ? PromptType.TIME_LIMIT_BUBBLE : PromptType.NIGHT_STRICT_BUBBLE).secondParam;
                 }
                 description = "";
                 AntiAddictionLogger.d("count down popup:" + title);
