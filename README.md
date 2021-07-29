@@ -1,1 +1,1 @@
-AntiAddictionKit
+AntiAddictionKit & tds-registration-server

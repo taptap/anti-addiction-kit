@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<!--    <include file="changelog-quartz.xml" relativeToChangelogFile="true" />-->
+    <include file="changelog-20210323.xml" relativeToChangelogFile="true" />
+    <changeSet id="import-data" author="yu.gu" dbms="h2">
+        <sqlFile path="../script/import-data.sql" relativeToChangelogFile="true" />
+        <modifySql>
+            <replace replace="NOW(3) ON UPDATE NOW(3)" with="NOW(3)" />
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

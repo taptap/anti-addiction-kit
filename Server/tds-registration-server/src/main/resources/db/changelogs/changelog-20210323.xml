@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20210323" author="yu.gu">
+        <createTable tableName="user_action">
+            <column name="id" type="BIGINT UNSIGNED" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="user_id" type="VARCHAR(32)">
+                <constraints nullable="false" />
+            </column>
+            <column name="user_type" type="TINYINT UNSIGNED">
+                <constraints nullable="false" />
+            </column>
+            <column name="session_id" type="VARCHAR(32)">
+                <constraints nullable="false" />
+            </column>
+            <column name="action_type" type="TINYINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="VARCHAR(32)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="pi" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="push_success" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action_time" type="TIMESTAMP(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="TIMESTAMP(3)" defaultValueComputed="NOW(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="TIMESTAMP(3)" defaultValueComputed="NOW(3) ON UPDATE NOW(3)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+        <createIndex tableName="user_action" indexName="push_success_action_time_idx">
+            <column name="push_success" />
+            <column name="action_time" />
+        </createIndex>
+
+        <createTable tableName="identification_details">
+            <column name="id" type="BIGINT UNSIGNED" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="user_id" type="VARCHAR(32)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ai" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pi" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_card" type="VARCHAR(1000)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="TINYINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(3)" defaultValueComputed="NOW(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="TIMESTAMP(3)" defaultValueComputed="NOW(3) ON UPDATE NOW(3)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+        <createIndex tableName="identification_details" unique="true" indexName="user_id_index">
+            <column name="user_id" />
+        </createIndex>
+        <createIndex tableName="identification_details"  indexName="status_index">
+            <column name="status" />
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
