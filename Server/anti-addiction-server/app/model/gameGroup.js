@@ -17,7 +17,7 @@ module.exports = app => {
     );
 
     GameGroup.findByGame = async function (game) {
-        return await this.findOne({
+        return this.findOne({
             where: {
                 game: game
             }

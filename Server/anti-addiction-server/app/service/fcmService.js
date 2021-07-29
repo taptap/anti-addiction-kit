@@ -184,12 +184,12 @@ class FcmService extends Service {
   /**
    * 根据游戏名称返回文案文案版本
    * @param game
-   * @returns {Promise<number>} 1-默认线上版本 2-版署版
+   * @returns {Promise<number>} 1-线上版 2-默认版署版
    */
   async getGroupByGame(game){
     const GameGroupModel = this.ctx.model.GameGroup;
     let game_group = await GameGroupModel.findByGame(game);
-    return lodash.isNull(game_group) ? 1 : game_group.group;
+    return lodash.isNull(game_group) ? 2 : game_group.group;
   }
 
   /**
