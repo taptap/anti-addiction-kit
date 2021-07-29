@@ -165,10 +165,10 @@ public class AntiAddictionSettings {
     public Map<String, Object> generateAlertMessage(String content, String description, AccountLimitTipEnum limitTipEnum, int strictType) {
         AntiAddictionLogger.d("-------generateAlertMessage-------");
         Map<String, Object> result = new HashMap<>();
-        result.put("title", content);
-        result.put("description", description);
-        result.put("limit_tip_type", limitTipEnum);
-        result.put("strict_type", strictType);
+        result.put(Constants.MsgExtraParams.TITLE, content);
+        result.put(Constants.MsgExtraParams.DESCRIPTION, description);
+        result.put(Constants.MsgExtraParams.LIMIT_TIP_TYPE, limitTipEnum);
+        result.put(Constants.MsgExtraParams.STRICT_TYPE, strictType);
         AntiAddictionLogger.d("generateAlertMessage:" + gson.toJson(result));
         return result;
     }
@@ -176,11 +176,11 @@ public class AntiAddictionSettings {
     public Map<String, Object> generateAlertMessage(String content, String description, AccountLimitTipEnum limitTipEnum, int strictType, String remainingTimeStr) {
         AntiAddictionLogger.d("-------generateAlertMessage-------");
         Map<String, Object> result = new HashMap<>();
-        result.put("title", content);
-        result.put("description", description);
-        result.put("limit_tip_type", limitTipEnum);
-        result.put("strict_type", strictType);
-        result.put("remaining_time", remainingTimeStr);
+        result.put(Constants.MsgExtraParams.TITLE, content);
+        result.put(Constants.MsgExtraParams.DESCRIPTION, description);
+        result.put(Constants.MsgExtraParams.LIMIT_TIP_TYPE, limitTipEnum);
+        result.put(Constants.MsgExtraParams.STRICT_TYPE, strictType);
+        result.put(Constants.MsgExtraParams.REMAINING_TIME_STR, remainingTimeStr);
         AntiAddictionLogger.d("generateAlertMessage:" + gson.toJson(result));
         return result;
     }

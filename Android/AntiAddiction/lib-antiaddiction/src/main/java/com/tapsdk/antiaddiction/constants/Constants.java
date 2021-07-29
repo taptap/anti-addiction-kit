@@ -45,4 +45,13 @@ public class Constants {
         public static final String TIMING_FILE_SUFFIX = "timing_file_suffix";
         public static final String TIMING_SHARED_PREFERENCE_NAME = "timing_shared_preference_name";
     }
+
+    public static class MsgExtraParams {
+        public static final String TITLE = "title";
+        public static final String DESCRIPTION = "description";
+        public static final String LIMIT_TIP_TYPE = "limit_tip_type";
+        public static final String STRICT_TYPE = "strict_type";
+        public static final String REMAINING_TIME_STR = "remaining_time_str";
+    }
+
 }

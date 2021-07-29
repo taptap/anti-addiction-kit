@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.tapsdk.antiaddiction.AntiAddictionCallback;
 import com.tapsdk.antiaddiction.AntiAddictionKit;
 import com.tapsdk.antiaddiction.Callback;
+import com.tapsdk.antiaddiction.annotation.IntDef;
 import com.tapsdk.antiaddiction.config.AntiAddictionFunctionConfig;
 import com.tapsdk.antiaddiction.constants.Constants;
 import com.tapsdk.antiaddiction.demo.models.ChangePayAmountAction;
@@ -299,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onCallback(int code, Map<String, Object> msg) {
                         AntiAddictionLogger.d("result:(" + code + "," + msg + ")");
                         if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS) {
+                            // 防沉迷登录成功
                             funcBaseList.clear();
                             funcBaseList.addAll(loginSupportFuncList);
                             funcItemAdapter.setFuncBaseList(funcBaseList);
@@ -307,24 +309,29 @@ public class MainActivity extends AppCompatActivity {
                             dashboardView.updateAntiAddictionLimitInfo(true, true, 0);
                             dashboardView.updatePromptInfo("", "");
                         } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP) {
-                            String title = String.valueOf(msg.get("title"));
-                            String description = String.valueOf(msg.get("description"));
-                            String targetTitle;
-                            String remainingTimeStr = "";
-                            if (msg.containsKey("remaining_time")) {
-                                try {
-                                    remainingTimeStr = (String) msg.get("remaining_time");
-                                } catch (Exception e) {
+                            // 提示消息
+                            String title = String.valueOf(msg.get(Constants.MsgExtraParams.TITLE));
+                            String description = String.valueOf(msg.get(Constants.MsgExtraParams.DESCRIPTION));
+                            String targetTitle = title;
+                            // 如何处理气泡消息示例（游戏倒计时的ui逻辑需要游戏自己画，sdk会返回提示消息和剩余时间）
+                            if (msg.containsKey(Constants.MsgExtraParams.LIMIT_TIP_TYPE)
+                                && AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP.equals(msg.get(Constants.MsgExtraParams.LIMIT_TIP_TYPE))
+                            ) {
+                                String remainingTimeStr = "";
+                                if (msg.containsKey(Constants.MsgExtraParams.REMAINING_TIME_STR)) {
+                                    try {
+                                        remainingTimeStr = (String) msg.get(Constants.MsgExtraParams.REMAINING_TIME_STR);
+                                    } catch (Exception e) {
+                                    }
                                 }
-                            }
-                            if (!TextUtils.isEmpty(remainingTimeStr)) {
-                                targetTitle = title.replace("${remaining}", remainingTimeStr);
-                            } else {
-                                targetTitle = title;
+                                if (!TextUtils.isEmpty(remainingTimeStr)) {
+                                    targetTitle = title.replace("${remaining}", remainingTimeStr);
+                                }
                             }
                             dashboardView.updatePromptInfo(targetTitle
                                     , description);
                         } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGOUT) {
+                            // 登出后逻辑
                             dashboardView.updateAntiAddictionLimitInfo(true, true, 0);
                             dashboardView.updatePromptInfo("", "");
                             funcBaseList.clear();
@@ -334,19 +341,22 @@ public class MainActivity extends AppCompatActivity {
                             dashboardView.updateUserInfo(null, null);
                         } else if (code == Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT
                                 || code  == Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT) {
+                            // 防沉迷限制（获取该状态时游戏应该禁止玩家继续游戏）
                             if (msg != null) {
                                 int strictType = 0;
                                 try {
-                                    if (msg.containsKey("strict_type")) {
-                                        strictType = (int) msg.get("strict_type");
+                                    if (msg.containsKey(Constants.MsgExtraParams.STRICT_TYPE)
+                                        && msg.get(Constants.MsgExtraParams.STRICT_TYPE) instanceof Integer
+                                    ) {
+                                        strictType = (int) msg.get(Constants.MsgExtraParams.STRICT_TYPE);
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
-                                if (msg.containsKey("limit_tip_type")) {
-                                    if (AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT.equals(msg.get("limit_tip_type"))
-                                        || AccountLimitTipEnum.STATE_ENTER_LIMIT.equals(msg.get("limit_tip_type"))
+                                if (msg.containsKey(Constants.MsgExtraParams.LIMIT_TIP_TYPE)) {
+                                    if (AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT.equals(msg.get(Constants.MsgExtraParams.LIMIT_TIP_TYPE))
+                                        || AccountLimitTipEnum.STATE_ENTER_LIMIT.equals(msg.get(Constants.MsgExtraParams.LIMIT_TIP_TYPE))
                                     ) {
                                         // 这边只是演示，登录时遇到宵禁或者时长耗尽，需要做什么处理
                                         funcBaseList.clear();
