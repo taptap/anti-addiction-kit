@@ -47,4 +47,6 @@ public interface IAntiAddiction {
     void authIdentity(String token, String name, String idCard, String phoneNumber, Callback<IdentifyResult> callback);
 
     void fetchUserIdentifyInfo(String token, Callback<IdentificationInfo> callback);
+
+    String currentToken();
 }

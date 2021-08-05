@@ -59,4 +59,8 @@ public class AntiAddictionKit {
     public static void paySuccess(long amount, Callback<SubmitPayResult> callback) {
         antiAddiction.paySuccess(amount, callback);
     }
+
+    public static void currentToken() {
+        antiAddiction.currentToken();
+    }
 }

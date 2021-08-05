@@ -558,4 +558,11 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 });
         ;
     }
+
+    @Override
+    public String currentToken() {
+        UserInfo userInfo = userModel.getCurrentUser();
+        if (userInfo != null) return userInfo.accessToken;
+        return "";
+    }
 }
