@@ -2,7 +2,9 @@ package com.tapsdk.antiaddiction.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class IdentificationInfo {
+import java.io.Serializable;
+
+public class IdentificationInfo implements Serializable {
 
     @SerializedName("identify_state")
     public int authState;

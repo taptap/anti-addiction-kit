@@ -49,4 +49,8 @@ public interface IAntiAddiction {
     void fetchUserIdentifyInfo(String token, Callback<IdentificationInfo> callback);
 
     String currentToken();
+
+    int currentUserType();
+
+    int currentUserRemainTime();
 }

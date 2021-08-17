@@ -60,7 +60,15 @@ public class AntiAddictionKit {
         antiAddiction.paySuccess(amount, callback);
     }
 
-    public static void currentToken() {
-        antiAddiction.currentToken();
+    public static String currentToken() {
+        return antiAddiction.currentToken();
+    }
+
+    public static int currentUserType() {
+        return antiAddiction.currentUserType();
+    }
+
+    public static int currentUserRemainTime() {
+        return antiAddiction.currentUserRemainTime();
     }
 }

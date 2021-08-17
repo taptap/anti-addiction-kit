@@ -61,12 +61,12 @@ android {
 }
 
 dependencies {
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    compileOnly files('/Applications/Unity/Hub/Editor/2019.4.28f1/PlaybackEngines/AndroidPlayer/Variations/mono/Release/Classes/classes.jar')
 
-    implementation 'com.google.code.gson:gson:2.8.6'
     compileOnly 'org.bouncycastle:bcprov-jdk15on:1.69'
     compileOnly 'org.conscrypt:conscrypt-openjdk-uber:2.5.2'
 

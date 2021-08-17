@@ -1,5 +1,6 @@
 package com.tapsdk.antiaddiction.demo;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -52,13 +53,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String DEFAULT_USER_ID = "791";
 
-    public static final long DEFAULT_PAY_AMOUNT = 100L;
+    public static final long DEFAULT_PAY_AMOUNT = 10000L;
 
     private String currentUserId = DEFAULT_USER_ID;
 
@@ -133,43 +135,62 @@ public class MainActivity extends AppCompatActivity {
                                     }
                             ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
                         } else if (funcAction instanceof IdentifyAction) {
-                            IdentifyDialog.newInstance("身份验证"
-                                    , currentUserId
-                                    , "取消"
-                                    , "确定"
-                                    , new AbstractAlertDialog.AlertClickCallback() {
-                                        @Override
-                                        public void onLeftClick(String extra) {
+//                            IdentifyDialog.newInstance("身份验证"
+//                                    , currentUserId
+//                                    , "取消"
+//                                    , "确定"
+//                                    , new AbstractAlertDialog.AlertClickCallback() {
+//                                        @Override
+//                                        public void onLeftClick(String extra) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onRightClick(String extra) {
+//                                            if (!TextUtils.isEmpty(extra)) {
+//                                                IdentificationInfo identificationInfo = gson.fromJson(extra, IdentificationInfo.class);
+//                                                if (!TextUtils.isEmpty(identificationInfo.userName)
+//                                                        && !TextUtils.isEmpty(identificationInfo.idCard)) {
+//                                                    AntiAddictionKit.authIdentity(currentUserId
+//                                                            , identificationInfo.userName
+//                                                            , identificationInfo.idCard
+//                                                            , ""
+//                                                            , new Callback<IdentifyResult>() {
+//                                                                @Override
+//                                                                public void onSuccess(IdentifyResult result) {
+//                                                                    Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+//                                                                }
+//
+//                                                                @Override
+//                                                                public void onError(Throwable throwable) {
+//                                                                    Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
+//                                                                }
+//                                                            }
+//                                                    );
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                            ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
 
+                            AntiAddictionKit.authIdentity(currentUserId
+                                    , "王小一"
+                                    , "310101200603074270"
+                                    , ""
+                                    , new Callback<IdentifyResult>() {
+                                        @Override
+                                        public void onSuccess(IdentifyResult result) {
+                                            Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
                                         }
 
                                         @Override
-                                        public void onRightClick(String extra) {
-                                            if (!TextUtils.isEmpty(extra)) {
-                                                IdentificationInfo identificationInfo = gson.fromJson(extra, IdentificationInfo.class);
-                                                if (!TextUtils.isEmpty(identificationInfo.userName)
-                                                        && !TextUtils.isEmpty(identificationInfo.idCard)) {
-                                                    AntiAddictionKit.authIdentity(currentUserId
-                                                            , identificationInfo.userName
-                                                            , identificationInfo.idCard
-                                                            , ""
-                                                            , new Callback<IdentifyResult>() {
-                                                                @Override
-                                                                public void onSuccess(IdentifyResult result) {
-                                                                    Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
-                                                                }
-
-                                                                @Override
-                                                                public void onError(Throwable throwable) {
-                                                                    Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            }
-                                                    );
-                                                }
-                                            }
+                                        public void onError(Throwable throwable) {
+                                            Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
                                         }
                                     }
-                            ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
+                            );
+
+
                         } else if (funcAction instanceof EnterGameAction) {
                             AntiAddictionKit.enterGame();
                         } else if (funcAction instanceof LeaveGameAction) {

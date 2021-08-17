@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -102,8 +103,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
             }
         };
         antiAddictionOkhttpBuilder
-                .addInterceptor(logInterceptor)
-                .addInterceptor(authInterceptor);
+                .addInterceptor(authInterceptor)
+                .addInterceptor(logInterceptor);
 
         Retrofit antiAddictionRetrofit = new Retrofit.Builder()
                 .baseUrl(Constants.API.ANTI_ADDICTION_BASE_URL)
@@ -136,6 +137,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                     case "POST":
                         try {
                             String postBodyString = HttpUtil.bodyToString(originRequest.body());
+                            Log.d("OkHttp", postBodyString);
                             extraBuilder.append(postBodyString);
                         } catch (Exception e) {
                             throw new IOException(e.getMessage());
@@ -147,7 +149,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 if (!TextUtils.isEmpty(extraBuilder.toString())) {
                     signCode += extraBuilder.toString();
                 }
+                Log.d("OkHttp", "signCode before:" +signCode);
                 signCode = SignUtil.getSignCode(signCode);
+                Log.d("OkHttp", "signCode after:" + signCode);
                 Request.Builder newRequestBuilder = chain.request().newBuilder();
                 if (!TextUtils.isEmpty(signCode)) {
                     newRequestBuilder.addHeader("sign", signCode);
@@ -326,7 +330,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
             }
             strictType = result.restrictType;
             if (antiAddictionFunctionConfig.onLineTimeLimitEnabled()) {
-                notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT
+                int type = strictType == 1 ? Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT
+                        : Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT;
+                notifyAntiAddictionMessage(type
                         , AntiAddictionSettings.getInstance().generateAlertMessage(""
                                 , "", AccountLimitTipEnum.STATE_ENTER_LIMIT, strictType));
             } else {
@@ -564,5 +570,19 @@ public class AntiAddictionImpl implements IAntiAddiction {
         UserInfo userInfo = userModel.getCurrentUser();
         if (userInfo != null) return userInfo.accessToken;
         return "";
+    }
+
+    @Override
+    public int currentUserType() {
+        UserInfo userInfo = userModel.getCurrentUser();
+        if (userInfo != null) return userInfo.accountType;
+        return -1;
+    }
+
+    @Override
+    public int currentUserRemainTime() {
+        UserInfo userInfo = userModel.getCurrentUser();
+        if (userInfo != null) return userInfo.remainTime;
+        return -1;
     }
 }

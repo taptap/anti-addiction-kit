@@ -59,7 +59,7 @@ dependencies {
 ### 2.1 初始化
 示例如下：
 ```
-AntiAddiction.init(context, gameIdentifier
+AntiAddictionKit.init(context, gameIdentifier
 , antiAddictionFunctionConfig
 , antiAddictionCallback); 
 ```
@@ -101,8 +101,6 @@ AntiAddictionKit.enterGame()
 // 停止计时
 AntiAddictionKit.leaveGame()
 ```
-
-
 
 ### 2.3 付费检查
 游戏在收到用户的付费请求后，调用 SDK 的对应接口来判断当前用户的付费行为是否被限制，示例如下：
@@ -192,5 +190,11 @@ AntiAddictionKit.fetchUserIdentifyInfo(currentUserId, new Callback<com.tapsdk.an
        // 获取实名信息失败（由于一些非预期的异常，比如网络出错）
     }
 });
+```
+
+### 2.5 获取防沉迷token
+```
+// 如果已登录防沉迷的情况下，获取当前token，否则返回空字符串
+String currentToken = AntiAddictionKit.currentToken();
 ```
 
