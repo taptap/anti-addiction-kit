@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace Plugins.AntiAddictionKit
@@ -48,11 +49,12 @@ namespace Plugins.AntiAddictionKit
     [Serializable]
     public class MsgExtraParams
     {
-        public string limit_tip_type;
-        public string strict_type;
-        public string description;
-        public string title;
-        public string remaining_time_str;
+        public int userType = -1;
+        public string limit_tip_type = "";
+        public string strict_type = "";
+        public string description = "";
+        public string title = "";
+        public string remaining_time_str = "";
     }
 
     public static class AntiAddictionKit
@@ -66,14 +68,22 @@ namespace Plugins.AntiAddictionKit
         private static AndroidJavaObject androidJavaNativeAntiAddiction;
 
         // iOS only variables
-#if UNITY_IOS
+        #if UNITY_IOS
         [DllImport("__Internal")]
-#endif
-        private static extern string initSDK(string gameIdentifier, bool useTimeLimit, bool usePaymentLimit);
-#if UNITY_IOS
+        #endif
+        private static extern void initSDK(string gameIdentifier, bool useTimeLimit, bool usePaymentLimit);
+        #if UNITY_IOS
         [DllImport("__Internal")]
-#endif
+        #endif
         private static extern void login(string userId);
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void enterGame();
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void leaveGame();
 
         private static Action<AntiAddictionCallbackData> handleAsyncAntiAddictionMsg;
         private static Action<string> handleAsyncAntiAddictionMsgException;
@@ -122,7 +132,6 @@ namespace Plugins.AntiAddictionKit
 
                     // Initialize native Java object
                     androidJavaNativeAntiAddiction = new AndroidJavaObject(JAVA_OBJECT_NAME);
-
                     break;
 
                 case RuntimePlatform.IPhonePlayer:
@@ -143,12 +152,19 @@ namespace Plugins.AntiAddictionKit
 
             private void HandleAntiAddictionCallbackMsg(string antiAddictionCallbackDataJSON)
             {
-                Debug.Log("antiAddictionCallbackDataJSON:" + antiAddictionCallbackDataJSON);
+                Debug.Log("HandleAntiAddictionCallbackMsg antiAddictionCallbackDataJSON:" + antiAddictionCallbackDataJSON);
                 var antiAddictionCallbackOriginData = JsonUtility.FromJson<AntiAddictionCallbackOriginData>(antiAddictionCallbackDataJSON);
+
+                Debug.Log("HandleAntiAddictionCallbackMsg resultCode:" + antiAddictionCallbackOriginData.code);
+                // Debug.Log("HandleAntiAddictionCallbackMsg extras:" + antiAddictionCallbackOriginData.extras);
 
                 var result = new AntiAddictionCallbackData();
                 result.code = antiAddictionCallbackOriginData.code;
                 result.extras = JsonUtility.FromJson<MsgExtraParams>(antiAddictionCallbackOriginData.extras);
+
+                Debug.Log("result.extras title:" + result.extras.title);
+                Debug.Log("result.extras description:" + result.extras.description);
+                Debug.Log("result.extras remaining_time_str" + result.extras.remaining_time_str);
 
                 handleAsyncAntiAddictionMsg?.Invoke(result);
             }
@@ -241,8 +257,10 @@ namespace Plugins.AntiAddictionKit
             switch (Application.platform)
             {
                 case RuntimePlatform.Android:
-                    Debug.Log("PerformSyncLogin calling");
                     PerformAndroidLogin(userId);
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSLogin(userId);
                     break;
                 default:
                     throw new PlatformNotSupportedException();
@@ -256,6 +274,9 @@ namespace Plugins.AntiAddictionKit
                 case RuntimePlatform.Android:
                     PerformAndroidEnterGame();
                     break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSEnterGame();
+                    break;
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -268,6 +289,9 @@ namespace Plugins.AntiAddictionKit
                 case RuntimePlatform.Android:
                     PerformAndroidLeaveGame();
                     break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSLeaveGame();
+                    break;
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -279,6 +303,8 @@ namespace Plugins.AntiAddictionKit
             {
                 case RuntimePlatform.Android:
                     return PerformAndroidGetCurrentToken();
+                case RuntimePlatform.IPhonePlayer:
+                    return PerformIOSGetCurrentToken();
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -290,6 +316,8 @@ namespace Plugins.AntiAddictionKit
             {
                 case RuntimePlatform.Android:
                     return PerformAndroidGetCurrentUserType();
+                case RuntimePlatform.IPhonePlayer:
+                    return PerformIOSGetCurrentUserType();
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -301,6 +329,8 @@ namespace Plugins.AntiAddictionKit
             {
                 case RuntimePlatform.Android:
                     return PerformAndroidGetCurrentUserRemainTime();
+                case RuntimePlatform.IPhonePlayer:
+                    return PerformIOSGetCurrentUserRemainTime();
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -313,12 +343,15 @@ namespace Plugins.AntiAddictionKit
                 case RuntimePlatform.Android:
                     PerformAndroidLogout();
                     break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSLogout();
+                    break;
                 default:
                     throw new PlatformNotSupportedException();
             }
         }
-
         public static void FetchIdentificationInfo(string userId, Action<IdentificationInfo> handleAsyncFetchIdentificationInfo
+
             , Action<string> handleAsyncFetchIdentificationInfoException)
         {
             AntiAddictionKit.handleAsyncFetchIdentificationInfo = handleAsyncFetchIdentificationInfo;
@@ -328,6 +361,9 @@ namespace Plugins.AntiAddictionKit
             {
                 case RuntimePlatform.Android:
                     PerformAndroidFetchIdentificationInfo(userId);
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSFetchIdentificationInfo(userId);
                     break;
                 default:
                     throw new PlatformNotSupportedException();
@@ -347,6 +383,9 @@ namespace Plugins.AntiAddictionKit
                 case RuntimePlatform.Android:
                     PerformAndroidAuthIdentity(userId, name, idCard);
                     break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSAuthIdentity(userId, name, idCard);
+                    break;
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -363,6 +402,9 @@ namespace Plugins.AntiAddictionKit
             {
                 case RuntimePlatform.Android:
                     PerformAndroidCheckPayLimit(amount);
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSCheckPayLimit(amount);
                     break;
                 default:
                     throw new PlatformNotSupportedException();
@@ -381,6 +423,9 @@ namespace Plugins.AntiAddictionKit
             {
                 case RuntimePlatform.Android:
                     PerformAndroidSubmitPayResult(amount);
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                    PerformIOSSubmitPayResult(amount);
                     break;
                 default:
                     throw new PlatformNotSupportedException();
@@ -470,7 +515,66 @@ namespace Plugins.AntiAddictionKit
         private static void PerformIOSInit(string gameIdentifier, bool useTimeLimit
             , bool usePaymentLimit)
         {
+            Debug.Log("PerformIOSInit:" + gameIdentifier);
             initSDK(gameIdentifier, useTimeLimit, usePaymentLimit);
+        }
+
+        private static void PerformIOSLogin(string userId)
+        {
+            Debug.Log("PerformIOSLogin:" + userId);
+            login(userId);
+        }
+
+        private static void PerformIOSEnterGame()
+        {
+            Debug.Log("PerformIOSEnterGame");
+            enterGame();
+        }
+
+        private static void PerformIOSLeaveGame()
+        {
+            Debug.Log("PerformIOSLeaveGame");
+            leaveGame();
+        }
+
+        private static string PerformIOSGetCurrentToken()
+        {
+            return "";
+        }
+
+        private static int PerformIOSGetCurrentUserType()
+        {
+            return -1;
+        }
+
+        private static int PerformIOSGetCurrentUserRemainTime()
+        {
+            return -1;
+        }
+
+        private static void PerformIOSLogout()
+        {
+
+        }
+
+        private static void PerformIOSFetchIdentificationInfo(string userId)
+        {
+
+        }
+
+        private static void PerformIOSAuthIdentity(string userId, string name, string idCard)
+        {
+
+        }
+
+        private static void PerformIOSCheckPayLimit(long amount)
+        {
+
+        }
+
+        private static void PerformIOSSubmitPayResult(long amount)
+        {
+
         }
     }
 }

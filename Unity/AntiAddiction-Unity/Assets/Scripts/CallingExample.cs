@@ -48,10 +48,29 @@ public class CallingExample : MonoBehaviour
                     if (antiAddictionCallbackData.code == 500)
                     {
                         antiAddictionToken = AntiAddictionKit.CurrentToken();
-                        logText = "已登录";
+                        var hint = "已登录";
+                        if (antiAddictionCallbackData.extras.description != null && antiAddictionCallbackData.extras.description.Length > 0) {
+                            hint = antiAddictionCallbackData.extras.description;
+                        }
+                        logText = hint;
                         loginStatus = "用户状态:已登录";
-                        userType = "用户类型:" + AntiAddictionKit.CurrentUserType().ToString();
-                        userRemainTime = "剩余时长:" + AntiAddictionKit.CurrentUserRemainTime().ToString();
+
+                        if(antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.userType != -1) {
+                            if (antiAddictionCallbackData.extras.userType == 0) {
+                                userType = "用户类型:5";
+                            } else {
+                                userType = "用户类型:" + antiAddictionCallbackData.extras.userType.ToString();
+                            }
+                        } else {
+                            userType = "用户类型:" + AntiAddictionKit.CurrentUserType().ToString();
+                        }
+
+                        var remainTime = AntiAddictionKit.CurrentUserRemainTime().ToString();
+                        if (antiAddictionCallbackData.extras.remaining_time_str != null && antiAddictionCallbackData.extras.remaining_time_str.Length > 0) {
+                            remainTime = antiAddictionCallbackData.extras.remaining_time_str;
+                        }
+                        userRemainTime = "剩余时长:" + remainTime;
+                        
                         Debug.Log("AntiAddictionCallback userType:" + userType);
                         Debug.Log("AntiAddictionCallback userRemainTime:" + userRemainTime);
                     }
@@ -63,10 +82,15 @@ public class CallingExample : MonoBehaviour
                     else if (antiAddictionCallbackData.code == 1030)
                     {
                         strictPromotion = "时长已耗尽";
+                        logText = "未登录";
                     }
                     else if (antiAddictionCallbackData.code == 1050)
                     {
                         strictPromotion = "当前为宵禁时间，注意休息";
+                        logText = "未登录";
+                    } else if (antiAddictionCallbackData.code == 1000) {
+                        loginStatus = "用户状态:已登出";
+                        logText = "已登出";
                     }
                 }, (exception) =>
                 {
@@ -93,7 +117,9 @@ public class CallingExample : MonoBehaviour
 
     private void updateRemainTime()
     {
-        userRemainTime = "剩余时长:" + AntiAddictionKit.CurrentUserRemainTime().ToString();
+        if (!String.Equals(AntiAddictionKit.CurrentUserRemainTime().ToString(), "-1")) {
+            userRemainTime = "剩余时长:" + AntiAddictionKit.CurrentUserRemainTime().ToString();
+        }
     }
 
     private void ResetUI()
@@ -130,14 +156,14 @@ public class CallingExample : MonoBehaviour
         int standardVerticalGap = 40;
         int standardHorizontalGap = 50;
 
-        if (antiAddictionToken.Length == 0)
-        {
-            loginStatus = "用户状态:未登录";
-        }
-        else
-        {
-            loginStatus = "用户状态:已登录";
-        }
+        // if (antiAddictionToken.Length == 0)
+        // {
+        //     loginStatus = "用户状态:未登录";
+        // }
+        // else
+        // {
+        //     loginStatus = "用户状态:已登录";
+        // }
 
         int xOffset = 50;
         int yOffset = 50;
