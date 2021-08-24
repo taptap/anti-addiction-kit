@@ -84,7 +84,37 @@ namespace Plugins.AntiAddictionKit
         [DllImport("__Internal")]
         #endif
         private static extern void leaveGame();
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void logout();
 
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void fetchIdentificationInfo(string userId);
+
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void authIdentity(string userId, string name, string idCard);
+
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void checkPayLimit(long amount);
+
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern void paySuccess(long amount);
+
+        #if UNITY_IOS
+        [DllImport("__Internal")]
+        #endif
+        private static extern int getCurrentUserRemainTime();
+
+        
         private static Action<AntiAddictionCallbackData> handleAsyncAntiAddictionMsg;
         private static Action<string> handleAsyncAntiAddictionMsgException;
 
@@ -156,7 +186,6 @@ namespace Plugins.AntiAddictionKit
                 var antiAddictionCallbackOriginData = JsonUtility.FromJson<AntiAddictionCallbackOriginData>(antiAddictionCallbackDataJSON);
 
                 Debug.Log("HandleAntiAddictionCallbackMsg resultCode:" + antiAddictionCallbackOriginData.code);
-                // Debug.Log("HandleAntiAddictionCallbackMsg extras:" + antiAddictionCallbackOriginData.extras);
 
                 var result = new AntiAddictionCallbackData();
                 result.code = antiAddictionCallbackOriginData.code;
@@ -549,32 +578,38 @@ namespace Plugins.AntiAddictionKit
 
         private static int PerformIOSGetCurrentUserRemainTime()
         {
-            return -1;
+            Debug.Log("PerformIOSGetCurrentUserRemainTime");
+            return getCurrentUserRemainTime();
         }
 
         private static void PerformIOSLogout()
         {
-
+            Debug.Log("PerformIOSLogout");
+            logout();
         }
 
         private static void PerformIOSFetchIdentificationInfo(string userId)
         {
-
+            Debug.Log("PerformIOSFetchIdentificationInfo:" + userId);
+            fetchIdentificationInfo(userId);
         }
 
         private static void PerformIOSAuthIdentity(string userId, string name, string idCard)
         {
-
+            Debug.Log("PerformIOSAuthIdentity:userId" + userId + ",name:" + name + ",idCard:" + idCard);
+            authIdentity(userId, name, idCard);
         }
 
         private static void PerformIOSCheckPayLimit(long amount)
         {
-
+            Debug.Log("PerformIOSCheckPayLimit:amount" + amount);
+            checkPayLimit(amount);
         }
 
         private static void PerformIOSSubmitPayResult(long amount)
         {
-
+            Debug.Log("PerformIOSSubmitPayResult:amount" + amount);
+            paySuccess(amount);
         }
     }
 }

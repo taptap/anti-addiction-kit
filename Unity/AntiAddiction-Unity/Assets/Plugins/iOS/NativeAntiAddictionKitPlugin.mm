@@ -98,7 +98,7 @@ static NativeAntiAddictionKitPlugin *_sharedInstance;
 
 #pragma mark - delegate
 - (void)onCallbackWithCode:(NSInteger)code extra:(NSString * _Nullable)extra {
-    NSString *resultString = [NSString stringWithFormat:@"callback code:%ld,extra:%@",(long)code,extra];
+    NSString *resultString = [NSString stringWithFormat:@"ios callback code:%ld,extra:%@",(long)code,extra];
     NSLog(@"%@", resultString);
     NSDictionary* extraDict = [Utility dictionaryWithJsonString:extra];
     
@@ -128,10 +128,35 @@ static NativeAntiAddictionKitPlugin *_sharedInstance;
                 }
             } else {
                 UnitySendMessage(GAME_OBJECT, [@"HandleAntiAddictionCallbackMsg" UTF8String]
-                                 , [[self generateResultMessage:1030 extras:extraDict]
+                                 , [[self generateResultMessage:code extras:extraDict]
                                     UTF8String]);
             }
         }
+    } else if (code == AntiAddictionServiceResultPlayTimeLimitNoTime) {
+        if (extraDict[@"remainTime"]) {
+            NSInteger remainTime = [[extraDict objectForKey:@"remainTime"] intValue];
+            NSInteger restrictType = [[extraDict objectForKey:@"restrictType"] intValue];
+            if (remainTime == 0) {
+                if (restrictType == 2) {
+                    UnitySendMessage(GAME_OBJECT, [@"HandleAntiAddictionCallbackMsg" UTF8String]
+                            , [[self generateResultMessage:1030 extras:extraDict]
+                                UTF8String]);
+                } else {
+                    UnitySendMessage(GAME_OBJECT, [@"HandleAntiAddictionCallbackMsg" UTF8String]
+                            , [[self generateResultMessage:1050 extras:extraDict]
+                                UTF8String]);
+                }
+            } else {
+                UnitySendMessage(GAME_OBJECT, [@"HandleAntiAddictionCallbackMsg" UTF8String]
+                    , [[self generateResultMessage:1095 extras:extraDict]
+                    UTF8String]);
+            }
+        }
+    
+    } else {
+        UnitySendMessage(GAME_OBJECT, [@"HandleAntiAddictionCallbackMsg" UTF8String]
+                                        , [[self generateResultMessage:code extras:extraDict]
+                                            UTF8String]);
     }
 }
 
@@ -167,6 +192,53 @@ extern "C"
 
     void leaveGame() {
         [AntiAddictionService leaveGame];
+    }
+
+    void logout() {
+        [AntiAddictionService logout];
+    }
+
+    void fetchIdentificationInfo(const char* userId) {
+        NSString *userIdParam = [NSString stringWithUTF8String:userId];
+
+        [AntiAddictionService checkRealnameStateWithUserToken:userIdParam completion:^(enum AntiAddictionRealNameAuthState state, NSString * _Nonnull userToken, NSString * _Nonnull idCard, NSString * _Nonnull name) {
+            NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+            [result setObject:[NSNumber numberWithUnsignedLong:state] forKey:@"authState"];
+            [result setObject:userToken forKey:@"antiAddictionToken"];
+            [result setObject:idCard forKey:@"idCard"];
+            [result setObject:name forKey:@"name"];
+            UnitySendMessage(GAME_OBJECT, [@"HandleFetchIdentificationInfo" UTF8String]
+                                                                            , [[Utility dictonaryToJson:result] UTF8String]);
+        } failureHandler:^(NSString * _Nonnull errorMsg) {
+            UnitySendMessage(GAME_OBJECT, [@"HandleFetchIdentificationInfoException" UTF8String], [errorMsg UTF8String]);
+        }];
+    }
+
+    void authIdentity(const char* userId, const char* name, const char* idCard) {
+        NSString *userIdParam = [NSString stringWithUTF8String:userId];
+        NSString *nameParam = [NSString stringWithUTF8String:name];
+        NSString *idCardParam = [NSString stringWithUTF8String:idCard];
+        [AntiAddictionService realNameAuthWithUserToken:userIdParam name:nameParam idCard:idCardParam phone:@"" completion:^(enum AntiAddictionRealNameAuthState identifyState, NSString * _Nonnull errorMessage) {
+            if ([errorMessage length] != 0) {
+                UnitySendMessage(GAME_OBJECT, [@"HandleAuthIdentityException" UTF8String], [errorMessage UTF8String]);
+            } else {
+                NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+                [result setObject:[NSNumber numberWithUnsignedLong:(long)identifyState] forKey:@"identifyState"];
+                UnitySendMessage(GAME_OBJECT, [@"HandleAuthIdentity" UTF8String], [[Utility dictonaryToJson:result] UTF8String]);
+            }
+        }];
+    }
+    
+    void checkPayLimit(long amount) {
+        [AntiAddictionService checkPayLimit:amount];
+    }
+
+    void paySuccess(long amount) {
+        [AntiAddictionService paySuccess:amount];
+    }
+
+    int getCurrentUserRemainTime() {
+        return [AntiAddictionService getCurrentUserRemainTime];
     }
 }
 

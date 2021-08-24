@@ -77,12 +77,38 @@ public class CallingExample : MonoBehaviour
                     else if (antiAddictionCallbackData.code == 1095)
                     {
                         // 消息提示
-                        logText = antiAddictionCallbackData.extras.description;
+                        logText = antiAddictionCallbackData.extras.title + "\n" + antiAddictionCallbackData.extras.description;
                     }
                     else if (antiAddictionCallbackData.code == 1030)
                     {
-                        strictPromotion = "时长已耗尽";
-                        logText = "未登录";
+                        
+                        if (antiAddictionCallbackData.extras.remaining_time_str != null && antiAddictionCallbackData.extras.remaining_time_str.Length > 0) {
+
+                        } else {
+                            strictPromotion = "时长已耗尽";
+                        }
+                        var hint = "未登录";
+
+                        if (antiAddictionCallbackData.extras.description != null && antiAddictionCallbackData.extras.description.Length > 0) {
+                            hint = antiAddictionCallbackData.extras.description;
+                        }
+                        logText = hint;
+                        if(antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.userType != -1) {
+                            if (antiAddictionCallbackData.extras.userType == 0) {
+                                userType = "用户类型:5";
+                            } else {
+                                userType = "用户类型:" + antiAddictionCallbackData.extras.userType.ToString();
+                            }
+                        } else {
+                            userType = "用户类型:" + AntiAddictionKit.CurrentUserType().ToString();
+                        }
+
+                        var remainTime = AntiAddictionKit.CurrentUserRemainTime().ToString();
+                        if (antiAddictionCallbackData.extras.remaining_time_str != null && antiAddictionCallbackData.extras.remaining_time_str.Length > 0) {
+                            remainTime = antiAddictionCallbackData.extras.remaining_time_str;
+                        }
+                        userRemainTime = "剩余时长:" + remainTime;
+
                     }
                     else if (antiAddictionCallbackData.code == 1050)
                     {
@@ -91,6 +117,32 @@ public class CallingExample : MonoBehaviour
                     } else if (antiAddictionCallbackData.code == 1000) {
                         loginStatus = "用户状态:已登出";
                         logText = "已登出";
+                    } 
+                    // iOS only
+                    else if (antiAddictionCallbackData.code == 1020) {
+                        logText = "付费不受限";
+                    } else if (antiAddictionCallbackData.code == 1030) {
+                        var hint = "";
+
+                        if (antiAddictionCallbackData.extras.title != null && antiAddictionCallbackData.extras.title.Length > 0) {
+                            hint += (antiAddictionCallbackData.extras.title + "\n");
+                        }
+                        
+                        if (antiAddictionCallbackData.extras.description != null && antiAddictionCallbackData.extras.description.Length > 0) {
+                            hint += antiAddictionCallbackData.extras.description;
+                        }
+                        logText= hint;
+                    } else if (antiAddictionCallbackData.code == 1025) {
+                        Debug.Log($"iOS paylimit");
+                        var hint = "";
+                        if (antiAddictionCallbackData.extras.description != null && antiAddictionCallbackData.extras.description.Length > 0) {
+                            hint += antiAddictionCallbackData.extras.description;
+                        }
+                        logText= hint;
+                    } else if (antiAddictionCallbackData.code == 1028) {
+                        logText = "上报消费金额成功";
+                    } else if (antiAddictionCallbackData.code == 1029) {
+                        logText = "上报消费金额失败";
                     }
                 }, (exception) =>
                 {

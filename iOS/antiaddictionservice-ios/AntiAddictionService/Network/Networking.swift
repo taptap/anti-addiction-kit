@@ -600,7 +600,8 @@ struct Networking {
     }
     
     /// 提交已付费金额
-    static func setPayment(token: String, amount: Int) {
+    static func setPayment(token: String, amount: Int, completionHandler: ((
+                                                                            _ success: Bool, _ errorMessage: String) -> Void)? = nil) {
         var formData: [String: Any] = ["amount": amount]
         let header: [String: String] = ["Authorization": "Bearer \(token)"]
         for (commonKey,commonValue) in antiaddictionCommonParams() {
@@ -620,13 +621,15 @@ struct Networking {
                 //提交成功
                 Logger.debug(baseUrl+setPaymentUrl+networkRequestSuccess)
                 Logger.debug("联网版付费金额保存成功")
+                completionHandler?(true, "")
                 return
             }
-            
+            completionHandler?(false, "联网版付费金额保存失败")
             Logger.debug("联网版付费金额保存失败")
             Logger.debug(baseUrl+setPaymentUrl+dataFormatError)
             
         }) { (r) in
+            completionHandler?(false, dataFormatError)
             Logger.debug("联网版付费金额保存失败")
             Logger.debug(baseUrl+setPaymentUrl+dataFormatError)
         }

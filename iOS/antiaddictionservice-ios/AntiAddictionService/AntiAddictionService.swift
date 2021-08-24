@@ -20,6 +20,9 @@ public enum AntiAddictionServiceResult: Int {
     case payLimitNone           = 1020            // 付费无限制
     case payLimitReachLimit     = 1025            // 付费有限制
     
+    case submitPaySuccess       = 1028            // 上报消费金额（内部用）
+    case submitPayFail          = 1029            // 上报金额失败 (内部用)
+    
     case openRealName           = 1060            // 打开实名
     
     case openAlertTip           = 1095            // 打开弹窗提示
@@ -208,6 +211,14 @@ public final class AntiAddictionService:NSObject {
         
         return AntiAddictionServiceManager.shared.getCurrentUserType()
     }
+    
+    /// 获取用户剩余时长
+    public class func getCurrentUserRemainTime() -> Int {
+        if !self.isKitInstalled() { return -1 }
+        
+        return TimeManager.currentRemainTime
+    }
+    
     
     /// 查询能否支付，直接返回支付限制相关回调类型 raw value，特殊情况使用
     /// - Parameter amount: 支付金额，单位分

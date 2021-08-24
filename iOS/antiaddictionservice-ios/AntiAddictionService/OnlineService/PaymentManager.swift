@@ -22,11 +22,14 @@ struct PaymentManager {
             Networking.checkPayment(token: token, amount: amount) { (allow, title, description) in
                 if allow {
                     AntiAddictionService.sendCallback(result: .payLimitNone, extra: nil)
+                    Logger.debug("付款无限制")
                     return
                 } else {
                     if account.type == AccountType.unknown || account.type == AccountType.unknownAccount {
+                        Logger.debug("未实名付费限制")
                         AntiAddictionService.invokePayCallback(result: .payLimitReachLimit, extra: AntiAddictionService.PayExtra(title: nil, description: description, userType: .guest, forceOpen: true, extraSource: .pay,amount: amount))
                     } else {
+                        Logger.debug("未成年付费限制")
                         AntiAddictionService.invokePayCallback(result: .payLimitReachLimit, extra: AntiAddictionService.PayExtra(description: description,amount: amount))
                     }
                 }
@@ -39,9 +42,19 @@ struct PaymentManager {
     
     static func submit(amount: Int) {
         if let account = AccountManager.currentAccount, let token = account.token {
-            Networking.setPayment(token: token, amount: amount)
+            Networking.setPayment(token: token, amount: amount) {
+                (success, errorMessage) in
+                if (success) {
+                    Logger.debug("上传金额成功")
+                    AntiAddictionService.sendCallback(result: .submitPaySuccess, extra: nil)
+                } else {
+                    AntiAddictionService.sendCallback(result: .submitPayFail, extra: nil)
+                }
+            }
+        } else {
+            AntiAddictionService.sendCallback(result: .submitPayFail, extra: nil)
+            Logger.debug("联网版无token，无法提交付费金额。")
         }
-        Logger.debug("联网版无token，无法提交付费金额。")
     }
     
 }
