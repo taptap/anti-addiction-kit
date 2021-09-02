@@ -319,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
                         .withAntiAddictionServerUrl("http://172.19.56.86:7005")
                         .withIdentifyVerifiedServerUrl("http://172.19.101.76")
                         .withDepartmentSocketUrl("ws://172.19.101.76/ws/v1")
+                        .withAntiAddictionSecretKey("e5d341b5aed6110da68f93e06aff47db")
                         .build()
                 , new AntiAddictionCallback() {
                     @Override

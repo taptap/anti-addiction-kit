@@ -64,6 +64,7 @@ AntiAddictionFunctionConfig antiAddictionFunctionConfig = new AntiAddictionFunct
                         .withAntiAddictionServerUrl("${部署的防沉迷服务域名}")
                         .withIdentifyVerifiedServerUrl("${部署的实名认证服务域名}")
                         .withDepartmentSocketUrl("${部署的中宣部上报服务域名}")
+                        .withAntiAddictionSecretKey("${实名认证的SecretKey}")
                         .build()
 AntiAddictionKit.init(context, gameIdentifier
 , antiAddictionFunctionConfig
