@@ -263,7 +263,8 @@ public class TimingModel {
                     int msgType = strictType == StrictType.TIME_LIMIT
                             ? Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT
                             : Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT;
-                    timingMessageListener.onMessage(msgType, null);
+                    timingMessageListener.onMessage(msgType, AntiAddictionSettings.getInstance().generateAlertMessage(title
+                            , description, AccountLimitTipEnum.STATE_COUNT_DOWN_POPUP, strictType));
                     timingMessageListener.onMessage(
                             Constants.ANTI_ADDICTION_CALLBACK_CODE.OPEN_ALERT_TIP
                             , AntiAddictionSettings.getInstance().generateAlertMessage(title

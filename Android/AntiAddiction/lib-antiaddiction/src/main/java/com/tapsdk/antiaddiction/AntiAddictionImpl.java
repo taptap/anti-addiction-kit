@@ -86,7 +86,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
     private volatile Subscription loginSubscription = null;
 
-    private void initSkynet() {
+    private String webSocketUrl = "";
+
+    private void initSkynet(AntiAddictionFunctionConfig antiAddictionFunctionConfig) {
         OkHttpClient.Builder antiAddictionOkhttpBuilder = new OkHttpClient.Builder();
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -106,8 +108,18 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 .addInterceptor(authInterceptor)
                 .addInterceptor(logInterceptor);
 
+        String antiAddictionServerUrl
+                = !TextUtils.isEmpty(antiAddictionFunctionConfig.antiAddictionServerUrl)
+                ? antiAddictionFunctionConfig.antiAddictionServerUrl
+                : Constants.API.ANTI_ADDICTION_BASE_URL;
+
+        String identityVerifiedServerUrl
+                = !TextUtils.isEmpty(antiAddictionFunctionConfig.identityVerifiedServerUrl)
+                ? antiAddictionFunctionConfig.identityVerifiedServerUrl
+                : Constants.API.IDENTIFY_BASE_URL;
+
         Retrofit antiAddictionRetrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API.ANTI_ADDICTION_BASE_URL)
+                .baseUrl(antiAddictionServerUrl)
                 .client(antiAddictionOkhttpBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -165,7 +177,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 .addInterceptor(identifyInterceptor);
 
         Retrofit identifyRetrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API.IDENTIFY_BASE_URL)
+                .baseUrl(identityVerifiedServerUrl)
                 .client(identifyOkhttpBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -187,7 +199,10 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 notifyAntiAddictionMessage(type, extras);
             }
         });
-        initSkynet();
+        this.webSocketUrl = !TextUtils.isEmpty(antiAddictionFunctionConfig.departmentWebSocketUrl)
+                ? antiAddictionFunctionConfig.departmentWebSocketUrl
+                : Constants.API.WEB_SOCKET_HOST;
+        initSkynet(antiAddictionFunctionConfig);
         initialized = true;
     }
 
@@ -333,8 +348,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 int type = strictType == 1 ? Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT
                         : Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT;
                 notifyAntiAddictionMessage(type
-                        , AntiAddictionSettings.getInstance().generateAlertMessage(""
-                                , "", AccountLimitTipEnum.STATE_ENTER_LIMIT, strictType));
+                        , AntiAddictionSettings.getInstance().generateAlertMessage(tipContent.firstParam
+                                , tipContent.secondParam.replace("${remaining}", String.valueOf(TimeUtil.getMinute(result.remainTime)))
+                                , AccountLimitTipEnum.STATE_ENTER_LIMIT, strictType));
             } else {
                 notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
             }
@@ -464,7 +480,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 || timingModel.inTiming
         ) return;
         timingModel.bind();
-        WebSocketManager.getInstance().init(userModel.getCurrentUser().accessToken, gameIdentifier, receiveMessageImpl, Constants.API.WEB_SOCKET_HOST);
+        WebSocketManager.getInstance().init(userModel.getCurrentUser().accessToken, gameIdentifier, receiveMessageImpl, webSocketUrl);
     }
 
     @Override

@@ -135,60 +135,60 @@ public class MainActivity extends AppCompatActivity {
                                     }
                             ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
                         } else if (funcAction instanceof IdentifyAction) {
-//                            IdentifyDialog.newInstance("身份验证"
-//                                    , currentUserId
-//                                    , "取消"
-//                                    , "确定"
-//                                    , new AbstractAlertDialog.AlertClickCallback() {
-//                                        @Override
-//                                        public void onLeftClick(String extra) {
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onRightClick(String extra) {
-//                                            if (!TextUtils.isEmpty(extra)) {
-//                                                IdentificationInfo identificationInfo = gson.fromJson(extra, IdentificationInfo.class);
-//                                                if (!TextUtils.isEmpty(identificationInfo.userName)
-//                                                        && !TextUtils.isEmpty(identificationInfo.idCard)) {
-//                                                    AntiAddictionKit.authIdentity(currentUserId
-//                                                            , identificationInfo.userName
-//                                                            , identificationInfo.idCard
-//                                                            , ""
-//                                                            , new Callback<IdentifyResult>() {
-//                                                                @Override
-//                                                                public void onSuccess(IdentifyResult result) {
-//                                                                    Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
-//                                                                }
-//
-//                                                                @Override
-//                                                                public void onError(Throwable throwable) {
-//                                                                    Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
-//                                                                }
-//                                                            }
-//                                                    );
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                            ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
-
-                            AntiAddictionKit.authIdentity(currentUserId
-                                    , "王小一"
-                                    , "310101200603074270"
-                                    , ""
-                                    , new Callback<IdentifyResult>() {
+                            IdentifyDialog.newInstance("身份验证"
+                                    , currentUserId
+                                    , "取消"
+                                    , "确定"
+                                    , new AbstractAlertDialog.AlertClickCallback() {
                                         @Override
-                                        public void onSuccess(IdentifyResult result) {
-                                            Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+                                        public void onLeftClick(String extra) {
+
                                         }
 
                                         @Override
-                                        public void onError(Throwable throwable) {
-                                            Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
+                                        public void onRightClick(String extra) {
+                                            if (!TextUtils.isEmpty(extra)) {
+                                                IdentificationInfo identificationInfo = gson.fromJson(extra, IdentificationInfo.class);
+                                                if (!TextUtils.isEmpty(identificationInfo.userName)
+                                                        && !TextUtils.isEmpty(identificationInfo.idCard)) {
+                                                    AntiAddictionKit.authIdentity(currentUserId
+                                                            , identificationInfo.userName
+                                                            , identificationInfo.idCard
+                                                            , ""
+                                                            , new Callback<IdentifyResult>() {
+                                                                @Override
+                                                                public void onSuccess(IdentifyResult result) {
+                                                                    Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+                                                                }
+
+                                                                @Override
+                                                                public void onError(Throwable throwable) {
+                                                                    Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                    );
+                                                }
+                                            }
                                         }
                                     }
-                            );
+                            ).show(MainActivity.this.getFragmentManager(), ModifyAttrsDialog.TAG);
+
+//                            AntiAddictionKit.authIdentity(currentUserId
+//                                    , "王小一"
+//                                    , "310101200603074270"
+//                                    , ""
+//                                    , new Callback<IdentifyResult>() {
+//                                        @Override
+//                                        public void onSuccess(IdentifyResult result) {
+//                                            Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+//                                        }
+//
+//                                        @Override
+//                                        public void onError(Throwable throwable) {
+//                                            Toast.makeText(MainActivity.this, "identify error", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }
+//                            );
 
 
                         } else if (funcAction instanceof EnterGameAction) {
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void listenToDebugEvent() {
         RxBus.getInstance().toObservable()
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {
                     @Override
                     public void call(Object event) {
@@ -315,6 +315,9 @@ public class MainActivity extends AppCompatActivity {
                 , new AntiAddictionFunctionConfig.Builder()
                         .enablePaymentLimit(true)
                         .enableOnLineTimeLimit(true)
+                        .withAntiAddictionServerUrl("http://172.19.56.86:7005")
+                        .withIdentifyVerifiedServerUrl("http://172.19.101.76")
+                        .withDepartmentSocketUrl("ws://172.19.101.76/ws/v1")
                         .build()
                 , new AntiAddictionCallback() {
                     @Override
