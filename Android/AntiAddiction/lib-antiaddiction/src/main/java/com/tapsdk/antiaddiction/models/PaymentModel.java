@@ -14,7 +14,7 @@ public class PaymentModel {
 
         AntiAddictionApi api = Skynet.getService(Skynet.RETROFIT_FOR_ANTI_ADDICTION
                 , AntiAddictionApi.class);
-        PayRequestParams payRequestParams = new PayRequestParams(amount * 100, game);
+        PayRequestParams payRequestParams = new PayRequestParams(amount, game);
         return api.checkPay(payRequestParams);
     }
 
@@ -23,7 +23,7 @@ public class PaymentModel {
 
         AntiAddictionApi api = Skynet.getService(Skynet.RETROFIT_FOR_ANTI_ADDICTION
                 , AntiAddictionApi.class);
-        PayRequestParams payRequestParams = new PayRequestParams(amount * 100, game);
+        PayRequestParams payRequestParams = new PayRequestParams(amount, game);
         return api.submitPayResult(payRequestParams);
     }
 }

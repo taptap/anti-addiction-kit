@@ -379,8 +379,10 @@ public class TimingModel {
         lastProcessTimeInSecond = curTimeInSecond;
         setRecentServerTimeInSecond(serverEndSeconds);
 
-        if (userModel != null)
+        if (userModel != null) {
             userModel.getCurrentUser().updateRemainTime((int) (localEndSeconds - localStartSeconds));
+        }
+
         return generateLocalPlayLogResult(userInfo);
     }
 
