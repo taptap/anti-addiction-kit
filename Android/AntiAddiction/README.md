@@ -79,10 +79,9 @@ AntiAddictionKit.init(context, gameIdentifier
 --- | --- | --- | ---
 CALLBACK_CODE_LOGIN_SUCCESS | 500 | 游戏调用 login 后用户完成登录流程 | -
 CALLBACK_CODE_LOGOUT | 1000 | 游戏调用 logout 登出账号 | -
-CALLBACK_CODE_PAY_NO_LIMIT | 1020 | 付费不受限，sdk检查用户付费无限制时触发| -
-CALLBACK_CODE_PAY_LIMIT | 1025 | 付费受限，付费受限触发,包括游客未实名或付费额达到限制等 | -
-CALLBACK_CODE_TIME_LIMIT | 1030 | 时间受限，未成年人或游客游戏时长**接近或已达限制**，剩余时长请依据 remainTime 字段 | -
-CALLBACK_CODE_OPEN_ALERT_TIP | 1095 | SDK 请求打开弹窗提示，具体内容解析 json 格式的 message | 
+CALLBACK_CODE_TIME_LIMIT | 1030 | 游客登录时会返回该消息，会返回游客无法进行游戏的消息
+CALLBACK_CODE_NIGHT_STRICT | 1050 | 时间受限，未成年该时段无法进行游戏（根据国家新闻出版署针对未成年人发布的新规 **仅允许未成年人在周五、周六、周日和法定节假日的 20:00 至 21:00 游玩游戏**）
+CALLBACK_CODE_OPEN_ALERT_TIP | 1095 | SDK 请求打开弹窗提示，具体内容解析 json 格式的 message | 1、防沉迷登录成功且当前时段未成年人可以进行游戏 2、游戏时长剩余15分钟 3、游戏剩余时长60秒
 	
 ### 2.2 登录/登出
 游戏只需在用户登录时调用登录接口，传入用户唯一标识符（如用户 ID等）,SDK 即会接管所有防沉迷逻辑。
