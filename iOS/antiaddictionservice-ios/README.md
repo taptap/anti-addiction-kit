@@ -37,6 +37,7 @@ import AntiAddictionService
 **在 Build Setting 中的 Other Link Flag 中添加 -ObjC**
 
 **在 Build Setting 中的 Always Embed Swift Standard Libraried 设置为 YES**
+**在 Build Setting 中的 Swift Compiler - Language/Swift Language Version 选择Swift 5**
 
 
 
@@ -57,12 +58,18 @@ import AntiAddictionService
 // swift
 AntiAddictionService.configuration.useSdkPaymentLimit = true
 AntiAddictionService.configuration.useSdkOnlineTimeLimit = true
+AntiAddictionService.setHost:@"${防沉迷服务url}"
+AntiAddictionService.
 ```
 
 ```
 // Objective-C
 AntiAddictionService.configuration.useSdkPaymentLimit = YES;
 AntiAddictionService.configuration.useSdkOnlineTimeLimit = YES;
+
+[AntiAddictionService setHost:@"填入防沉迷服务域名"];
+[AntiAddictionService setIdentifyHost:@"填入实名服务域名"];
+[AntiAddictionService setWebsocketAddress:@"填入中宣部长连服务域名"]
 ```
 
 或直接传递对应参数（参数顺序）： `useSdkPaymentLimit`, `useSdkOnlineTimeLimit`)。
