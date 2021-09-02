@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.29.102 clang-1300.0.28.1)
-// swift-module-flags: -target arm64-apple-ios15.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name AntiAddictionService
+// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name AntiAddictionService
 import AntiAddictionAsyncHttp
 @_exported import AntiAddictionService
 import CommonCrypto
@@ -10,8 +10,7 @@ import Swift
 import SwiftWebSocket
 import SystemConfiguration
 import UIKit
-import _Concurrency
-extension Swift.Collection {
+extension Collection {
   public subscript(safe index: Self.Index) -> Self.Iterator.Element? {
     get
   }
@@ -71,8 +70,8 @@ extension Swift.Collection {
   @objc final public class func startTimeStatic(isLogin: Swift.Bool = false)
   @objc final public class func stopTimeStatic()
   @objc final public class func realNameAuth(userToken: Swift.String, name: Swift.String, idCard: Swift.String, phone: Swift.String, completion: @escaping (AntiAddictionService.AntiAddictionRealNameAuthState, Swift.String) -> ())
-  @objc final public class func checkRealnameState(userToken: Swift.String, completion: @escaping (_ identifyState: AntiAddictionService.AntiAddictionRealNameAuthState, _ userToken: Swift.String, _ idCard: Swift.String, _ name: Swift.String) -> (), failureHandler: @escaping (_ errorMessage: Swift.String) -> ())
-  @objc final public class func checkPlayTimeResult(handler: @escaping (_ result: Swift.String?) -> Swift.Void) -> Swift.String?
+  @objc final public class func checkRealnameState(userToken: Swift.String, completion: @escaping (AntiAddictionService.AntiAddictionRealNameAuthState, Swift.String, Swift.String, Swift.String) -> (), failureHandler: @escaping (Swift.String) -> ())
+  @objc final public class func checkPlayTimeResult(handler: @escaping (Swift.String?) -> Swift.Void) -> Swift.String?
   @objc deinit
 }
 public struct HashidsOptions {
@@ -170,19 +169,19 @@ public class SwiftTimer {
   public func rescheduleRepeating(interval: Dispatch.DispatchTimeInterval)
   public func rescheduleHandler(handler: @escaping AntiAddictionService.SwiftTimer.SwiftTimerHandler)
 }
-extension AntiAddictionService.SwiftTimer {
+extension SwiftTimer {
   public static func debounce(interval: Dispatch.DispatchTimeInterval, identifier: Swift.String, queue: Dispatch.DispatchQueue = .main, handler: @escaping () -> Swift.Void)
   public static func throttle(interval: Dispatch.DispatchTimeInterval, identifier: Swift.String, queue: Dispatch.DispatchQueue = .main, handler: @escaping () -> Swift.Void)
   public static func cancelThrottlingTimer(identifier: Swift.String)
 }
 public class SwiftCountDownTimer {
-  public init(interval: Dispatch.DispatchTimeInterval, times: Swift.Int, queue: Dispatch.DispatchQueue = .main, handler: @escaping (AntiAddictionService.SwiftCountDownTimer, _ costTimes: Swift.Int, _ leftTimes: Swift.Int) -> Swift.Void)
+  public init(interval: Dispatch.DispatchTimeInterval, times: Swift.Int, queue: Dispatch.DispatchQueue = .main, handler: @escaping (AntiAddictionService.SwiftCountDownTimer, Swift.Int, Swift.Int) -> Swift.Void)
   public func start()
   public func suspend()
   public func reCountDown()
   @objc deinit
 }
-extension Dispatch.DispatchTimeInterval {
+extension DispatchTimeInterval {
   public static func fromSeconds(_ seconds: Swift.Double) -> Dispatch.DispatchTimeInterval
 }
 public enum ReachabilityError : Swift.Error {
@@ -194,7 +193,7 @@ public enum ReachabilityError : Swift.Error {
 }
 @available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
 public var ReachabilityChangedNotification: Foundation.NSNotification.Name
-extension Foundation.NSNotification.Name {
+extension NSNotification.Name {
   public static var reachabilityChanged: Foundation.Notification.Name
 }
 public class Reachability {
@@ -251,7 +250,7 @@ public class Reachability {
   public convenience init(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
   @objc deinit
 }
-extension AntiAddictionService.Reachability {
+extension Reachability {
   public func startNotifier() throws
   public func stopNotifier()
   @available(*, deprecated, message: "Please use `connection != .none`")
@@ -287,7 +286,7 @@ final public class Defaults {
   final public func removeAll(bundle: Foundation.Bundle = Bundle.main)
   @objc deinit
 }
-extension AntiAddictionService.Defaults {
+extension Defaults {
   final public func get<ValueType>(for key: AntiAddictionService.Key<ValueType>) -> ValueType? where ValueType : Swift.Decodable, ValueType : Swift.Encodable, ValueType : Swift.RawRepresentable, ValueType.RawValue : Swift.Decodable, ValueType.RawValue : Swift.Encodable
   final public func set<ValueType>(_ value: ValueType, for key: AntiAddictionService.Key<ValueType>) where ValueType : Swift.Decodable, ValueType : Swift.Encodable, ValueType : Swift.RawRepresentable, ValueType.RawValue : Swift.Decodable, ValueType.RawValue : Swift.Encodable
 }

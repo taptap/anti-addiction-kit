@@ -55,10 +55,16 @@ dependencies {
 ```
 
 ## 2. AntiAddictionKit 使用说明
-
 ### 2.1 初始化
 示例如下：
 ```
+AntiAddictionFunctionConfig antiAddictionFunctionConfig = new AntiAddictionFunctionConfig.Builder()
+                        .enablePaymentLimit(true)
+                        .enableOnLineTimeLimit(true)
+                        .withAntiAddictionServerUrl("${部署的防沉迷服务域名}")
+                        .withIdentifyVerifiedServerUrl("${部署的实名认证服务域名}")
+                        .withDepartmentSocketUrl("${部署的中宣部上报服务域名}")
+                        .build()
 AntiAddictionKit.init(context, gameIdentifier
 , antiAddictionFunctionConfig
 , antiAddictionCallback); 

@@ -53,13 +53,13 @@ struct LoginManager {
                                                                    //宵禁
                                                                    if restrictType == 1 {
                                                                        if remainTime > 0 {
-                                                                           //登录成功，开始定期计时
-                                                                           AntiAddictionService.invokePlayTimeCallback(result: .loginSuccess, extra: AntiAddictionService.PlayTimeExtra(description: "用户登录成功"))
-                                                                           
-                                                                           TimeManager.activate(isLogin: true)
+                                                                        // 未成年允许游戏弹窗提醒
+                                                                          let localTitle = Notice.childLogin(remainTime: remainTime).title
+                                                                          let localDesc = Notice.childLogin(remainTime: remainTime).content
+                                                                          AntiAddictionService.invokePlayTimeCallback(result: .openAlertTip, extra: AntiAddictionService.PlayTimeExtra(title: localTitle, description: localDesc, remainTime: remainTime, restrictType: .playTimeLimit, userType: .child, forceOpen: false, extraSource: .login))
                                                                            return
                                                                        } else {
-                                                                           //宵禁弹窗
+                                                                        // 未成年不允许游戏弹窗提醒
                                                                            let localTitle = Notice.childNightStrictLimit.title
                                                                            let localDesc = Notice.childNightStrictLimit.content
                                                                            let limitTitle = getLimitTitle(title: title, localTitle: localTitle)

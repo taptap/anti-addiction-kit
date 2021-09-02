@@ -52,8 +52,8 @@ struct NoticeTemplate {
     static var guestNightStrictLimitTip:PlayTimeTipText = PlayTimeTipText(desc: "根据国家相关规定，每日 #22 点# - 次日 #8 点#为健康保护时段，当前无法进入游戏。")
     
     // 未成年
-    static var childFirstLoginTip:PlayTimeTipText = PlayTimeTipText(desc: "您当前为未成年账号，已被纳入防沉迷系统。根据国家相关规定，未成年账号非节假日每日游戏时长 1.5 小时，节假日每日游戏时长为 3 小时，且每日 22 点 - 次日 8 点为健康保护时段，不可进入游戏。您当前享有 ## 分钟游戏时间，请注意适当休息。")
-    static var childLoginTip:PlayTimeTipText = PlayTimeTipText(desc: "您当前为未成年账号，已被纳入防沉迷系统。根据国家相关规定，未成年账号非节假日每日游戏时长 1.5 小时，节假日每日游戏时长为 3 小时，且每日 22 点 - 次日 8 点为健康保护时段，不可进入游戏。该账号游戏体验时间还剩余 ## 分钟，请注意适当休息。")
+    static var childFirstLoginTip:PlayTimeTipText = PlayTimeTipText(desc: "您当前为未成年账号，已被纳入防沉迷系统。根据国家相关规定，周五、周六、周日及法定节假日 20 点 -  21 点之外为健康保护时段。您今日游戏时间还剩余 ## 分钟游戏时间，请注意适当休息。")
+    static var childLoginTip:PlayTimeTipText = PlayTimeTipText(desc: "您当前为未成年账号，已被纳入防沉迷系统。根据国家相关规定，周五、周六、周日及法定节假日 20 点 -  21 点之外为健康保护时段。您今日游戏时间还剩余 ## 分钟，请注意适当休息。")
     static var childRemainTip:PlayTimeTipText = PlayTimeTipText(desc: "您今日游戏时间还剩余 ## 分钟，请注意适当休息。")
     static var childPopRemainTip:PlayTimeTipText = PlayTimeTipText(desc: "您今日游戏时间还剩余 ## 分钟，请注意适当休息。")
     static var childLimitTip:PlayTimeTipText = PlayTimeTipText(desc: "您今日游戏时间已达 ## 分钟。根据国家相关规定，今日无法再进行游戏。请注意适当休息。")
