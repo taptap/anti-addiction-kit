@@ -276,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
     private void listenToDebugEvent() {
         RxBus.getInstance().toObservable()
                 .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {
                     @Override
                     public void call(Object event) {
