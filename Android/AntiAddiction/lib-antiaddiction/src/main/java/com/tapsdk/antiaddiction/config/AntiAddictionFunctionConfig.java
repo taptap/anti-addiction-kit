@@ -12,6 +12,8 @@ public class AntiAddictionFunctionConfig {
 
     public final String departmentWebSocketUrl;
 
+    public final String antiAddictionSecretKey;
+
     public boolean onLineTimeLimitEnabled() {
         return useOnLineTimeLimit;
     }
@@ -26,6 +28,7 @@ public class AntiAddictionFunctionConfig {
         this.identityVerifiedServerUrl = "";
         this.antiAddictionServerUrl = "";
         this.departmentWebSocketUrl = "";
+        this.antiAddictionSecretKey = "";
     }
 
     public AntiAddictionFunctionConfig(Builder builder) {
@@ -34,6 +37,7 @@ public class AntiAddictionFunctionConfig {
         this.identityVerifiedServerUrl = builder.identityVerifiedServerUrl;
         this.antiAddictionServerUrl = builder.antiAddictionServerUrl;
         this.departmentWebSocketUrl = builder.departmentWebSocketUrl;
+        this.antiAddictionSecretKey = builder.antiAddictionSecretKey;
     }
 
     public static class Builder {
@@ -42,6 +46,7 @@ public class AntiAddictionFunctionConfig {
         public String identityVerifiedServerUrl = "";
         public String antiAddictionServerUrl = "";
         public String departmentWebSocketUrl = "";
+        public String antiAddictionSecretKey = "";
 
         public Builder enablePaymentLimit(boolean enabled) {
             this.useOnLineTimeLimit = enabled;
@@ -65,6 +70,11 @@ public class AntiAddictionFunctionConfig {
 
         public Builder withDepartmentSocketUrl(String departmentSocketUrl) {
             this.departmentWebSocketUrl = departmentSocketUrl;
+            return this;
+        }
+
+        public Builder withAntiAddictionSecretKey(String antiAddictionSecretKey) {
+            this.antiAddictionSecretKey = antiAddictionSecretKey;
             return this;
         }
 

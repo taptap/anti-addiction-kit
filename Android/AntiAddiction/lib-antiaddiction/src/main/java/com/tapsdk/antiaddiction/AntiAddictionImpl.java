@@ -88,6 +88,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
     private String webSocketUrl = "";
 
+    private String anitAddictionSecretKey = "";
+
     private void initSkynet(AntiAddictionFunctionConfig antiAddictionFunctionConfig) {
         OkHttpClient.Builder antiAddictionOkhttpBuilder = new OkHttpClient.Builder();
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
@@ -132,7 +134,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
                 Request originRequest = chain.request();
                 StringBuilder extraBuilder = new StringBuilder();
-                String signCode = Constants.IdentificationConfig.SECRET_KEY;
+                String signCode = anitAddictionSecretKey;
 
                 switch (originRequest.method()) {
                     case "GET":
@@ -202,6 +204,10 @@ public class AntiAddictionImpl implements IAntiAddiction {
         this.webSocketUrl = !TextUtils.isEmpty(antiAddictionFunctionConfig.departmentWebSocketUrl)
                 ? antiAddictionFunctionConfig.departmentWebSocketUrl
                 : Constants.API.WEB_SOCKET_HOST;
+        this.anitAddictionSecretKey = !TextUtils.isEmpty(antiAddictionFunctionConfig.antiAddictionSecretKey)
+                ? antiAddictionFunctionConfig.antiAddictionSecretKey
+                : Constants.IdentificationConfig.SECRET_KEY;
+
         initSkynet(antiAddictionFunctionConfig);
         initialized = true;
     }
