@@ -26,7 +26,7 @@ class FcmController extends Controller {
       return ctx.helper.result(400, '未上传正确server_times');
     }
     try {
-      let res = await ctx.service.fcmService.uploadPlayLogs(game, userInfo, playLogs.local_times, playLogs.server_times,is_login);
+      let res = await ctx.service.strictFcmService.newFcmPolicy(game,userInfo,is_login);
       return ctx.helper.result(200, '上传时间成功',res);
     } catch (error) {
       return ctx.helper.result(400, error.message);
