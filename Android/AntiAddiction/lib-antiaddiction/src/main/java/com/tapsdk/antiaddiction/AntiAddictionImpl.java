@@ -382,8 +382,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 if (result.remainTime <= 0) {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT;
                     notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.NIGHT_STRICT
-                            , AntiAddictionSettings.getInstance().generateAlertMessage(""
-                                    , "", limitTipEnum, result.restrictType));
+                            , AntiAddictionSettings.getInstance().generateAlertMessage(result.title
+                                    , result.description, limitTipEnum, result.restrictType));
                 } else {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_NO_LIMIT;
                     notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
@@ -392,8 +392,8 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 if (result.remainTime <= 0) {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_STRICT;
                     notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.TIME_LIMIT
-                            , AntiAddictionSettings.getInstance().generateAlertMessage(""
-                                    , "", limitTipEnum, result.restrictType));
+                            , AntiAddictionSettings.getInstance().generateAlertMessage(result.title
+                                    , result.description, limitTipEnum, result.restrictType));
                 } else {
                     limitTipEnum = AccountLimitTipEnum.STATE_CHILD_ENTER_NO_LIMIT;
                     notifyAntiAddictionMessage(Constants.ANTI_ADDICTION_CALLBACK_CODE.LOGIN_SUCCESS, null);
