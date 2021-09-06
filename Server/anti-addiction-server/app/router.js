@@ -21,4 +21,6 @@ module.exports = app => {
   router.post('/tools/cost_time',controller.v3.tools.cost_time);
   router.post('/tools/set_curfew',controller.v3.tools.set_curfew);
 
+  // engine healthcheck
+  router.get('/', controller.v3.engine.health);
 };
