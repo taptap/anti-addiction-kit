@@ -58,8 +58,6 @@ import AntiAddictionService
 // swift
 AntiAddictionService.configuration.useSdkPaymentLimit = true
 AntiAddictionService.configuration.useSdkOnlineTimeLimit = true
-AntiAddictionService.setHost:@"${防沉迷服务url}"
-AntiAddictionService.
 ```
 
 ```
@@ -67,9 +65,6 @@ AntiAddictionService.
 AntiAddictionService.configuration.useSdkPaymentLimit = YES;
 AntiAddictionService.configuration.useSdkOnlineTimeLimit = YES;
 
-[AntiAddictionService setHost:@"填入防沉迷服务域名"];
-[AntiAddictionService setIdentifyHost:@"填入实名服务域名"];
-[AntiAddictionService setWebsocketAddress:@"填入中宣部长连服务域名"]
 ```
 
 或直接传递对应参数（参数顺序）： `useSdkPaymentLimit`, `useSdkOnlineTimeLimit`)。
@@ -86,6 +81,13 @@ AntiAddictionService.setFunctionConfig(true, true)
 [AntiAddictionService setFunctionConfig:YES :YES];
 ```
 
+#### 2.1.2 服务地址配置
+```
+// Objective-C
+[AntiAddictionService setHost:@"填入防沉迷服务域名"];
+[AntiAddictionService setIdentifyHost:@"填入实名服务域名"];
+[AntiAddictionService setWebsocketAddress:@"填入中宣部长连服务域名"]
+```
 
 ### 2.2 初始化
 示例如下：
