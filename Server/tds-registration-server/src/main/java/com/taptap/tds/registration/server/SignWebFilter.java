@@ -41,7 +41,7 @@ public class SignWebFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
-        if(path.startsWith("/ws")){
+        if(path.startsWith("/ws") || path.equalsIgnoreCase("/") || path.isEmpty()){
             return chain.filter(exchange);
         }
 
