@@ -70,3 +70,6 @@ crashlytics-build.properties
 Unity/AntiAddiction-Unity/[Aa]ssets/[Ss]treamingAssets/aa.meta
 Unity/AntiAddiction-Unity/[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# Android
+.idea
+

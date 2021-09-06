@@ -39,16 +39,17 @@ Android {
 ```
 
 ### 1.3 导入 AntiAddiction
-- 将编译好的AntiAddiction_${AntiAddictionVersion}.aar拷贝到游戏目录下的libs目录中
+- 将编译好的AntiAddiction_${AntiAddictionVersion}.aar拷贝到游戏目录下的src/main/libs目录中
+- 将lib-antiaddiction/src/main/libs目录下的gson-2.8.6.jar拷贝到游戏目录下的src/main/libs目录中
 - 在游戏目录下build.gradle文件中添加代码
 ```
-// 在应用目录下的build.gradle中添加 
-repositories{flatDir{dirs 'libs'}}
+// 在游戏目录下的build.gradle中添加 
+repositories{flatDir{dirs 'src/main/libs'}}
 
 dependencies {
 ...
     implementation(name: "AntiAddiction_${AntiAddictionVersion}", ext: "aar")
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation(name: "gson-2.8.6", ext: "jar")
 ...
 }
 
