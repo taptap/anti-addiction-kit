@@ -36,7 +36,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --port=${LEANCLOUD_APP_PORT:-3000} --daemon --title=fcm-server",
+    "start": "egg-scripts start --port=${LEANCLOUD_APP_PORT:-3000} --workers=1 --title=fcm-server",
     "docker-start": "egg-scripts start --title=fcm-server",
     "stop": "egg-scripts stop --title=fcm-server",
     "dev": "egg-bin dev",

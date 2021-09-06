@@ -400,7 +400,7 @@ Authorization: Bearer <access_token>
 ```bash
 #配置数据库及jwt密钥
 $ echo 'export DATASOURCE_HOST="127.0.0.1"' >> ~/.bash_profile
-$ echo 'export DATASOURCE_PORT="3306"' >> ~/.bash_profile
+$ echo 'export DATASOURCE_DUANKOU="3306"' >> ~/.bash_profile
 $ echo 'export DATASOURCE_USER="root"' >> ~/.bash_profile
 $ echo 'export DATASOURCE_PW="root"' >> ~/.bash_profile
 $ echo 'export DATASOURCE_SCHEMA="fcm"' >> ~/.bash_profile

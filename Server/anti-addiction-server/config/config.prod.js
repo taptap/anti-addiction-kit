@@ -15,11 +15,12 @@ module.exports = appInfo => {
      **/
     const config = (exports = {});
     let sdk_host = process.env.DATASOURCE_HOST;
-    let sdk_port = process.env.DATASOURCE_PORT;
+    let sdk_port = process.env.DATASOURCE_DUANKOU;
     let sdk_user = process.env.DATASOURCE_USER;
     let sdk_pw = process.env.DATASOURCE_PW;
     let sdk_schema =process.env.DATASOURCE_SCHEMA
     let jws = process.env.JWS
+
     // use for cookie sign key, should change to your own and keep security
     config.keys = appInfo.name + '_1575449783796_1500';
     config.sequelize = {

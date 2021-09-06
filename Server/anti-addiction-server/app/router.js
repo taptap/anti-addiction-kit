@@ -8,6 +8,7 @@ module.exports = app => {
 
   const fcm = app.middleware.fcm(app);
   const checkToken = app.middleware.checkToken(app);
+
   // authorizations
   router.post('/v3/fcm/authorizations', controller.v3.authorizations.authorizations);
   router.get('/v3/fcm/get_server_time', controller.v3.authorizations.get_server_time);
