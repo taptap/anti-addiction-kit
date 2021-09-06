@@ -151,7 +151,6 @@ public class AntiAddictionImpl implements IAntiAddiction {
                     case "POST":
                         try {
                             String postBodyString = HttpUtil.bodyToString(originRequest.body());
-                            Log.d("OkHttp", postBodyString);
                             extraBuilder.append(postBodyString);
                         } catch (Exception e) {
                             throw new IOException(e.getMessage());
@@ -163,9 +162,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
                 if (!TextUtils.isEmpty(extraBuilder.toString())) {
                     signCode += extraBuilder.toString();
                 }
-                Log.d("OkHttp", "signCode before:" +signCode);
                 signCode = SignUtil.getSignCode(signCode);
-                Log.d("OkHttp", "signCode after:" + signCode);
                 Request.Builder newRequestBuilder = chain.request().newBuilder();
                 if (!TextUtils.isEmpty(signCode)) {
                     newRequestBuilder.addHeader("sign", signCode);
