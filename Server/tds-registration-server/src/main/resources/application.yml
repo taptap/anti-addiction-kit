@@ -31,9 +31,11 @@ spring:
     job-store-type: jdbc
     jdbc.initialize-schema: ALWAYS
   redis:
-    host: 'redis://h:BUDMFF0cZbFDYZSR@engine-stateful-local-proxy:27014' #替换成自己的
+    host: 'engine-stateful-local-proxy' #替换成自己的
+    port: 27014
     timeout: 5000
-    password:  #替换成自己的
+    username: 'h'
+    password: 'BUDMFF0cZbFDYZSR' #替换成自己的
 tds:
   push:
     jws: '3123124'
@@ -41,7 +43,7 @@ tds:
     enumValuePackages: com.taptap.tds.anti.addiction.service.enums
   publicity:
     appId: test #替换成自己的
-    bizId: test #替换成自己的
+    bizId: 1199000023 #替换成自己的
     identificationCheckRootUri: http://api2.wlc.nppa.gov.cn/idcard
     identificationRootUri: https://api.wlc.nppa.gov.cn/idcard
     signKey: test #替换成自己的
