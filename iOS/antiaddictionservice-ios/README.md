@@ -87,6 +87,7 @@ AntiAddictionService.setFunctionConfig(true, true)
 [AntiAddictionService setHost:@"填入防沉迷服务域名"];
 [AntiAddictionService setIdentifyHost:@"填入实名服务域名"];
 [AntiAddictionService setWebsocketAddress:@"填入中宣部长连服务域名"]
+[AntiAddictionService setAntiSecretKey:@"填入防沉迷服务密钥"]
 ```
 
 ### 2.2 初始化
