@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  redis:
+    image: redis
+    container_name: tds-anti-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tds
+      MYSQL_USER: test
+      MYSQL_PASSWORD: itsnothing
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql.cnf:/etc/mysql/conf.d/charset.cnf"
+      - ./data/mysql:/var/lib/mysql
+    container_name: tds-mysql
+

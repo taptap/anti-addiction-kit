@@ -22,9 +22,9 @@ spring:
       minimum-idle: 2
     initialize: false
     name: dataSource
-    password: 'tdspass' #替换成自己的
-    url: jdbc:mysql://localhost:3306/tds-test?characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false #替换成自己的
-    username: tds #替换成自己的
+    password: 'itsnothing' #替换成自己的
+    url: jdbc:mysql://localhost:3306/tds?characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false #替换成自己的
+    username: test #替换成自己的
   liquibase:
     change-log: classpath:/db/changelogs/changelog-master.xml
   quartz:
