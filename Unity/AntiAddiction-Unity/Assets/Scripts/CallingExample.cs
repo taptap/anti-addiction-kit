@@ -47,7 +47,11 @@ public class CallingExample : MonoBehaviour
             AntiAddictionKit.Init(gameIdentifier, useTimeLimit, usePaymentLimit,antiServerUrl,identifyServerUrl,departmentWebSocketUrl,antiSecretKey
                 , (antiAddictionCallbackData) =>
                 {
-                    Debug.Log($"AntiAddictionCallback: code = {antiAddictionCallbackData.code},extras = {antiAddictionCallbackData.extras}");
+                    Debug.Log($"AntiAddictionCallback: code = {antiAddictionCallbackData.code}");
+                    if (antiAddictionCallbackData.extras != null)
+                    {
+                        Debug.Log($"AntiAddictionCallback: extras = {antiAddictionCallbackData.extras}");
+                    }
 
                     if (antiAddictionCallbackData.code == 500)
                     {
@@ -57,7 +61,6 @@ public class CallingExample : MonoBehaviour
                             hint = antiAddictionCallbackData.extras.description;
                         }
                         logText = hint;
-                        loginStatus = "用户状态:已登录";
 
                         if(antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.userType != -1) {
                             if (antiAddictionCallbackData.extras.userType == 0) {
@@ -93,11 +96,11 @@ public class CallingExample : MonoBehaviour
                         }
                         var hint = "未登录";
 
-                        if (antiAddictionCallbackData.extras.description != null && antiAddictionCallbackData.extras.description.Length > 0) {
+                        if (antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.description != null && antiAddictionCallbackData.extras.description.Length > 0) {
                             hint = antiAddictionCallbackData.extras.description;
                         }
                         logText = hint;
-                        if(antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.userType != -1) {
+                        if(antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.userType != -1) {
                             if (antiAddictionCallbackData.extras.userType == 0) {
                                 userType = "用户类型:5";
                             } else {
@@ -108,7 +111,7 @@ public class CallingExample : MonoBehaviour
                         }
 
                         var remainTime = AntiAddictionKit.CurrentUserRemainTime().ToString();
-                        if (antiAddictionCallbackData.extras.remaining_time_str != null && antiAddictionCallbackData.extras.remaining_time_str.Length > 0) {
+                        if (antiAddictionCallbackData.extras != null && antiAddictionCallbackData.extras.remaining_time_str != null && antiAddictionCallbackData.extras.remaining_time_str.Length > 0) {
                             remainTime = antiAddictionCallbackData.extras.remaining_time_str;
                         }
                         userRemainTime = "剩余时长:" + remainTime;
@@ -119,7 +122,6 @@ public class CallingExample : MonoBehaviour
                         strictPromotion = "当前为宵禁时间，注意休息";
                         logText = "未登录";
                     } else if (antiAddictionCallbackData.code == 1000) {
-                        loginStatus = "用户状态:已登出";
                         logText = "已登出";
                     } 
                     // iOS only

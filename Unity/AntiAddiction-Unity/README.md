@@ -56,8 +56,6 @@ using Plugins.AntiAddictionKit
 ```
 AntiAddictionKit.Init(gameIdentifier, useTimeLimit, usePaymentLimit,antiServerUrl,identifyServerUrl,departmentWebSocketUrl,antiSecretKey
                 , (antiAddictionCallbackData) => // 防沉迷事件回调
-
-
 ```
 
 回调中会返回对应的回调类型码 resultCode 和相应信息 message：
@@ -67,9 +65,7 @@ AntiAddictionKit.Init(gameIdentifier, useTimeLimit, usePaymentLimit,antiServerUr
 CALLBACK\_CODE\_ENTER\_SUCCESS | 500 | 登录通过，当用户登录过程中通过防沉迷限制时会触发 | 无
 CALLBACK\_CODE\_SWITCH_ACCOUNT | 1000 | 切换账号，当用户因防沉迷机制受限时，选择切换账号时会触发 | 无
 CALLBACK\_CODE\_TIME\_LIMIT | 1030 | 时间受限，未成年人或游客游戏时长已达限制，通知游戏 | 给用户返回提示信息
-CALLBACK\_CODE\_PAY\_NO\_LIMIT | 1020 | 付费不受限，sdk检查用户付费无限制时触发| 无                 （iOS专用）
-CALLBACK\_CODE\_PAY\_LIMIT | 1025 | 付费受限，付费受限触发,包括游客未实名或付费额达到限制等 | 触发原因   (iOS专用)
-
+CALLBACK\_CODE\_OPEN\_ALERT | 1095 | 给用户返回当前时间提示（触发点：未实名和未成年登录成功会得到提示信息，未成年游戏中剩余15分钟提示，剩余1分钟提示，已到达非游戏时间提示）
 
 #### 2.2 登录
 
@@ -210,7 +206,7 @@ AntiAddictionKit.CurrentUserRemainTime()
 ```
 
 #### 2.10 获取用户类型
-如果已经登录返回用户类型，否则返回-1
+如果已经登录返回用户类型，否则返回-1(iOS成年人也返回用户类型为-1)
 
 ```
 AntiAddictionKit.CurrentUserType()

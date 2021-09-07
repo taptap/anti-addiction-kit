@@ -57,6 +57,19 @@ namespace Plugins.AntiAddictionKit
         public string remaining_time_str = "";
     }
 
+    [Serializable]
+    public class CheckPayResultParams
+    {
+        public int status;
+        public string title;
+        public string description;
+    }
+
+    [Serializable]
+    public class SubmitPayResultParams
+    {
+    }
+
     public static class AntiAddictionKit
     {
         // Game object is created to receive async messages
@@ -191,15 +204,43 @@ namespace Plugins.AntiAddictionKit
 
                 var result = new AntiAddictionCallbackData();
                 result.code = antiAddictionCallbackOriginData.code;
-                if (antiAddictionCallbackOriginData.extras != null && antiAddictionCallbackOriginData.extras.Length > 0)
-                {
-                    result.extras = JsonUtility.FromJson<MsgExtraParams>(antiAddictionCallbackOriginData.extras);
-                    Debug.Log("result.extras title:" + result.extras.title);
-                    Debug.Log("result.extras description:" + result.extras.description);
-                    Debug.Log("result.extras remaining_time_str" + result.extras.remaining_time_str);
-                }
 
-                handleAsyncAntiAddictionMsg?.Invoke(result);
+
+                // ios SDK 用统一事件来返回付费事件，这边转换处理
+                if (result.code == 1020)
+                {
+                    var checkPayResult = JsonUtility.FromJson<CheckPayResult>(antiAddictionCallbackOriginData.extras);
+                    handleCheckPayLimit?.Invoke(checkPayResult);
+                }
+                else if (result.code == 1025)
+                {
+                    var checkPayResult = JsonUtility.FromJson<CheckPayResult>(antiAddictionCallbackOriginData.extras);
+                    handleCheckPayLimit?.Invoke(checkPayResult);
+                }
+                // 
+                else if (result.code == 1050)
+                {
+                    if (antiAddictionCallbackOriginData.extras != null && antiAddictionCallbackOriginData.extras.Length > 0)
+                    {
+                        result.extras = JsonUtility.FromJson<MsgExtraParams>(antiAddictionCallbackOriginData.extras);
+                        Debug.Log("result.extras title:" + result.extras.title);
+                        Debug.Log("result.extras description:" + result.extras.description);
+                        Debug.Log("result.extras remaining_time_str" + result.extras.remaining_time_str);
+                    }
+                    result.code = 1030;
+                    handleAsyncAntiAddictionMsg?.Invoke(result);
+                }
+                else
+                {
+                    if (antiAddictionCallbackOriginData.extras != null && antiAddictionCallbackOriginData.extras.Length > 0)
+                    {
+                        result.extras = JsonUtility.FromJson<MsgExtraParams>(antiAddictionCallbackOriginData.extras);
+                        Debug.Log("result.extras title:" + result.extras.title);
+                        Debug.Log("result.extras description:" + result.extras.description);
+                        Debug.Log("result.extras remaining_time_str" + result.extras.remaining_time_str);
+                    }
+                    handleAsyncAntiAddictionMsg?.Invoke(result);
+                }
             }
         }
 
