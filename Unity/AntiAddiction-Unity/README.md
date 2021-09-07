@@ -43,9 +43,14 @@ using Plugins.AntiAddictionKit
 
 ### 2.1 初始化
 初始化SDK并设置回调，初始化方法接收Action作为回调
-参数介绍
-gameIdentifier 游戏名称标识（游戏自己定义，需要和）
-
+- 参数介绍
+- gameIdentifier 游戏名称标识（游戏自行定义）
+- useTimeLimit 启用时长限制功能
+- usePaymentLimit 启用付费限制功能
+- antiServerUrl 防沉迷服务域名
+- identifyServerUrl 实名服务域名
+- departmentWebSocketUrl 中宣部长连服务域名
+- antiSecretKey 防沉迷服务密钥
 示例如下：
 
 ```
