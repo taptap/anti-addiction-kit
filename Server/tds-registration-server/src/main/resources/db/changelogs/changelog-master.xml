@@ -5,7 +5,7 @@
 
 <!--    <include file="changelog-quartz.xml" relativeToChangelogFile="true" />-->
     <include file="changelog-20210323.xml" relativeToChangelogFile="true" />
-    <changeSet id="import-data" author="yu.gu" dbms="h2">
+    <changeSet id="import-data" author="tds" dbms="h2">
         <sqlFile path="../script/import-data.sql" relativeToChangelogFile="true" />
         <modifySql>
             <replace replace="NOW(3) ON UPDATE NOW(3)" with="NOW(3)" />

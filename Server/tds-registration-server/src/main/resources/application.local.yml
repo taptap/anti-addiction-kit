@@ -1,0 +1,47 @@
+logging:
+  level:
+    com:
+      taptap: DEBUG
+    root: INFO
+mybatis:
+  configuration-properties:
+    enumValuePackages: com.taptap.tds.registration.server.enums
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  type-aliases-package: com.taptap.tds.registration.server.domain
+server:
+  port: 3000
+spring:
+  application:
+    name: tds-registration-server
+  datasource:
+    hikari:
+      connection-timeout: 5000
+      idle-timeout: 120000
+      max-lifetime: 300000
+      maximum-pool-size: 10
+      minimum-idle: 2
+    initialize: false
+    name: dataSource
+    password: 'tdspass' #替换成自己的
+    url: jdbc:mysql://localhost:3306/tds-test?characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false #替换成自己的
+    username: tds #替换成自己的
+  liquibase:
+    change-log: classpath:/db/changelogs/changelog-master.xml
+  quartz:
+    job-store-type: jdbc
+    jdbc.initialize-schema: ALWAYS
+  redis:
+    host: 'localhost' #替换成自己的
+    timeout: 5000
+tds:
+  push:
+    jws: '3123124'
+  mvc:
+    enumValuePackages: com.taptap.tds.anti.addiction.service.enums
+  publicity:
+    appId: test #替换成自己的
+    bizId: 1199000023 #替换成自己的
+    identificationCheckRootUri: http://api2.wlc.nppa.gov.cn/idcard
+    identificationRootUri: https://api.wlc.nppa.gov.cn/idcard
+    signKey: test #替换成自己的
+    userActionRootRui: http://api2.wlc.nppa.gov.cn/behavior
