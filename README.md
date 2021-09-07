@@ -4,13 +4,9 @@
 
 ### [Android 接入文档](./Android/AntiAddiction/README.md)
 
-----------------------------------------
-
 ## iOS
 
 ### [iOS 接入文档](./iOS/antiaddictionservice-ios/README.md)
-
-----------------------------------------
 
 ## Server 
 
