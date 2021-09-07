@@ -16,7 +16,14 @@ import com.unity3d.player.UnityPlayer;
 import java.util.Map;
 
 interface INativeAntiAddictionPlugin {
-    void initSDK(Activity activity, String gameIdentifier, boolean useTimeLimit, boolean usePaymentLimit);
+    void initSDK(Activity activity, String gameIdentifier
+            , boolean useTimeLimit
+            , boolean usePaymentLimit
+            , String antiServerUrl
+            , String identifyServerUrl
+            , String departmentSocketUrl
+            , String antiSecretKey
+    );
 }
 
 public class NativeAntiAddictionKitPlugin implements INativeAntiAddictionPlugin {
@@ -28,18 +35,28 @@ public class NativeAntiAddictionKitPlugin implements INativeAntiAddictionPlugin 
     public NativeAntiAddictionKitPlugin() {
     }
 
-    public void initSDK(Activity activity, String gameIdentifier, boolean useTimeLimit, boolean usePaymentLimit) {
+    public void initSDK(Activity activity, String gameIdentifier
+            , boolean useTimeLimit
+            , boolean usePaymentLimit
+            , String antiServerUrl
+            , String identifyServerUrl
+            , String departmentSocketUrl
+            , String antiSecretKey
+    ) {
         AntiAddictionLogger.d("Bridge init:["
                 + "gameIdentifier:" + gameIdentifier
                 + ",useTimeLimit" + useTimeLimit
                 + ",usePaymentLimit" + usePaymentLimit
                 + "]"
         );
-
         AntiAddictionFunctionConfig antiAddictionFunctionConfig
                 = new AntiAddictionFunctionConfig.Builder()
                 .enableOnLineTimeLimit(useTimeLimit)
                 .enablePaymentLimit(usePaymentLimit)
+                .withAntiAddictionServerUrl(antiServerUrl)
+                .withIdentifyVerifiedServerUrl(identifyServerUrl)
+                .withDepartmentSocketUrl(departmentSocketUrl)
+                .withAntiAddictionSecretKey(antiSecretKey)
                 .build();
         AntiAddictionKit.init(activity, gameIdentifier, antiAddictionFunctionConfig, new AntiAddictionCallback() {
             @Override
@@ -117,7 +134,7 @@ public class NativeAntiAddictionKitPlugin implements INativeAntiAddictionPlugin 
                     JsonObject identificationInfoJSONObject = new JsonObject();
                     identificationInfoJSONObject.addProperty("authState", identificationInfo.authState);
                     identificationInfoJSONObject.addProperty("idCard", identificationInfo.idCard);
-                    identificationInfoJSONObject.addProperty("name" , identificationInfo.name);
+                    identificationInfoJSONObject.addProperty("name", identificationInfo.name);
                     identificationInfoJSONObject.addProperty("phoneNumber", identificationInfo.phoneNumber);
                     identificationInfoJSONObject.addProperty("antiAddictionToken", identificationInfo.antiAddictionToken);
                     UnityPlayer.UnitySendMessage(GAME_OBJECT_NAME, "HandleFetchIdentificationInfo", identificationInfoJSONObject.toString());

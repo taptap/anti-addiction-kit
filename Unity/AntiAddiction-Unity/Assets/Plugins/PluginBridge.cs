@@ -71,7 +71,9 @@ namespace Plugins.AntiAddictionKit
         #if UNITY_IOS
         [DllImport("__Internal")]
         #endif
-        private static extern void initSDK(string gameIdentifier, bool useTimeLimit, bool usePaymentLimit);
+        private static extern void initSDK(string gameIdentifier, bool useTimeLimit
+            , bool usePaymentLimit, string antiServerUrl, string identifyServerUrl
+            , string departmentSocketUrl, string antiSecretKey);
         #if UNITY_IOS
         [DllImport("__Internal")]
         #endif
@@ -264,7 +266,12 @@ namespace Plugins.AntiAddictionKit
          * Interface Metthods
          * ------------------
          */
-        public static void Init(string gameIdentifier, bool useTimeLimit, bool usePaymentLimit, Action<AntiAddictionCallbackData> handleAsyncAntiAddictionMsg
+        public static void Init(string gameIdentifier, bool useTimeLimit, bool usePaymentLimit
+            , string antiHostUrl
+            , string indentifyHostUrl
+            , string departmentSocketUrl
+            , string antiSecretKey
+            , Action<AntiAddictionCallbackData> handleAsyncAntiAddictionMsg
             , Action<string> handleAsyncAntiAddictionMsgException)
         {
             AntiAddictionKit.handleAsyncAntiAddictionMsg = handleAsyncAntiAddictionMsg;
@@ -273,10 +280,10 @@ namespace Plugins.AntiAddictionKit
             switch (Application.platform)
             {
                 case RuntimePlatform.Android:
-                    PerformAndroidInit(gameIdentifier, useTimeLimit, usePaymentLimit);
+                    PerformAndroidInit(gameIdentifier, useTimeLimit, usePaymentLimit, antiHostUrl, indentifyHostUrl, departmentSocketUrl, antiSecretKey);
                     break;
                 case RuntimePlatform.IPhonePlayer:
-                    PerformIOSInit(gameIdentifier, useTimeLimit, usePaymentLimit);
+                    PerformIOSInit(gameIdentifier, useTimeLimit, usePaymentLimit, antiHostUrl, indentifyHostUrl, departmentSocketUrl, antiSecretKey);
                     break;
                 default:
                     throw new PlatformNotSupportedException();
@@ -471,12 +478,22 @@ namespace Plugins.AntiAddictionKit
         private static void PerformAndroidInit(
             string gameIdentifier
             , bool useTimeLimit
-            , bool usePaymentLimit)
+            , bool usePaymentLimit
+            , string antiHostUrl
+            , string identifyHostUrl
+            , string departmentSocketHost
+            , string antiSecretKey
+            )
         {
             Debug.Log("Android Init calling");
             AndroidJavaClass unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject unityActivity = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
-            androidJavaNativeAntiAddiction.Call("initSDK", unityActivity, gameIdentifier, useTimeLimit, usePaymentLimit);
+            androidJavaNativeAntiAddiction.Call("initSDK", unityActivity, gameIdentifier, useTimeLimit
+                , usePaymentLimit
+                , antiHostUrl
+                , identifyHostUrl
+                , departmentSocketHost
+                , antiSecretKey);
         }
 
         private static void PerformAndroidLogin(string userId)
@@ -544,10 +561,11 @@ namespace Plugins.AntiAddictionKit
          * ------------------
          */
         private static void PerformIOSInit(string gameIdentifier, bool useTimeLimit
-            , bool usePaymentLimit)
+            , bool usePaymentLimit, string antiServerUrl, string identifyServerUrl
+            , string departmentSocketUrl, string antiSecretKey)
         {
             Debug.Log("PerformIOSInit:" + gameIdentifier);
-            initSDK(gameIdentifier, useTimeLimit, usePaymentLimit);
+            initSDK(gameIdentifier, useTimeLimit, usePaymentLimit, antiServerUrl, identifyServerUrl, departmentSocketUrl, antiSecretKey);
         }
 
         private static void PerformIOSLogin(string userId)

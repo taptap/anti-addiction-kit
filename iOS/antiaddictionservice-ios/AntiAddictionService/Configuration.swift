@@ -12,6 +12,8 @@ public final class AntiAddictionConfiguration: NSObject {
     /// 长连接地址，用于上报上下线时间
     internal var websocketAddress:String? = nil
     
+    internal var antiSecretKey:String? = nil
+    
     public var enableLog:Bool = false
     
     public var needUploadAllTimeData:Bool = true

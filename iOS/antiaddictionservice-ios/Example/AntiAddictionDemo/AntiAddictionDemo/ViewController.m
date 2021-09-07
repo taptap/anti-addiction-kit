@@ -25,7 +25,9 @@ static NSString *testUserId = @"792";
     [AntiAddictionService setHost:@"http://172.19.56.86:7005"];
     [AntiAddictionService setIdentifyHost:@"http://172.19.101.76"];
     
-//    [AntiAddictionService setWebsocketAddress:@""];
+    [AntiAddictionService setWebsocketAddress:@"ws://172.19.101.76/ws/v1"];
+    [AntiAddictionService setAntiSecretKey:@"e5d341b5aed6110da68f93e06aff47db"];
+    
     [AntiAddictionService setFunctionConfig:YES :YES];
     [AntiAddictionService init:self gameIdentifier:@"demo"];
     

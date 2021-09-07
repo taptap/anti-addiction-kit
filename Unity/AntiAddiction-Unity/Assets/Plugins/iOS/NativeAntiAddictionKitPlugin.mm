@@ -1,4 +1,4 @@
-﻿#import <AntiAddictionService/AntiAddictionService-Swift.h>
+#import <AntiAddictionService/AntiAddictionService-Swift.h>
 
 char const *GAME_OBJECT = "PluginBridge";
 
@@ -164,7 +164,12 @@ static NativeAntiAddictionKitPlugin *_sharedInstance;
 
 extern "C"
 {
-    void initSDK(const char *gameIdentifier, bool useTimeLimit, bool usePaymentLimit) {
+    void initSDK(const char *gameIdentifier, bool useTimeLimit, bool usePaymentLimit
+                 , const char *antiServerUrl
+                 , const char *identifyHostUrl
+                 , const char *departmentWebSocketUrl
+                 , const char *antiSecretKey
+                 ) {
         
         NSString *gameParam = [NSString stringWithUTF8String:gameIdentifier];
         NSLog(@"%@", [NSString stringWithFormat:@"initSDK with gameIdentifier: %@ ，useTimeLimit: %@, usePaymentLimit: %@"
@@ -172,10 +177,10 @@ extern "C"
         , useTimeLimit?@"YES":@"NO"
         , usePaymentLimit?@"YES":@"NO"]);
 
-        [AntiAddictionService setHost:@"http://172.19.56.86:7005"];
-        [AntiAddictionService setIdentifyHost:@"http://172.19.101.76"];
-
-        //    [AntiAddictionService setWebsocketAddress:@""];
+        [AntiAddictionService setHost:[NSString stringWithUTF8String:antiServerUrl]];
+        [AntiAddictionService setIdentifyHost:[NSString stringWithUTF8String:identifyHostUrl]];
+        [AntiAddictionService setWebsocketAddress:[NSString stringWithUTF8String:departmentWebSocketUrl]];
+        [AntiAddictionService setAntiSecretKey:[NSString stringWithUTF8String:antiSecretKey]];
 
         [AntiAddictionService setFunctionConfig:useTimeLimit :usePaymentLimit];
         [AntiAddictionService init:[NativeAntiAddictionKitPlugin sharedInstance] gameIdentifier:gameParam];

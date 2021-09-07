@@ -39,8 +39,12 @@ public class CallingExample : MonoBehaviour
             var gameIdentifier = "demo";
             var useTimeLimit = true;
             var usePaymentLimit = true;
+            var antiServerUrl = "http://172.19.56.86:7005";
+            var identifyServerUrl = "http://172.19.101.76";
+            var departmentWebSocketUrl = "ws://172.19.101.76/ws/v1";
+            var antiSecretKey = "e5d341b5aed6110da68f93e06aff47db";
 
-            AntiAddictionKit.Init(gameIdentifier, useTimeLimit, usePaymentLimit
+            AntiAddictionKit.Init(gameIdentifier, useTimeLimit, usePaymentLimit,antiServerUrl,identifyServerUrl,departmentWebSocketUrl,antiSecretKey
                 , (antiAddictionCallbackData) =>
                 {
                     Debug.Log($"AntiAddictionCallback: code = {antiAddictionCallbackData.code},extras = {antiAddictionCallbackData.extras}");

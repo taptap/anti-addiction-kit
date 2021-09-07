@@ -111,6 +111,10 @@ public final class AntiAddictionService:NSObject {
         AntiAddictionService.configuration.websocketAddress = address
     }
     
+    public class func setAntiSecretKey(_ secretKey:String) {
+        AntiAddictionService.configuration.antiSecretKey = secretKey;
+    }
+    
     /// AAKit 配置方法
     /// - Parameters:
     ///   - useSdkRealName: 实名登记开关，默认值为 true

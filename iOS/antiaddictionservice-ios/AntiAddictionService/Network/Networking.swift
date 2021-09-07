@@ -28,7 +28,7 @@ struct Networking {
      即secretKey+query+body。 （e5d341b5aed6110da68f93e06aff47dbuser_id=sdafsdf）
      使用 SHA256 算法对待加密字符串进行计算，放入header ， key 为sign
      */
-    private static let clientSecretKey  = "e5d341b5aed6110da68f93e06aff47db"
+    private static let clientSecretKey  = AntiAddictionService.configuration.antiSecretKey ?? "e5d341b5aed6110da68f93e06aff47db"
     
     /// 字典数组Array<Dictionary>序列化成JSON字符串
     private static func dictionaryArrayToJSONString(_ array: [[String: Any]]?) -> String {
