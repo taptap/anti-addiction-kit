@@ -16,7 +16,7 @@ Android {
         // 正式环境
         Publish {
             dimension = "staging"
-            // 实名认证服务端配置的signKey
+            // 实名认证服务端配置的requestSignKey
             buildConfigField("String", "IDENTIFICATION_SIGN_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
             // 实名认证服务地址
             buildConfigField("String", "IDENTIFICATION_HOST", "\"http://172.19.101.76\"")
