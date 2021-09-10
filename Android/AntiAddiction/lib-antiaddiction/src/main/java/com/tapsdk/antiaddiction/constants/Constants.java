@@ -38,7 +38,7 @@ public class Constants {
     }
 
     public static class IdentificationConfig {
-        public static final String SECRET_KEY = BuildConfig.IDENTIFICATION_SECRET_KEY;
+        public static final String SIGN_KEY = BuildConfig.IDENTIFICATION_SIGN_KEY;
     }
 
     public static class CacheData {

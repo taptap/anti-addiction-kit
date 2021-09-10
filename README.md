@@ -14,9 +14,9 @@
 ### [防沉迷服务端 接入文档](./Server/anti-addiction-server/README.md)
 ### [实名认证服务端 接入文档](./Server/tds-registration-server/README.md)
 
-## 防沉迷游戏时长/时间段控制流程图
+## 防沉迷功能流程介绍
+### 游戏时长/时间段控制流程图
 ![](images/anti_addiction_timelimit_flow.png)
-
 
 ## FAQ
 

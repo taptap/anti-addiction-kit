@@ -16,8 +16,8 @@ Android {
         // 正式环境
         Publish {
             dimension = "staging"
-            // 实名认证服务端配置的secretKey
-            buildConfigField("String", "IDENTIFICATION_SECRET_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
+            // 实名认证服务端配置的signKey
+            buildConfigField("String", "IDENTIFICATION_SIGN_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
             // 实名认证服务地址
             buildConfigField("String", "IDENTIFICATION_HOST", "\"http://172.19.101.76\"")
             // 防沉迷服务地址
@@ -28,7 +28,7 @@ Android {
         // 测试环境
         Inhouse {
             dimension = "staging"
-            buildConfigField("String", "IDENTIFICATION_SECRET_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
+            buildConfigField("String", "IDENTIFICATION_SIGN_KEY", "\"e5d341b5aed6110da68f93e06aff47db\"")
             buildConfigField("String", "IDENTIFICATION_HOST", "\"http://172.19.101.76\"")
             buildConfigField("String", "ANTI_ADDICTION_HOST", "\"http://172.19.56.86:7005\"")
             buildConfigField("String", "WEB_SOCKET_HOST", "\"ws://172.19.101.76/ws/v1\"")

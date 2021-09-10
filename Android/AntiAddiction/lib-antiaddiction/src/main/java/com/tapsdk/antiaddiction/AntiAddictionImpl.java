@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -88,7 +87,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
     private String webSocketUrl = "";
 
-    private String anitAddictionSecretKey = "";
+    private String antiAddictionSignKey = "";
 
     private void initSkynet(AntiAddictionFunctionConfig antiAddictionFunctionConfig) {
         OkHttpClient.Builder antiAddictionOkhttpBuilder = new OkHttpClient.Builder();
@@ -134,7 +133,7 @@ public class AntiAddictionImpl implements IAntiAddiction {
 
                 Request originRequest = chain.request();
                 StringBuilder extraBuilder = new StringBuilder();
-                String signCode = anitAddictionSecretKey;
+                String signCode = antiAddictionSignKey;
 
                 switch (originRequest.method()) {
                     case "GET":
@@ -201,9 +200,9 @@ public class AntiAddictionImpl implements IAntiAddiction {
         this.webSocketUrl = !TextUtils.isEmpty(antiAddictionFunctionConfig.departmentWebSocketUrl)
                 ? antiAddictionFunctionConfig.departmentWebSocketUrl
                 : Constants.API.WEB_SOCKET_HOST;
-        this.anitAddictionSecretKey = !TextUtils.isEmpty(antiAddictionFunctionConfig.antiAddictionSecretKey)
+        this.antiAddictionSignKey = !TextUtils.isEmpty(antiAddictionFunctionConfig.antiAddictionSecretKey)
                 ? antiAddictionFunctionConfig.antiAddictionSecretKey
-                : Constants.IdentificationConfig.SECRET_KEY;
+                : Constants.IdentificationConfig.SIGN_KEY;
 
         initSkynet(antiAddictionFunctionConfig);
         initialized = true;
