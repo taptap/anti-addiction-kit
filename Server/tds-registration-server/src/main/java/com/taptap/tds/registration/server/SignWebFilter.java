@@ -70,7 +70,7 @@ public class SignWebFilter implements WebFilter {
                         return ServerRequest.create(exchange.mutate().request(mutatedRequest).build(), messageReaders)
                                 .bodyToMono(String.class)
                                 .map(body->{
-                                    String sign = SignUtil.generateSignature(stringStringMap, body, this.properties.getSignKey());
+                                    String sign = SignUtil.generateSignature(stringStringMap, body, this.properties.getRequestSignKey());
                                     return signHeader.equals(sign);
                                 }).flatMap(success->{
                                     if(success) {
@@ -81,7 +81,7 @@ public class SignWebFilter implements WebFilter {
                                 });
                     });
         } else {
-            String sign = SignUtil.generateSignature(stringStringMap, "", this.properties.getSignKey());
+            String sign = SignUtil.generateSignature(stringStringMap, "", this.properties.getRequestSignKey());
             if(!signHeader.equals(sign)){
                 return writeErrorMessage(exchange.getResponse());
             }
