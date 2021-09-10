@@ -111,8 +111,8 @@ public final class AntiAddictionService:NSObject {
         AntiAddictionService.configuration.websocketAddress = address
     }
     
-    public class func setAntiSecretKey(_ secretKey:String) {
-        AntiAddictionService.configuration.antiSecretKey = secretKey;
+    public class func setAntiSignKey(_ signKey:String) {
+        AntiAddictionService.configuration.antiSignKey = signKey;
     }
     
     /// AAKit 配置方法

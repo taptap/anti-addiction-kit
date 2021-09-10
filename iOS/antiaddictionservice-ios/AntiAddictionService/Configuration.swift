@@ -12,7 +12,7 @@ public final class AntiAddictionConfiguration: NSObject {
     /// 长连接地址，用于上报上下线时间
     internal var websocketAddress:String? = nil
     
-    internal var antiSecretKey:String? = nil
+    internal var antiSignKey:String? = nil
     
     public var enableLog:Bool = false
     

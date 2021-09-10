@@ -28,7 +28,7 @@ struct Networking {
      即secretKey+query+body。 （e5d341b5aed6110da68f93e06aff47dbuser_id=sdafsdf）
      使用 SHA256 算法对待加密字符串进行计算，放入header ， key 为sign
      */
-    private static let clientSecretKey  = AntiAddictionService.configuration.antiSecretKey ?? "e5d341b5aed6110da68f93e06aff47db"
+    private static let clientSignKey  = AntiAddictionService.configuration.antiSignKey ?? "e5d341b5aed6110da68f93e06aff47db"
     
     /// 字典数组Array<Dictionary>序列化成JSON字符串
     private static func dictionaryArrayToJSONString(_ array: [[String: Any]]?) -> String {
@@ -423,7 +423,7 @@ struct Networking {
         }
         
         let userInfoJson = dictionaryToJSONString(userInfo)
-        let sign = clientSecretKey+userInfoJson
+        let sign = clientSignKey+userInfoJson
         let header: [String: String] = ["sign":sign.sha256()]
         
         AntiAddictionAsyncHttp.httpPost(realnameUrl, requestParams: nil, customHeader: header, params: userInfo,paramsJson: userInfoJson, callBack: { (r) in
@@ -483,7 +483,7 @@ struct Networking {
         var antiAddictionToken = ""
         var errorMsg = "实名查询出错，请稍候重试"
         let checkUrl = identifyBaseUrl + checkRealnameUrl + "?user_id=\(token)"
-        let sign = clientSecretKey + "user_id\(token)"
+        let sign = clientSignKey + "user_id\(token)"
         
         AntiAddictionAsyncHttp.httpGet(checkUrl, requestParams: nil, customHeader: ["sign":sign.sha256()], params: nil) { httpResult in
             guard let data = httpResult?.data else {
