@@ -15,7 +15,7 @@ import java.util.List;
 public class IdentificationDetailsManager extends BaseManager<IdentificationDetails, Long, IdentificationDetailsMapper> {
 
     public IdentificationDetailsManager(PublicityProperties publicityProperties) {
-        addManagerInterceptor(new IdCardInterceptor(new Cryptor(publicityProperties.getSecretKey())));
+        addManagerInterceptor(new IdCardInterceptor(new Cryptor(publicityProperties.getIdCardSecretKey())));
     }
 
     public IdentificationDetails findByUserId(String userId, FieldsExpand fieldsExpand){

@@ -6,13 +6,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class PublicityProperties {
 
     private String bizId;
-    private String secretKey = "1234567890123456";
     private int userActionBatchSize = 5;
     private String appId;
     private String signKey;
     private String identificationRootUri;
     private String identificationCheckRootUri;
     private String userActionRootRui;
+    private String requestSignKey;
+    private String idCardSecretKey = "1234567890123456";
 //    private Map<String, String> gameIdBizIdMapping =   new ConcurrentHashMap<>();
     private boolean removeAfterUpload = false;
 
@@ -79,19 +80,27 @@ public class PublicityProperties {
         this.userActionBatchSize = userActionBatchSize;
     }
 
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-    }
-
     public String getBizId() {
         return bizId;
     }
 
     public void setBizId(String bizId) {
         this.bizId = bizId;
+    }
+
+    public String getRequestSignKey() {
+        return requestSignKey;
+    }
+
+    public void setRequestSignKey(String requestSignKey) {
+        this.requestSignKey = requestSignKey;
+    }
+
+    public String getIdCardSecretKey() {
+        return idCardSecretKey;
+    }
+
+    public void setIdCardSecretKey(String idCardSecretKey) {
+        this.idCardSecretKey = idCardSecretKey;
     }
 }

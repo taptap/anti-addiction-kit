@@ -23,9 +23,12 @@ tds.publicity.bizId=  //游戏备案识别码
 
 tds.publicity.signKey= //中宣部密钥
 
-tds.publicity.secretKey= //身份证存入数据库时的密钥（身份证应该加密存储）
+tds.publicity.requestSignKey= //接口签名密钥
+
+tds.publicity.idCardSecretKey= //身份证存入数据库时的密钥（身份证应该加密存储）
 
 tds.push.jws= //JWT的密钥，应该和anti-addiction-service一致
+
 
 ### 打包和启动
 按SpringBoot启动方式启动即可
@@ -34,8 +37,8 @@ tds.push.jws= //JWT的密钥，应该和anti-addiction-service一致
 
 1、 将业务参数，根据参数的 key 进行 字典排序，并按照 Key-Value 的格式拼接成一个字符串。将请求体中的参数 拼接在字符串最后。
 
-2、 将 secretKey 拼接在步骤 1 获得字符串最前面，得到待加密字符串
-即secretKey+query+body。 （e5d341b5aed6110da68f93e06aff47dbuser_id=sdafsdf）
+2、 将 requestSignKey 拼接在步骤 1 获得字符串最前面，得到待加密字符串
+requestSignKey+query+body。 （e5d341b5aed6110da68f93e06aff47dbuser_id=sdafsdf）
 使用 SHA256 算法对待加密字符串进行计算，放入header，key 为"sign"
 
 postman 签名代码示例：  
@@ -43,8 +46,8 @@ get
 ````
 var sdk = require('postman-collection')
 var user_id = pm.request.url.query.get('user_id')
-var secret = "e5d341b5aed6110da68f93e06aff47db"
-var signBase = secret + 'user_id' + user_id
+var requestSignKey = "wr060pqmt93zd07zh2pl2er9hg5sn0xq"
+var signBase = requestSignKey + 'user_id' + user_id
 var sign =  CryptoJS.SHA256(signBase).toString(CryptoJS.enc.Hex);
 pm.globals.set("sign",sign);
 ````
@@ -52,8 +55,8 @@ post
 ````
 var sdk = require('postman-collection')
 var body = pm.request.body.raw
-var secret = "e5d341b5aed6110da68f93e06aff47db"
-var signBase = secret + body
+var requestSignKey = "wr060pqmt93zd07zh2pl2er9hg5sn0xq"
+var signBase = requestSignKey + body
 var sign =  CryptoJS.SHA256(signBase).toString(CryptoJS.enc.Hex);
 pm.globals.set("sign",sign);
 
