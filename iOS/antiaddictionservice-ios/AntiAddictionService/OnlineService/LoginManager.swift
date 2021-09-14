@@ -56,6 +56,9 @@ struct LoginManager {
                                                                         // 未成年允许游戏弹窗提醒
                                                                           let localTitle = Notice.childLogin(remainTime: remainTime).title
                                                                           let localDesc = Notice.childLogin(remainTime: remainTime).content
+                                                                        
+                                                                          AntiAddictionService.invokePlayTimeCallback(result:.loginSuccess, extra: AntiAddictionService.PlayTimeExtra(description: "用户登录成功"))
+                                                                        
                                                                           AntiAddictionService.invokePlayTimeCallback(result: .openAlertTip, extra: AntiAddictionService.PlayTimeExtra(title: localTitle, description: localDesc, remainTime: remainTime, restrictType: .playTimeLimit, userType: .child, forceOpen: false, extraSource: .login))
                                                                            return
                                                                        } else {
