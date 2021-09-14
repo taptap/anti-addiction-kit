@@ -101,12 +101,21 @@ struct LoginManager {
                                                                    if remainTime == AntiAddictionService.configuration.guestTotalTime {
                                                                        guestLoginNotice = Notice.guestFirstLogin.content
                                                                        tipTitle = Notice.guestFirstLogin.title
+                                                                    
+                                                                    AntiAddictionService.invokePlayTimeCallback(result: .playTimeLimitNoTime, extra: AntiAddictionService.PlayTimeExtra(title: getLimitTitle(title: title, localTitle: tipTitle), description: getLimitDesc(desc: description, localDesc: guestLoginNotice), remainTime: remainTime, restrictType: .playTimeLimit, userType: .guest,extraSource: .login))
+                                                                    
                                                                    } else if remainTime > 0 {
                                                                        guestLoginNotice = Notice.guestLogin(remainTime: remainTime).content
                                                                        tipTitle = Notice.guestLogin(remainTime: remainTime).title
+                                                                    
+                                                                    AntiAddictionService.invokePlayTimeCallback(result:.loginSuccess, extra: AntiAddictionService.PlayTimeExtra(description: "用户登录成功"))
+                                                                    
                                                                    } else {
                                                                        guestLoginNotice = Notice.guestLimit.content
                                                                        tipTitle = Notice.guestLimit.title
+                                                                    
+                                                                    AntiAddictionService.invokePlayTimeCallback(result: .playTimeLimitNoTime, extra: AntiAddictionService.PlayTimeExtra(title:getLimitTitle(title: title, localTitle: tipTitle), description:getLimitDesc(desc: description, localDesc: guestLoginNotice), remainTime: remainTime, restrictType: .playTimeLimit, userType: .guest, forceOpen: false,extraSource: .login))
+                                                                    
                                                                    }
                                                                    let limitTitle = getLimitTitle(title: title, localTitle: tipTitle)
                                                                    let limitDesc = getLimitDesc(desc: description, localDesc: guestLoginNotice)
@@ -125,12 +134,21 @@ struct LoginManager {
                                                                        if remainTime == AntiAddictionService.configuration.guestTotalTime {
                                                                            guestLoginNotice = Notice.unknownAccountFirstLogin.content
                                                                            tipTitle = Notice.unknownAccountFirstLogin.title
+                                                                        
+                                                                        AntiAddictionService.invokePlayTimeCallback(result: .playTimeLimitNoTime, extra: AntiAddictionService.PlayTimeExtra(title: getLimitTitle(title: title, localTitle: tipTitle), description: getLimitDesc(desc: description, localDesc: guestLoginNotice), remainTime: remainTime, restrictType: .playTimeLimit, userType: .unknownAccount,extraSource: .login))
+                                                                        
                                                                        } else if remainTime > 0 {
                                                                            guestLoginNotice = Notice.unknownAccountLogin(remainTime: remainTime).content
                                                                            tipTitle = Notice.unknownAccountLogin(remainTime: remainTime).title
+                                                                        
+                                                                        AntiAddictionService.invokePlayTimeCallback(result:.loginSuccess, extra: AntiAddictionService.PlayTimeExtra(description: "用户登录成功"))
+                                                                        
                                                                        } else {
                                                                            guestLoginNotice = Notice.unknownAccountLimit.content
                                                                            tipTitle = Notice.unknownAccountLimit.title
+                                                                        
+                                                                        AntiAddictionService.invokePlayTimeCallback(result: .playTimeLimitNoTime, extra: AntiAddictionService.PlayTimeExtra(title: getLimitTitle(title: title, localTitle: tipTitle), description: getLimitDesc(desc: description, localDesc: guestLoginNotice), remainTime: remainTime, restrictType: .playTimeLimit, userType: .unknownAccount,extraSource: .login))
+                                                                        
                                                                        }
                                                                        
                                                                        let limitTitle = getLimitTitle(title: title, localTitle: tipTitle)
