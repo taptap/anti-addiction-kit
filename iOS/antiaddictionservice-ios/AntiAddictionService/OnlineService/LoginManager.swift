@@ -58,6 +58,7 @@ struct LoginManager {
                                                                           let localDesc = Notice.childLogin(remainTime: remainTime).content
                                                                         
                                                                           AntiAddictionService.invokePlayTimeCallback(result:.loginSuccess, extra: AntiAddictionService.PlayTimeExtra(description: "用户登录成功"))
+                                                                          TimeManager.activate(isLogin: true)
                                                                         
                                                                           AntiAddictionService.invokePlayTimeCallback(result: .openAlertTip, extra: AntiAddictionService.PlayTimeExtra(title: localTitle, description: localDesc, remainTime: remainTime, restrictType: .playTimeLimit, userType: .child, forceOpen: false, extraSource: .login))
                                                                            return
