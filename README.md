@@ -9,6 +9,9 @@
 
 ### [iOS 接入文档](./iOS/antiaddictionservice-ios/README.md)
 
+## Unity
+### [Unity 接入文档](./Unity/AntiAddiction-Unity/README.md)
+
 ## Server 
 
 ### [防沉迷服务端 接入文档](./Server/anti-addiction-server/README.md)
