@@ -146,7 +146,7 @@ AntiAddictionService.logout
     
 如果步骤一配置的 `useSdkOnlineTimeLimit` 值为 `true`，则 sdk 会根据当前政策主动限制游戏时长，反之不会限制用户游戏时长。
 
-调用登录以后，会收到用户剩余游戏时长或者登录成功的回调，游戏可弹窗提醒用户，在游戏和用户做完所有登录时操作后（如提示弹窗关闭，用户协议关闭等），**调用以下接口开始防沉迷计时**。
+调用登录以后，会收到用户剩余游戏时长或者登录成功的回调，游戏可弹窗提醒用户，在游戏和用户做完所有登录时操作后（如提示弹窗关闭，用户协议关闭等），**调用以下接口开始防沉迷计时/停止计时**。
 
 ```
 // swift
@@ -156,6 +156,16 @@ AntiAddictionService.enterGame
 ```
 // Objective-C
 [AntiAddictionService enterGame];
+```
+
+```
+// swift
+AntiAddictionService.leaveGame
+```
+
+```
+// Objective-C
+[AntiAddictionService leaveGame];
 ```
 
 
@@ -189,22 +199,7 @@ AntiAddictionService.checkPayLimit(100)
 
 ##### 注意：如果用户在付费过程中需要进行实名，会收到 [openRealName](#回调类型) 回调,实名完成后,需再次调用 [checkPayLimit] 接口，SDK 才能判断用户类型并发出 [是否付费限制] (#回调类型) 的回调。
 
-### 2.4 聊天检查
-游戏在需要聊天时，调用 SDK 接口判断当前用户是否实名，示例如下：
-
-```
-// swift
- AntiAddictionService.checkChatLimit()
-```
-
-```
-// Objective-C
-[AntiAddictionService checkChatLimit];
-```
-
-当用户可以聊天时， SDK 会通过聊天回调 [noChatLimit](#回调类型) 来通知游戏，否则就会直接让用户进行实名。如果此时需要打开第三方的实名页面，SDK 会调用 [openRealName](#回调类型) 回调。实名完成后，需再次调用 [checkChatLimit]() 接口，SDK 才能判断用户类型并发出 [是否聊天限制](#回调类型) 的回调。
-
-### 2.5 实名
+### 2.4 实名
 防沉迷 SDK 提供了实名接口，游戏可在用户输入身份证和姓名以后，调用实名接口进行认证，接收回调确认是否成功。
 
 ```
