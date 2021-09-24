@@ -42,7 +42,7 @@ tds.push.jws= //JWT的密钥，应该和anti-addiction-service一致
 1. 将业务参数，根据参数的 key 进行 字典排序，并按照 Key-Value 的格式拼接成一个字符串。将请求体中的参数 拼接在字符串最后。
 
 2. 将 requestSignKey 拼接在步骤 1 获得字符串最前面，得到待加密字符串
-`requestSignKey+query+body` （`e5d341b5aed6110da68f93e06aff47dbuser_id=sdafsdf`）。
+`requestSignKey+query+body` （例如 `e5d341b5aed6110da68f93e06aff47dbuser_idsdafsdf`）。
 使用 SHA256 算法对待加密字符串进行计算，放入header，key 为 `sign`
 
 postman 签名代码示例：  
