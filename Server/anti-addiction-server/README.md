@@ -19,17 +19,19 @@
 
 ## API
 ### 1.0获取防沉迷配置（因20210901防沉迷新规，改防沉迷配置时长限制部分已无效）
->请求路由
-```
-请求方式：GET
 
-/v3/fcm/get_config?game=ro
-```
+请求路由
 
 ```
+GET /v3/fcm/get_config?game=ro
+```
+
+
 出参
-//accout_type:0,实名类型 1：8岁以下 ，2：8-15岁，  3：16-17岁， 4：18+ 5：未实名
-//type:1-宵禁剩余时间提示 2-时长剩余提示 3-单笔消费限制 4-月消费限制 5-已经处于宵禁提示 6-时长耗尽提示 7-非宵禁时段第一次登陆 8-非宵禁时段非第一次登陆,剩余时长大于0，9-非宵禁时段非第一次登陆,剩余时长小于等于0，10-宵禁时段，登陆成功 11-非第一次登录，且剩余时长＞0，且＜20min时 12-气泡剩余时长 13-气泡距离宵禁时间
+
+```json
+// accout_type:0,实名类型 1：8岁以下 ，2：8-15岁，  3：16-17岁， 4：18+ 5：未实名
+// type:1-宵禁剩余时间提示 2-时长剩余提示 3-单笔消费限制 4-月消费限制 5-已经处于宵禁提示 6-时长耗尽提示 7-非宵禁时段第一次登陆 8-非宵禁时段非第一次登陆,剩余时长大于0，9-非宵禁时段非第一次登陆,剩余时长小于等于0，10-宵禁时段，登陆成功 11-非第一次登录，且剩余时长＞0，且＜20min时 12-气泡剩余时长 13-气泡距离宵禁时间
 
 {
     "code": 200,
@@ -268,12 +270,14 @@
 }
 ```
 
-###1.1授权
-解密客户端传过来的token，保存用户到数据库，生成一个包含防沉迷系统用户id的jwt token 返回给客户端。
+### 1.1授权
 
->请求路由
+解密客户端传过来的 token，保存用户到数据库，生成一个包含防沉迷系统用户 id 的 wt token 返回给客户端。
+
+请求路由
+
 ```
-请求方式：POST-application/json
+请求方式：POST application/json
 
 /v3/fcm/authorizations
 ```
@@ -283,11 +287,16 @@
 |game|string|游戏名称|Y|
 |token|string|包含身份信息的token|Y|
 
-```
+
 入参
+
+```json
 {"game":"ro","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJiaXJ0aGRheSI6IjE5OTAtMDUtMDkiLCJ1bmlxdWVfaWQiOiIxNjQyZDlhMDBhMWM2YjA2NjY0ZjUzYjEwMjk0MTA5ZiIsInVzZXJfaWQiOiI3NmVhNzdmOWQ0ZTZkMjM2ZjhlMzFkMDc3NzEwNjAyMyJ9.EFxHmGiSTAn3ei1tCvaXw4Nfp51s_X0-NVRYX1lBtGw"}
+```
 
 出参
+
+```json
 {
     "code": 200,
     "msg": "授权成功",
@@ -301,9 +310,10 @@
 
 ### 1.2上传时长
 
->请求路由
+请求路由
+
 ```
-请求方式：POST-application/json
+请求方式：POST application/json
 
 /v3/fcm/set_play_log
 ```
@@ -314,12 +324,22 @@
 |is_login|int|1:登录时调用  0：游戏中调用|Y|
 |play_logs|json|时长json|Y|
 
+
+HTTP Header  鉴权:
+
 ```
-入参
 Authorization: Bearer <access_token>
+```
+
+入参
+
+```json
 {"play_logs":{"local_times":[],"server_times":[[1623749555,1623749655]]},"is_login":1,"game":"ro"}
+```
 
 出参
+
+```json
 {
     "code": 200,
     "msg": "上传时间成功",
@@ -334,31 +354,48 @@ Authorization: Bearer <access_token>
 ```
 
 ### 1.3充值检查
->请求路由
+
+请求路由
+
 ```
 请求方式：POST-application/json
 
 /v3/fcm/check_pay
 ```
+
 |参数|类型|含义|是否必须|
 |  ----  | ----  | ----  | ----  |
 |game|string|游戏名称|Y|
 |amount|int|单位（分）|Y|
+
+HTTP Header  鉴权
+
 ```
-入参
 Authorization: Bearer <access_token>
+```
+
+入参
+
+```json
 {
     "game":"demo",
     "amount":4200
 }
+```
 
 出参
+
+```json
 {
     "code": 200,
     "msg": "限额提示",
     "data": {"status":true}
 }
+```
+
 或
+
+```json
 {
     "code": 9999,
     "msg": "限制消费",
@@ -370,24 +407,37 @@ Authorization: Bearer <access_token>
 ```
 
 ### 1.4游戏服务端上报充值金额
->请求路由
+
+请求路由
+
 ```
 请求方式：POST-application/json
 
 /v3/fcm/submit_pay
 ```
+
 |参数|类型|含义|是否必须|
 |  ----  | ----  | ----  | ----  |
 |accessToken|string|附带充值记录的token|Y|
 
+HTTP Header  鉴权
+
 ```
-入参
 Authorization: Bearer <access_token>
+```
+
+入参
+
+```json
 {
     "game":"demo",
     "amount":4200
 }
+```
+
 出参
+
+```json
 {
     "code": 200,
     "msg": "上传金额成功",
@@ -395,8 +445,15 @@ Authorization: Bearer <access_token>
 }
 ```
 
-## 生成环境变量和数据表
-### Node v10.x and later
+## 部署
+
+### 环境准备
+
+- Node v10.x and later
+- MySQL
+
+### 生成环境变量和数据表
+
 ```bash
 #配置数据库及jwt密钥
 $ echo 'export DATASOURCE_HOST="127.0.0.1"' >> ~/.bash_profile
@@ -411,7 +468,7 @@ $ cd anti-addiction-kit
 #自动创建数据表
 $ npx sequelize db:migrate --env "production"
 ```
-## 部署
+
 ### Docker
 ```
 $ cd Server/anti-addiction-server/
@@ -433,9 +490,11 @@ $ npm run stop
 ```
 
 ### 业务配置
-```
+
 用途：配置每年的法定节假日（法定节假日180分钟，工作日90分钟）
 
 操作示例：插入2022年法定节假日配置，sql如下
+
+```sql
 INSERT INTO `fcm_game_holiday_json` VALUES (2, 'common', 2022, '{\"202201\":{\"01\":\"2\"},\"202202\":{\"01\":\"2\",\"02\":\"02\",\"03\":\"2\",\"04\":\"2\",\"05\":\"2\",\"06\":\"2\",\"07\":\"2\"},\"202204\":{\"05\":\"2\"},\"202105\":{\"01\":\"2\"},\"202206\":{\"03\":\"2\"},\"202209\":{\"10\":\"2\"},\"202110\":{\"01\":\"2\",\"02\":\"2\",\"03\":\"2\",\"04\":\"2\",\"05\":\"2\",\"06\":\"2\",\"07\":\"2\"}}');
 ```
