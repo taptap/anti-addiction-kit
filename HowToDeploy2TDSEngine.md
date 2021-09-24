@@ -176,7 +176,7 @@ tds deploy
 ```
 
 ### 确认正常工作
-在本地浏览器输入你之前绑定到预备环境的自定义域名（比如 `stg-publicity.example.com`），如果页面显示
+在本地浏览器输入你之前绑定到预备环境的自定义域名（比如 `https://stg-publicity.example.com`），如果页面显示
 
 ```json
 {"code":200,"data":{"status":"running"}}
@@ -184,13 +184,16 @@ tds deploy
 
 则说明部署成功。
 
+部署成功后，运行 `tds publish` 可以发布到正式环境。
+发布到正式环境后同样可以通过访问正式环境的自定义域名，比如 `https://publicity.example.com` 来验证发布成功。
+
 ## 4，防沉迷服务部署说明
 ### 4.1 修改配置文件
 防沉迷服务主要通过环境变量进行配置，本地配置文件不需要修改。
 
 ### 4.2 修改云引擎实例分组的设置信息
 登录 TapTap 开发者中心，选中目标游戏，进入游戏服务 - 云服务 - 云引擎菜单，进入 anti_addition 标签页，进入其下的「设置」标签页，
-绑定自己的域名，比如 `anti-addition.example.com` 和 `stg-anti-addition.example.com`（`stg-` 开头的域名会被绑定到预备环境）。
+绑定自己的域名，比如 `anti-addiction.example.com` 和 `stg-anti-addiction.example.com`（`stg-` 开头的域名会被绑定到预备环境）。
 
 然后，在自定义环境变量中，我们增加如下环境变量：
 
@@ -235,13 +238,17 @@ $tds info
 
 
 ### 4.4 确认正常工作
-在本地浏览器输入如下地址 `stg-anti-addition-1.tds1.tdsapps.cn`，如果页面显示
+在本地浏览器输入如下地址 `stg-anti-addiction-1.tds1.tdsapps.cn`，如果页面显示
 
 ```json
 {"status": "running"}
 ```
 
 则说明部署成功。
+
+同样，部署成功后，运行 `tds publish` 可以发布到正式环境。
+发布到正式环境后同样可以通过访问正式环境的自定义域名，比如 `https://anti-addiction.example.com` 来验证发布成功。
+
 
 ## 5，SDK 确认测试
 我们可以将上面两个访问地址设置到 SDK 中，来测试完整流程能否跑通。具体的设置方法可以参考 SDK 说明文档。
