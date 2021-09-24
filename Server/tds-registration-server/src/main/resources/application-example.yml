@@ -45,4 +45,6 @@ tds:
     identificationCheckRootUri: http://api2.wlc.nppa.gov.cn/idcard
     identificationRootUri: https://api.wlc.nppa.gov.cn/idcard
     signKey: test #替换成自己的
+    requestSignKey: test #替换成自己的
+    idCardSecretKey: test #替换成自己的
     userActionRootRui: http://api2.wlc.nppa.gov.cn/behavior
