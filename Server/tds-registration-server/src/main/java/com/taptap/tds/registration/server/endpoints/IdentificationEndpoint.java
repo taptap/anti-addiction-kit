@@ -225,6 +225,7 @@ public class IdentificationEndpoint {
             identificationInfo.setName(identificationDetails.getName());
             identificationInfo.setUserId(identificationDetails.getUserId());
             identificationInfo.setAntiAddictionToken(getAntiAddictionToken(identificationDetails));
+            identificationInfo.setPi(identificationDetails.getPi());
             return new ApiResponseDto(identificationInfo);
         }).switchIfEmpty(Mono.just(new ApiResponseDto(getEmptyIdentificationDetails(user_id))));
     }
@@ -255,6 +256,7 @@ public class IdentificationEndpoint {
         identificationInfo.setIdCard("");
         identificationInfo.setUserId(userId);
         identificationInfo.setIdentifyState(IdentificationStatus.SUCCESS);
+        identificationInfo.setPi("");
         String token = JWT.create().withClaim("unique_id", "")
                 .withClaim("user_id", userId)
                 .withClaim("birthday", "").sign(Algorithm.HMAC256(tdsPushProperties.getJws()));

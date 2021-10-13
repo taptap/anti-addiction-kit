@@ -16,4 +16,6 @@ public class IdentificationInfo {
 
     private String antiAddictionToken;
 
+    private String pi;
+
 }
