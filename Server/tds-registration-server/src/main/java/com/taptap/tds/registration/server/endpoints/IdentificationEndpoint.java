@@ -83,6 +83,11 @@ public class IdentificationEndpoint {
     @PostMapping(value = "/api/v1/identification", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public Mono<?> identifyUser(@RequestBody @Validated TdsIdentificationRequest request) {
+        // 特殊处理：消灭病毒某个特殊版本的userid返回未实名状态
+        String user_id = request.getUserId();
+        if(user_id.equals("2222")) {
+            return Mono.just(new ApiResponseDto(400,"您好，当前版本存在故障无法运行，请在Appstore下载最新版本消灭病毒，对此我们深表歉意，敬请谅解。"));
+        }
 
         try {
             if(!isValid(request.getIdCard())){
@@ -217,6 +222,10 @@ public class IdentificationEndpoint {
 
     @GetMapping("/api/v1/identification/info")
     public Mono<?> get(@NotBlank String user_id){
+        // 特殊处理：消灭病毒某个特殊版本的userid返回未实名状态
+        if(user_id.equals("2222")) {
+            return Mono.just(new ApiResponseDto(getEmptyIdentificationDetails(user_id)));
+        }
 
         return reactiveIdentificationDetailsManager.findByUserId(user_id, null).map(identificationDetails -> {
             IdentificationInfo identificationInfo = new IdentificationInfo();
