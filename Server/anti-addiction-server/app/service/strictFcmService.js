@@ -15,7 +15,7 @@ class StrictFcmService extends Service {
         if (userInfo.user_id == "2222") {
             return {
                 remainTime: 0, costTime: 3600, restrictType: 2, title: "重要更新提醒",
-                description: "您好，当前版本存在故障无法运行，请在Appstore下载最新版本消灭病毒，对此我们深表歉意，敬请谅解。"
+                description: "您好，当前版本认证系统存在问题无法正常认证及运行游戏，我们将尽快提供版本更新来修复问题，修复后会在此处再次通知，对此我们深表歉意，敬请谅解。"
             };
         }
 
