@@ -59,7 +59,7 @@
             <column name="pi" type="VARCHAR(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="name" type="VARCHAR(10)">
+            <column name="name" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
             <column name="id_card" type="VARCHAR(1000)">

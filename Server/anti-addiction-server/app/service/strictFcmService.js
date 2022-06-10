@@ -11,6 +11,13 @@ class StrictFcmService extends Service {
         if(FcmSwitch === 0 || FcmSwitch === 2){
             return {remainTime: 3600, costTime: 0, restrictType: 0, title: "", description: ""};
         }
+        // 特殊处理：消灭病毒某个特殊版本的userid返回未实名状态
+        if (userInfo.user_id == "2222") {
+            return {
+                remainTime: 0, costTime: 3600, restrictType: 2, title: "重要提醒",
+                description: "您好，当前版本认证系统存在问题无法正常认证及运行游戏，我们将尽快提供版本更新来修复问题，修复后会在此处再次通知，对此我们深表歉意，敬请谅解。"
+            };
+        }
 
         if(userInfo.identify_state === 0){
             return {remainTime: 0, costTime: 3600, restrictType: 2, title: "健康游戏提示",
